@@ -1,0 +1,1 @@
+adt -uninstallApp -platform android -appid samples.flex.HelloWorld

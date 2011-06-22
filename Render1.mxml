@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- containers\spark\myComponents\MySimpleItemRenderer.mxml -->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <s:VGroup verticalCenter="0" left="2" right="2" top="2" bottom="2">
+        <s:Label text="{data.name}" />
+        <s:Label text="{data.age}"/>
+    </s:VGroup>
+</s:ItemRenderer>

@@ -1,0 +1,1 @@
+adt -package -target apk-emulator -storetype pkcs12 -keystore sampleCert.pfx hello.apk hello-app.xml hello.swf
