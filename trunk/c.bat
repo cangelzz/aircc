@@ -1,0 +1,1 @@
+amxmlc hello.mxml

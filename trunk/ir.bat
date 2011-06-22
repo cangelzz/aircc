@@ -1,0 +1,1 @@
+adt -installRuntime -platform android -platformsdk c:\android

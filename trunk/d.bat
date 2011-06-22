@@ -1,0 +1,1 @@
+adt -certificate -validityPeriod 25 -cn SelfSigned 1024-RSA sampleCert.pfx pass
