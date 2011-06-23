@@ -15,10 +15,12 @@
     </fx:Style>
     <fx:Style>
         @namespace "library://ns.adobe.com/flex/spark";
-            DataGrid {
+        DataGrid {
             font-size: 14px;
             font-family: "SimSun";
         }
+        #boardTree { border-style: solid}
+        #vBoard {padding-left: 0}
     </fx:Style>
           
     <fx:Script>
@@ -32,6 +34,7 @@
             import mx.controls.Alert;
             //import defines.Thread;
             private var stream:flash.net.URLStream;
+            var html:flash.html.HTMLLoader;
             private var acThread:ArrayCollection;
             private var acPost:ArrayCollection;
             private var acBoard:ArrayCollection = new ArrayCollection(["Apple", "Children", "AutoWorld", "RealEstate", 
@@ -119,7 +122,9 @@
                 stream = new flash.net.URLStream();
                 stream.load(new flash.net.URLRequest("http://www.newsmth.net/bbsdoc.php?board=" + bname));
                 stream.addEventListener(flash.events.Event.COMPLETE, loadBoardCallback);
-                myViewStack.selectedChild = vBoard;
+                stackLeft.selectedChild = vBoard;
+                boardTree.width = 0;
+                boardTree.visible = false;
             }
             
             public function loadSubject(event:GridEvent):void
@@ -132,43 +137,73 @@
                 myViewStack.selectedChild = vSubject;
             }
             
+            public function toggleBoardTree():void
+            {
+                boardTree.width = 150 - boardTree.width;
+                boardTree.visible = !boardTree.visible;
+            }
+            
+            /*
+            public function login():void
+            {
+                var url:String = "http://www.newsmth.net/bbscon.php?bid=153&id=229878";
+                //var url:String = "http://www.newsmth.net/static/www2-main.js";
+                html = new flash.html.HTMLLoader();
+                html.load(new flash.net.URLRequest(url));
+                html.addEventListener(flash.events.Event.COMPLETE, loginCallback);
+            }
+            
+            public function loginCallback(event:Event):void 
+            {
+                var content:String = event.target.data;
+                //var agent:String = ExternalInterface.call("getCookie", "UTMPUSERID", "guest");
+                Alert.show(content);
+            } */
 
 	
         ]]> 
     </fx:Script> 
      
-    <s:Panel title="ViewStack Container Example"
-            width="99%" height="99%"
+    <s:Panel title="Newsmth"
+            width="100%" height="100%"
             horizontalCenter="0" verticalCenter="0">
-    <s:HGroup left="10" top="10" right="10" bottom="10" height="100">
-        <mx:Tree dataProvider="{acBoard}" width="200" height="100%" change="loadBoard(event)" />
-        <s:VGroup left="10" right="10" top="10" bottom="10" width="100%" height="100%">
-
+    <s:HGroup left="5" top="5" right="5" bottom="5" height="100%">
+        <s:VGroup width="400" height="100%">
             <s:HGroup>
-                <s:Button id="btnBoard" label="Board"
-                    click="myViewStack.selectedChild = vBoard;"/>
-                <s:Button id="btnSubject" label="Subject"
-                    click="myViewStack.selectedChild = vSubject;"/>
-                <s:Button id="aInfoButton" label="Account Panel"
-                    click="myViewStack.selectedChild = accountInfo;"/>
-                <s:Button id="myBtn" label="loadBoard" click="loadBoard(event)" />
+                <s:Button label="Favor" click="toggleBoardTree()" />
+                <s:Button label="Mail" />
+                <!-- s:Button label="Login" click="login()" / -->
             </s:HGroup>
-
-            <!-- Define the ViewStack and the three child containers and have it
-                    resize up to the size of the container for the buttons. -->
-            <mx:ViewStack id="myViewStack" borderStyle="solid" width="100%" height="100%"
+            <mx:ViewStack id="stackLeft" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
-                <mx:Canvas id="vBoard" backgroundColor="#FFFFCC" label="Search" width="100%" height="100%">
-				    <s:DataGrid id="threadList" width="100%" height="100%"
+                <mx:Canvas id="vBoard" width="100%" height="100%">
+                <s:HGroup width="100%" height="100%">
+                    <mx:Tree id="boardTree" dataProvider="{acBoard}" width="150" height="100%" change="loadBoard(event)" />
+            	    <s:DataGrid id="threadList" width="100%" height="100%" 
 				         gridClick="loadSubject(event)" >
                         <s:columns>
                             <s:ArrayCollection>
-                                <s:GridColumn dataField="author" headerText="author" width="100" />
+                                <s:GridColumn dataField="author" headerText="author" width="80" />
                                 <s:GridColumn dataField="title" headerText="title" />
                             </s:ArrayCollection>
                         </s:columns>
 				    </s:DataGrid>
+                </s:HGroup>
                 </mx:Canvas>
+            </mx:ViewStack>
+        </s:VGroup>
+        
+        <s:VGroup left="10" right="10" top="10" bottom="10" width="100%" height="100%">
+
+            <s:HGroup>
+                <s:Button id="btnSubject" label="Subject"
+                    click="myViewStack.selectedChild = vSubject;"/>
+            </s:HGroup>
+
+            <!-- Define the ViewStack and the three child containers and have it
+                    resize up to the size of the container for the buttons. -->
+            <mx:ViewStack id="myViewStack" borderStyle="none" width="100%" height="100%"
+            	creationPolicy="all">
                 <mx:Canvas id="vSubject" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="100%">
                     <s:DataGrid id="postList" width="100%" height="100%" variableRowHeight="true">
                         <s:columns>
