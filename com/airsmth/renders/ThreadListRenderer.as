@@ -7,7 +7,7 @@
         <![CDATA[ 
             
             override public function set data(value:Object):void { 
-                super.data = value; 
+                super.data = value;
                 
                 // Check to see if the data property is null. 
                 if (value== null) 
@@ -21,7 +21,7 @@
     </fx:Script> 
 
     <s:HGroup verticalCenter="0" left="2" right="2" top="2" bottom="2">
-        <s:Label id="lbSubject"/>
-        <s:Label id="lbAuthor"/>
+        <s:Label id="lbSubject" />
+        <s:Label id="lbAuthor" />
     </s:HGroup>
 </s:ItemRenderer>

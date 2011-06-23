@@ -1,32 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- aircomponents/src/WindowSimpleChrome.mxml -->
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<?xml version="1.0" encoding="utf-8" ?> 
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
-    xmlns:mx="library://ns.adobe.com/flex/mx"> 
-     
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    minWidth="1024" 
+    minHeight="768" 
+    creationComplete="initApp()"> 
     <fx:Style>
         @namespace "library://ns.adobe.com/flex/spark";
         WindowedApplication 
         {
             skinClass:ClassReference("spark.skins.spark.SparkChromeWindowedApplicationSkin");
-            font-size:14px;
-	    
-        }
-        
-        #nameLabel {
-            font-size: 20px;
         }
         
     </fx:Style>
+    <fx:Style>
+        @namespace "library://ns.adobe.com/flex/spark";
+            DataGrid {
+            font-size: 14px;
+            font-family: "SimSun";
+        }
+    </fx:Style>
+          
     <fx:Script>
-        import mx.collections.ArrayCollection;
-        private var myList:ArrayCollection = new ArrayCollection([{"name": "aaa", "age": "1"}, {"name": "bbb", "age": "2"}]);
-    </fx:Script>
-    <s:VGroup height="100%" width="100%">
-    <s:Label text="Hello World" height="40" />
-    <s:Button label="Android" />
-    <s:TextArea />
-    <s:List dataProvider="{myList}" itemRenderer="Render2">
-    </s:List>
-    </s:VGroup>
-</s:Application>
+        <![CDATA[ 
+        	import com.airsmth.defines.*;
+        	import com.airsmth.renders.*;
+            import mx.collections.ArrayCollection;
+            import mx.collections.ArrayList;
+            import flash.events.Event;
+            import spark.events.GridEvent;
+            import mx.controls.Alert;
+            //import defines.Thread;
+            private var stream:flash.net.URLStream;
+            private var acThread:ArrayCollection;
+            private var acPost:ArrayCollection;
+            private var acBoard:ArrayCollection = new ArrayCollection(["Apple", "Children", "AutoWorld", "RealEstate", 
+                "DigiHome", "OMTV", "TV", "TVGame", "ADAgent_TG"]);
+                        
+            public function initApp():void 
+            { 
+                // says hello at the start, and asks for the users name 
+                
+            } 
+            
+            public function loadPost():void
+            {
+            }
+            
+            public function loadPostCallback():void
+            {
+            }
+            
+            public function loadBoardCallback(e:flash.events.Event):void
+            {
+                var text:String = stream.readMultiByte(stream.bytesAvailable, "gb2312");
+                var p:RegExp = new RegExp("c\\.o\\((\\d+),(\\d+),'(.*?)','(.*?)',(\\d+),'(.*?)',(\\d+),\\d+,\\d+\\)", "ig");
+                var p2:RegExp = new RegExp("docWriter\\('(.*?)',(\\d+)");
+                var result:Object = p.exec(text);
+                var result2:Object = p2.exec(text);
+                var lines:ArrayCollection = new ArrayCollection();
+                
+                while (result != null) {
+                    var thread:Thread = new Thread();
+                    thread.bname = result2[1];
+                    thread.bid = result2[2];
+                    thread.pid = result[1];
+                    thread.gid = result[2];
+                    thread.author = result[3];
+                    thread.flag = result[4];
+                    thread.time = result[5];
+                    thread.title = result[6];
+                    thread.size = result[7];
+                    lines.addItem(thread);
+                    result = p.exec(text);
+                }
+                lines.addItem(new Date().toLocaleTimeString());
+                threadList.dataProvider = lines;
+            }
+            
+            public function loadSubjectCallback(e:Event):void
+            {
+            	var content:String = stream.readMultiByte(stream.bytesAvailable, "gb2312");
+            	var p:RegExp = new RegExp("\\[(\\d+),'(.*?)'\\]", "g");
+            	var p2:RegExp = new RegExp("tconWriter.*?(\\d+),\\d+,\\d+,(\\d+),(\\d+),\\d+,\\d+,\\d+,'(.*?)'");
+            	var result:Object = p.exec(content);
+            	var result2:Object = p2.exec(content);
+            	if (result == null || result2 == null) 
+            	{
+            		Alert.show("Error occurred");
+            		return;
+            	}
+            	var bid:String = result2[1];
+            	var lines:ArrayCollection = new ArrayCollection();
+            	var cnt:Number = 0;
+            	while (result != null) {
+            		var po:Post = new Post();
+            		po.bid = bid;
+            		po.pid = result[1];
+            		po.author = result[2];
+            		lines.addItem(po);
+					cnt++;
+            		result = p.exec(content);
+            	}
+            	
+            	for (var i:Number = 0; i < lines.length; i++) {
+            		//ploaders.addItem(new PostLoader(lines.getItemAt(i) as Post, postList, i));
+            		new PostLoader(lines.getItemAt(i) as Post, postList, i);
+            	}
+            	
+            	postList.dataProvider = lines;
+            	
+				
+            }
+            
+			public function loadBoard(event:Event):void
+            {
+                var bname:String = (event.target as Tree).selectedItem as String;
+                stream = new flash.net.URLStream();
+                stream.load(new flash.net.URLRequest("http://www.newsmth.net/bbsdoc.php?board=" + bname));
+                stream.addEventListener(flash.events.Event.COMPLETE, loadBoardCallback);
+                myViewStack.selectedChild = vBoard;
+            }
+            
+            public function loadSubject(event:GridEvent):void
+            {
+               	var url:String = "http://www.newsmth.net/bbstcon.php?board=" + event.currentTarget.selectedItem.bname +
+                    "&gid=" + event.currentTarget.selectedItem.gid;
+                stream = new flash.net.URLStream();
+                stream.load(new flash.net.URLRequest(url));
+                stream.addEventListener(flash.events.Event.COMPLETE, loadSubjectCallback);
+                myViewStack.selectedChild = vSubject;
+            }
+            
+
+	
+        ]]> 
+    </fx:Script> 
+     
+    <s:Panel title="ViewStack Container Example"
+            width="99%" height="99%"
+            horizontalCenter="0" verticalCenter="0">
+    <s:HGroup left="10" top="10" right="10" bottom="10" height="100">
+        <mx:Tree dataProvider="{acBoard}" width="200" height="100%" change="loadBoard(event)" />
+        <s:VGroup left="10" right="10" top="10" bottom="10" width="100%" height="100%">
+
+            <s:HGroup>
+                <s:Button id="btnBoard" label="Board"
+                    click="myViewStack.selectedChild = vBoard;"/>
+                <s:Button id="btnSubject" label="Subject"
+                    click="myViewStack.selectedChild = vSubject;"/>
+                <s:Button id="aInfoButton" label="Account Panel"
+                    click="myViewStack.selectedChild = accountInfo;"/>
+                <s:Button id="myBtn" label="loadBoard" click="loadBoard(event)" />
+            </s:HGroup>
+
+            <!-- Define the ViewStack and the three child containers and have it
+                    resize up to the size of the container for the buttons. -->
+            <mx:ViewStack id="myViewStack" borderStyle="solid" width="100%" height="100%"
+            	creationPolicy="all">
+                <mx:Canvas id="vBoard" backgroundColor="#FFFFCC" label="Search" width="100%" height="100%">
+				    <s:DataGrid id="threadList" width="100%" height="100%"
+				         gridClick="loadSubject(event)" >
+                        <s:columns>
+                            <s:ArrayCollection>
+                                <s:GridColumn dataField="author" headerText="author" width="100" />
+                                <s:GridColumn dataField="title" headerText="title" />
+                            </s:ArrayCollection>
+                        </s:columns>
+				    </s:DataGrid>
+                </mx:Canvas>
+                <mx:Canvas id="vSubject" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="100%">
+                    <s:DataGrid id="postList" width="100%" height="100%" variableRowHeight="true">
+                        <s:columns>
+                            <s:ArrayCollection>
+                                <s:GridColumn dataField="author" headerText="author" width="100" />
+                                <s:GridColumn dataField="content" headerText="content" />
+                            </s:ArrayCollection>
+                        </s:columns>
+                    </s:DataGrid>
+                </mx:Canvas>
+                <mx:Canvas id="accountInfo" backgroundColor="#FFCCFF" label="Account Info" width="100%" height="100%">
+                    <mx:Label text="Account Info" color="#000000"/>
+                </mx:Canvas>
+            </mx:ViewStack>            
+        </s:VGroup>
+    </s:HGroup>
+    </s:Panel>
+    
+</s:WindowedApplication>
