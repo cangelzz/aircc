@@ -38,29 +38,25 @@
             private var acBoard:ArrayCollection;
             private var isLoggedIn:Boolean = false;
             private var isFavorUpdated:Boolean = false;
+            private var smth:SMTH;
                         
             public function initApp():void 
             { 
                 var f:File = new File("app:/config.xml");
-                if (!f.exists) {
-                    login("guest", "");
-                    return;
-                }
+                //if (!f.exists) {
+              //      login("guest", "");
+              //      return;
+              //  }
                 var r:FileStream = new FileStream();
                 r.open(f, FileMode.READ);
                 var config:XML = XML(r.readUTFBytes(r.bytesAvailable));
                 r.close();
                 login(config.auth.id, config.auth.pass);
+                var log:Login = new Login(config.auth.id, config.auth.pass);
+                smth = new SMTH(log, boardTree);
+                smth.login();
                 
             } 
-            
-            public function loadPost():void
-            {
-            }
-            
-            public function loadPostCallback():void
-            {
-            }
             
             public function loadBoardCallback(e:flash.events.Event):void
             {
