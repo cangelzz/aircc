@@ -109,7 +109,7 @@
             	while (result != null) {
             		var po:Post = new Post();
             		po.bid = bid;
-            		po.pid = result[1];
+            		po.id = result[1];
             		po.author = result[2];
             		lines.addItem(po);
 					cnt++;
@@ -118,7 +118,7 @@
             	
             	for (var i:Number = 0; i < lines.length; i++) {
             		//ploaders.addItem(new PostLoader(lines.getItemAt(i) as Post, postList, i));
-            		new PostLoader2(lines.getItemAt(i) as Post, postList, i);
+            		new PostLoader(lines.getItemAt(i) as Post, postList, i);
             	}
             	
             	postList.dataProvider = lines;
