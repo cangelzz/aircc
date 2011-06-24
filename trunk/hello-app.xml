@@ -6,8 +6,8 @@
     <initialWindow> 
         <content>hello.swf</content> 
         <visible>true</visible> 
-        <width>320</width> 
-        <height>480</height>
+        <width>1024</width> 
+        <height>768</height>
         <systemChrome>none</systemChrome>
     </initialWindow> 
 </application>
