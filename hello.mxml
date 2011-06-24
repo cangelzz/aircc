@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx" 
     minWidth="1024" 
@@ -37,12 +37,22 @@
             var html:flash.html.HTMLLoader;
             private var acThread:ArrayCollection;
             private var acPost:ArrayCollection;
-            private var acBoard:ArrayCollection = new ArrayCollection(["Apple", "Children", "AutoWorld", "RealEstate", 
-                "DigiHome", "OMTV", "TV", "TVGame", "ADAgent_TG"]);
+            private var acBoard:ArrayCollection;
+            private var isLoggedIn:Boolean = false;
+            private var isFavorUpdated:Boolean = false;
                         
             public function initApp():void 
             { 
-                // says hello at the start, and asks for the users name 
+                var f:File = new File("app:/config.xml");
+                if (!f.exists) {
+                    login("guest", "");
+                    return;
+                }
+                var r:FileStream = new FileStream();
+                r.open(f, FileMode.READ);
+                var config:XML = XML(r.readUTFBytes(r.bytesAvailable));
+                r.close();
+                login(config.auth.id, config.auth.pass);
                 
             } 
             
@@ -108,7 +118,7 @@
             	
             	for (var i:Number = 0; i < lines.length; i++) {
             		//ploaders.addItem(new PostLoader(lines.getItemAt(i) as Post, postList, i));
-            		new PostLoader(lines.getItemAt(i) as Post, postList, i);
+            		new PostLoader2(lines.getItemAt(i) as Post, postList, i);
             	}
             	
             	postList.dataProvider = lines;
@@ -143,22 +153,67 @@
                 boardTree.visible = !boardTree.visible;
             }
             
-            /*
-            public function login():void
+            
+            public function login(id:String, pass:String):void
             {
-                var url:String = "http://www.newsmth.net/bbscon.php?bid=153&id=229878";
+                if (id == "guest") {
+                    acBoard = new ArrayCollection(["Apple", "Children", "AutoWorld", "RealEstate", 
+                "DigiHome", "OMTV", "TV", "TVGame", "ADAgent_TG"]);
+                    boardTree.dataProvider = acBoard;
+                    return;
+                }
+                var url:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
                 //var url:String = "http://www.newsmth.net/static/www2-main.js";
-                html = new flash.html.HTMLLoader();
-                html.load(new flash.net.URLRequest(url));
-                html.addEventListener(flash.events.Event.COMPLETE, loginCallback);
+                var request:URLRequest = new URLRequest(url);
+                var data:URLVariables = new URLVariables();
+                data.id = id;
+                data.passwd = pass;
+                data.kick_multi = 1;
+                request.data = data;
+                request.method = URLRequestMethod.POST;
+                request.followRedirects = true;
+                stream = new URLStream();
+                stream.load(request);
+                stream.addEventListener(Event.COMPLETE, loginCallback);
             }
             
-            public function loginCallback(event:Event):void 
+            public function loginCallback(event:Event):void
             {
-                var content:String = event.target.data;
-                //var agent:String = ExternalInterface.call("getCookie", "UTMPUSERID", "guest");
-                Alert.show(content);
-            } */
+                var logintext:String = "Error";
+                var content:String = stream.readMultiByte(stream.bytesAvailable, "gb2312");
+                //Alert.show(content);
+                if (content.indexOf("location.href") != -1) {
+                    isLoggedIn = true;
+                    if (!isFavorUpdated) updateFavor();
+                }
+                else {
+                    isLoggedIn = false;
+                }
+                
+                
+            }
+            
+            public function updateFavor():void
+            {
+                var url:String = "http://www.newsmth.net/atomic.php";
+                stream = new URLStream();
+                stream.load(new URLRequest(url));
+                stream.addEventListener(Event.COMPLETE, updateFavorCallback);
+            }
+            
+            public function updateFavorCallback(event:Event):void
+            {
+                var content:String = stream.readMultiByte(stream.bytesAvailable, "gb2312");
+                var p:RegExp = new RegExp("act=board&board=(\\w+)", "g");
+                var result:Object = p.exec(content);
+                acBoard = new ArrayCollection();
+                while (result != null) {
+                    acBoard.addItem(result[1]);
+                    result = p.exec(content);
+                }
+                boardTree.dataProvider = acBoard;
+                isFavorUpdated = true;
+            }
 
 	
         ]]> 
@@ -172,7 +227,9 @@
             <s:HGroup>
                 <s:Button label="Favor" click="toggleBoardTree()" />
                 <s:Button label="Mail" />
-                <!-- s:Button label="Login" click="login()" / -->
+                <s:TextInput id="tId" typicalText="123456789" />
+                <s:TextInput id="tPass" displayAsPassword="true" typicalText="123456789" enter="login(tId.text, tPass.text)" />
+                <s:Button label="Login" click="login(tId.text, tPass.text)" />
             </s:HGroup>
             <mx:ViewStack id="stackLeft" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
@@ -222,4 +279,4 @@
     </s:HGroup>
     </s:Panel>
     
-</s:WindowedApplication>
+</s:Application>
