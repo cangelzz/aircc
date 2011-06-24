@@ -1,7 +1,7 @@
 ﻿package com.airsmth.defines {
     import flash.net.*;
     import flash.events.*;
-    import com.airsmth.defines.LoadEvent;
+    //import com.airsmth.defines.LoadEvent;
     
     public class Loader extends EventDispatcher {
         private var _stream:URLStream = null;
@@ -30,7 +30,8 @@
         
         private function onLoaded(event:Event):void {
             content = _stream.readMultiByte(_stream.bytesAvailable, "gb2312");
-            dispatchEvent(new LoadEvent(LoadEvent.LOADED));
+            //dispatchEvent(new LoadEvent(LoadEvent.LOADED));
+            _function();
         }
         
     }

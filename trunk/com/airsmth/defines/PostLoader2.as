@@ -23,11 +23,11 @@
 		
 		private function loadPost(po:Post):void {
             _loader = new Loader(po.url(), onPostLoad);
-            _loader.addEventListener(LoadEvent.LOADED, onPostLoad);
+            //_loader.addEventListener(LoadEvent.LOADED, onPostLoad);
             _loader.load();
 		}
 		
-		private function onPostLoad(event:Event):void {
+		private function onPostLoad():void {
 			_text = _loader.content;
 			//var p:RegExp = new RegExp("prints\\(.(.*).\\);o.h", "g");
             var p:RegExp = new RegExp("站内(.*)--", "g");
