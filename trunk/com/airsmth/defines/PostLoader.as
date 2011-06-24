@@ -2,8 +2,10 @@
 	import flash.events.*;
 	import flash.net.*;
 	import mx.collections.*;
+    import com.airsmth.defines.SMTH;
 	
 	import com.airsmth.defines.Post;
+    import com.airsmth.defines.Loader;
 	import spark.components.DataGrid;
 	import mx.controls.Alert;
     import com.airsmth.defines.StringHelper;
@@ -13,6 +15,7 @@
 		private var _text:String;
 		private var _grid:DataGrid;
 		private var _id:Number;
+        private var _loader:Loader;
 		public function PostLoader(po:Post,li:DataGrid,id:Number):void {
 			_grid = li;
 			_id = id;
@@ -20,13 +23,13 @@
 		}
 		
 		private function loadPost(po:Post):void {
-			_urlStream = new URLStream();
-			_urlStream.load(new URLRequest(po.url()));
-			_urlStream.addEventListener(Event.COMPLETE, onPostLoad);
+            _loader = new Loader(SMTH.BBSCON, po.data);
+            _loader.addEventListener(LoadEvent.LOADED, onPostLoad);
+            _loader.load();
 		}
 		
-		private function onPostLoad(e:Event):void {
-			_text = _urlStream.readMultiByte(_urlStream.bytesAvailable, "gb2312");
+		private function onPostLoad(event:Event):void {
+			_text = _loader.content;
 			//var p:RegExp = new RegExp("prints\\(.(.*).\\);o.h", "g");
             var p:RegExp = new RegExp("站内(.*)--", "g");
 			var content:String;
@@ -41,9 +44,6 @@
 			_grid.dataProvider.setItemAt(po, _id);
 			
 			
-		}
-		public function get getText():String {
-			return _text;
 		}
 	}
 }
