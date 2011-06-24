@@ -1,6 +1,8 @@
 ﻿package com.airsmth.defines {
+    import flash.net.*;
+    
     [Bindable]
-    public class Thread {
+    public class Subject {
     	public var bname:String = null;
     	public var bid:String = null;
     	public var pid:String = null;
@@ -11,5 +13,11 @@
     	public var time:String = null;
     	public var size:String = null;
     	public var title:String = null;
+        public function get data():URLVariables {
+            var _data:URLVariables = new URLVariables();
+            _data.board = bname;
+            _data.gid = gid;
+            return _data;
+        }
     }
 }

@@ -27,11 +27,11 @@
             _request.data = _data;
             _stream = new URLStream();
             _stream.load(_request);
-            _stream.addEventListener(Event.COMPLETE, onLoaded);
+            _stream.addEventListener(Event.COMPLETE, onLoad);
             
         }
         
-        public function onLoaded(event:Event):void {
+        private function onLoad(event:Event):void {
             _content = _stream.readMultiByte(_stream.bytesAvailable, "gb2312");
             dispatchEvent(new LoadEvent(LoadEvent.LOADED));
             //_function();
