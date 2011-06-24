@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx" 
     minWidth="1024" 
@@ -32,9 +32,7 @@
             import flash.events.Event;
             import spark.events.GridEvent;
             import mx.controls.Alert;
-            //import defines.Thread;
             private var stream:flash.net.URLStream;
-            var html:flash.html.HTMLLoader;
             private var acThread:ArrayCollection;
             private var acPost:ArrayCollection;
             private var acBoard:ArrayCollection;
@@ -74,7 +72,7 @@
                 var lines:ArrayCollection = new ArrayCollection();
                 
                 while (result != null) {
-                    var thread:Thread = new Thread();
+                    var thread:Subject = new Subject();
                     thread.bname = result2[1];
                     thread.bid = result2[2];
                     thread.pid = result[1];
@@ -237,7 +235,7 @@
                 <s:HGroup width="100%" height="100%">
                     <mx:Tree id="boardTree" dataProvider="{acBoard}" width="150" height="100%" change="loadBoard(event)" />
             	    <s:DataGrid id="threadList" width="100%" height="100%" 
-				         gridClick="loadSubject(event)" >
+				         gridClick="new SubjectLoader(event, postList)" >
                         <s:columns>
                             <s:ArrayCollection>
                                 <s:GridColumn dataField="author" headerText="author" width="80" />
@@ -279,4 +277,4 @@
     </s:HGroup>
     </s:Panel>
     
-</s:Application>
+</s:WindowedApplication>

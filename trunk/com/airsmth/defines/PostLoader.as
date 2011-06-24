@@ -2,28 +2,28 @@
 	import flash.events.*;
 	import flash.net.*;
 	import mx.collections.*;
-    import com.airsmth.defines.SMTH;
-	
-	import com.airsmth.defines.Post;
-    import com.airsmth.defines.Loader;
+
 	import spark.components.DataGrid;
 	import mx.controls.Alert;
-    import com.airsmth.defines.StringHelper;
+    
+    import com.airsmth.defines.*
+
 	public class PostLoader {
 
-		private var _urlStream:URLStream;
 		private var _text:String;
 		private var _grid:DataGrid;
 		private var _id:Number;
         private var _loader:Loader;
+        private var _po:Post;
 		public function PostLoader(po:Post,li:DataGrid,id:Number):void {
 			_grid = li;
 			_id = id;
-			loadPost(po);
+            _po = po;
+			loadPost();
 		}
 		
-		private function loadPost(po:Post):void {
-            _loader = new Loader(SMTH.BBSCON, po.data);
+		private function loadPost():void {
+            _loader = new Loader(SMTH.BBSCON, _po.data);
             _loader.addEventListener(LoadEvent.LOADED, onPostLoad);
             _loader.load();
 		}
