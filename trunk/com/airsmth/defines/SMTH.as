@@ -7,6 +7,7 @@
     import com.airsmth.defines.*;
     
     public class SMTH {
+        public static const BBSDOC:String = "http://www.newsmth.net/bbsdoc.php";
         public static const BBSCON:String = "http://www.newsmth.net/bbscon.php";
         public static const BBSTCON:String = "http://www.newsmth.net/bbstcon.php";
         public static const LOGINURL:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
@@ -52,7 +53,10 @@
             var result:Object = p.exec(content);
             acFavor = new ArrayCollection();
             while (result != null) {
-                acFavor.addItem(result[1]);
+                var board:Board = new Board();
+                board.bname = result[1];
+                board.ftype = "6";
+                acFavor.addItem(board);
                 result = p.exec(content);
             }
             _vboard.dataProvider = acFavor;

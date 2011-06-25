@@ -23,8 +23,7 @@
             _loader.load();
         }
         
-        private function onSubjectLoad(e:Event):void
-        {
+        private function onSubjectLoad(e:Event):void {
         	var content:String = _loader.content;
         	var p:RegExp = new RegExp("\\[(\\d+),'(.*?)'\\]", "g");
         	var p2:RegExp = new RegExp("tconWriter.*?(\\d+),\\d+,\\d+,(\\d+),(\\d+),\\d+,\\d+,\\d+,'(.*?)'");
