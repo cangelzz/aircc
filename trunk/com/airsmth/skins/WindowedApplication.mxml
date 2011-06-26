@@ -1,0 +1,25 @@
+﻿<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+            xmlns:mx="library://ns.adobe.com/flex/mx">
+
+    <fx:Metadata>
+      [HostComponent("mx.core.windowClasses.TitleBar")]
+    </fx:Metadata> 
+  
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled"/>
+        <s:State name="normalAndInactive"/>
+        <s:State name="disabledAndInactive"/>
+    </s:states>
+    
+    <s:Button id="closeButton" skinClass="com.airsmth.skins.CloseButton"
+                          width="25" height="25" right="5" top="5" />
+    <s:Group id="contentGroup" horizontalCenter="1" top="1" left="1" right="1" bottom="0">
+    <s:Rect top="0" left="0" right="0" bottom="0">
+                    <s:fill>
+                        <s:SolidColor color="0xCCCCCC" />
+                    </s:fill>
+                </s:Rect>
+    </s:Group>
+
+</s:SparkSkin>
