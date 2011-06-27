@@ -27,7 +27,6 @@
         
         private function onBoardLoad(event:Event):void {
              var text:String = _loader.content;
-             Alert.show(text);
              var p:RegExp = new RegExp("c\\.o\\((\\d+),(\\d+),'(.*?)','(.*?)',(\\d+),'(.*?)',(\\d+),\\d+,\\d+\\)", "ig");
              var p2:RegExp = new RegExp("docWriter\\('(.*?)',(\\d+)");
              var result:Object = p.exec(text);
