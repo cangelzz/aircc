@@ -19,10 +19,10 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:BitmapImage source="@Embed('../../../assets/close_down.png')" includeIn="up" left="0" verticalCenter="0" fillMode="scale" />
+    <s:BitmapImage source="@Embed('../../../assets/min_down.png')" includeIn="up" left="0" verticalCenter="0" fillMode="scale" />
     
-    <s:BitmapImage source="@Embed('../../../assets/close_over.png')" includeIn="over" left="0" verticalCenter="0" fillMode="scale"/>
+    <s:BitmapImage source="@Embed('../../../assets/min_over.png')" includeIn="over" left="0" verticalCenter="0" fillMode="scale"/>
 
-    <s:BitmapImage source="@Embed('../../../assets/close_up.png')" includeIn="down" left="0" verticalCenter="0" fillMode="scale"/>
+    <s:BitmapImage source="@Embed('../../../assets/min_up.png')" includeIn="down" left="0" verticalCenter="0" fillMode="scale"/>
     
 </s:SparkSkin>

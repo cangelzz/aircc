@@ -58,8 +58,8 @@
     <s:HGroup left="5" top="5" right="5" bottom="5" height="100%">
         <s:VGroup width="500" height="100%">
             <s:HGroup>
-                <s:Button label="Favor" click="toggleBoardTree()" alpha="1.0"  />
-                <s:Button label="Mail" alpha="1.0" />
+                <s:Button label="Favor" click="toggleBoardTree()" />
+                <s:Button label="Mail" />
             </s:HGroup>
             <mx:ViewStack id="stackLeft" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
