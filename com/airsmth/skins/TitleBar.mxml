@@ -1,31 +1,66 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" blendMode="normal" mouseEnabled="false"
-    minWidth="76" minHeight="76">
-    
+﻿<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+             minHeight="24" >
+
     <fx:Metadata>
-        <![CDATA[ 
-        /** 
-         * @copy spark.skins.spark.ApplicationSkin#hostComponent
-         */
-        [HostComponent("spark.components.TitleWindow")]
-        ]]>
+      /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
+      [HostComponent("spark.components.windowClasses.TitleBar")]
     </fx:Metadata> 
+  
+    <fx:Script fb:purpose="styling">
+        /*  Define the skin elements that should not be colorized. 
+         *  Exclude the titleBar and scroller because they are SparkSkins and we 
+         *  don't want to colorize them twice.
+         */
+        static private const exclusions:Array = ["titleIconImage", "titleText"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }   
+    </fx:Script>
     
     <s:states>
         <s:State name="normal" />
+        <s:State name="disabled" />
+        <s:State name="normalAndMaximized" stateGroups="maximizedGroup" />
+        <s:State name="disabledAndMaximized" stateGroups="maximizedGroup" />
     </s:states>
 
-            <s:Group width="100%" height="30">
+    <!-- fill -->
+    <!--- Defines the background color of the skin. -->
+    <!-- s:Rect id="background" left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" >
+        <s:fill>
+            <s:SolidColor id="backgroundFill" color="#FFFFFF"/>
+        </s:fill>
+    </s:Rect -->
+        
+    <s:Group minHeight="24" width="100%" height="100%" left="0" right="0" >
+    
+        <s:layout>
+            <s:HorizontalLayout verticalAlign="middle" gap="5" />
+        </s:layout>
+        <s:BitmapImage id="titleIconImage" minWidth="0" fillMode="clip"/>
+        <s:Label id="titleText" minWidth="0" fontSize="9" color="#585858" maxDisplayedLines="1" width="100%" />
 
-                <!--- @copy spark.components.TitleWindow#moveArea -->
-                <s:Group id="moveArea" left="0" right="0" top="0" bottom="0" />
-                
-                <!--- @copy spark.components.TitleWindow#closeButton -->
-                <s:Button id="closeButton" skinClass="spark.skins.spark.TitleWindowCloseButtonSkin"
-                          width="15" height="15" right="7" top="7" />
-            </s:Group>
-            <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
-            </s:Group>            
+
+        <s:Button top="12" id="minimizeButton" skinClass="com.airsmth.skins.MinButton" />
+        
+        <s:Button top="12" id="maximizeButton" skinClass="com.airsmth.skins.MaxButton"
+            skinClass.maximizedGroup="com.airsmth.skins.MaxButton" />
+        <s:Button top="12" id="closeButton" skinClass="com.airsmth.skins.CloseButton" />
+    
+    </s:Group>
 
 </s:SparkSkin>
