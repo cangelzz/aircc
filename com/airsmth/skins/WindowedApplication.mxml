@@ -12,14 +12,17 @@
         <s:State name="disabledAndInactive"/>
     </s:states>
     
-    <s:Button id="closeButton" skinClass="com.airsmth.skins.CloseButton"
-                          width="25" height="25" right="5" top="5" />
-    <s:Group id="contentGroup" horizontalCenter="1" top="1" left="1" right="1" bottom="0">
-    <s:Rect top="0" left="0" right="0" bottom="0">
-                    <s:fill>
-                        <s:SolidColor color="0xCCCCCC" />
-                    </s:fill>
-                </s:Rect>
-    </s:Group>
+    <s:Rect id="background" left="10" top="15" right="10" bottom="0">
+            <s:fill>
+                <!--- Defines the TitleWindowSkin class's background fill. The default color is 0xFFFFFF. -->
+                <s:SolidColor id="backgroundFill" color="#FFFFCC"/>
+            </s:fill>
+    </s:Rect>
 
+    <s:Group id="contentGroup" horizontalCenter="0" top="0" left="0" right="25" bottom="0">
+    </s:Group>
+    <s:Group id="topGroup" right="0" top="0">
+        <s:Button id="closeButton" skinClass="com.airsmth.skins.CloseButton"
+                          width="16" height="16" right="10" top="5" />
+    </s:Group>
 </s:SparkSkin>
