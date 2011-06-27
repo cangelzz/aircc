@@ -11,12 +11,12 @@
 	public class PostLoader {
 
 		private var _text:String;
-		private var _grid:List;
+		private var _list:List;
 		private var _id:Number;
         private var _loader:Loader;
         private var _po:Post;
 		public function PostLoader(po:Post,li:List,id:Number):void {
-			_grid = li;
+			_list = li;
 			_id = id;
             _po = po;
 			loadPost();
@@ -39,9 +39,9 @@
 			else
 				content = StringHelper.trim(result[1].replace(/\\n/ig, "\n"), "\n");
 //			dispatchEvent(new postEvent(postEvent.LOADED));
-			var po:Post = _grid.dataProvider.getItemAt(_id) as Post;
+			var po:Post = _list.dataProvider.getItemAt(_id) as Post;
 			po.content = content;
-			_grid.dataProvider.setItemAt(po, _id);
+			_list.dataProvider.setItemAt(po, _id);
 			
 			
 		}

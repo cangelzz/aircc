@@ -66,15 +66,9 @@
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
                     <mx:Tree id="boardTree" width="150" height="100%" labelField="bname" change="new BoardLoader(event, threadList)" />
-                 <s:DataGrid id="threadList" width="100%" height="100%"  variableRowHeight="true"
-				         gridClick="new SubjectLoader(event, postList)" >
-                        <s:columns>
-                            <s:ArrayCollection>
-                                <s:GridColumn dataField="author" headerText="author" width="80" />
-                                <s:GridColumn dataField="title" headerText="title" />
-                            </s:ArrayCollection>
-                        </s:columns>
-				    </s:DataGrid>
+                    <s:List id="threadList" width="100%" height="100%"
+                        itemRenderer="com.airsmth.renders.ThreadListRenderer"
+				        click="new SubjectLoader(event, postList)" />
                 </s:HGroup>
                 </mx:Canvas>
             </mx:ViewStack>
