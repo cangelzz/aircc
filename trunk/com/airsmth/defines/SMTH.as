@@ -48,12 +48,26 @@
         }
         
         private function onUpdateFavor(event:Event):void {
+            var board:Board;
+            if (_login.id == "guest") {
+                var l:ArrayCollection = new ArrayCollection(["Apple", "AutoWorld", "Children", "FamilyLife"]);
+                acFavor = new ArrayCollection();
+                for each(var b:String in l) {
+                    board = new Board();
+                    board.bname = b;
+                    board.ftype = "6";
+                    acFavor.addItem(board);
+                }
+                _vboard.dataProvider = acFavor;
+                isFavorUpdated = true;
+                return;
+            }
             var content:String = _loader.content;
             var p:RegExp = new RegExp("act=board&board=(\\w+)", "g");
             var result:Object = p.exec(content);
             acFavor = new ArrayCollection();
             while (result != null) {
-                var board:Board = new Board();
+                board = new Board();
                 board.bname = result[1];
                 board.ftype = "6";
                 acFavor.addItem(board);

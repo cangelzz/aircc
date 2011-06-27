@@ -9,6 +9,6 @@
         <width>1024</width> 
         <height>768</height>
         <systemChrome>none</systemChrome>
-        <transparent>false</transparent>
+        <transparent>true</transparent>
     </initialWindow> 
 </application>

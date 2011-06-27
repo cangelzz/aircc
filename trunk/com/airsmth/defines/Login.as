@@ -17,5 +17,9 @@
             _data.kick_multi = 1;
             return _data;
         }
+        
+        public function get id():String {
+            return _id;
+        }
     }
 }

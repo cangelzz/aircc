@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="12" minHeight="13" >
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="12" minHeight="13" >
 
     <!-- host component -->
     <fx:Metadata>
@@ -19,10 +19,10 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:BitmapImage source="@Embed('../../../assets/close_down.png')" includeIn="up" left="0" verticalCenter="0" fillMode="clip" />
+    <s:BitmapImage source="@Embed('../../../assets/close_down.png')" includeIn="up" left="0" verticalCenter="0" fillMode="scale" />
     
-    <s:BitmapImage source="@Embed('../../../assets/close_over.png')" includeIn="over" left="0" verticalCenter="0" fillMode="clip"/>
+    <s:BitmapImage source="@Embed('../../../assets/close_over.png')" includeIn="over" left="0" verticalCenter="0" fillMode="scale"/>
 
-    <s:BitmapImage source="@Embed('../../../assets/close_up.png')" includeIn="down" left="0" verticalCenter="0" fillMode="clip"/>
+    <s:BitmapImage source="@Embed('../../../assets/close_up.png')" includeIn="down" left="0" verticalCenter="0" fillMode="scale"/>
     
-</s:Skin>
+</s:SparkSkin>
