@@ -3,15 +3,15 @@
     import flash.net.*;
     import mx.collections.*;
     import mx.controls.Alert;
-    import spark.components.DataGrid;
+    import spark.components.List;
     import com.airsmth.defines.*;
     
     public class SubjectLoader {
         private var _sub:Subject;
-        private var _grid:DataGrid;
+        private var _grid:List;
         private var _loader:Loader;
         
-        public function SubjectLoader(event:Event, grid:DataGrid):void {
+        public function SubjectLoader(event:Event, grid:List):void {
             _sub = event.currentTarget.selectedItem as Subject;
             _grid = grid;
             loadSubject();

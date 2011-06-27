@@ -14,7 +14,7 @@
                     return; 
                 // If the data property is not null, 
                 // set the Label controls appropriately. 
-                lbContent.text = value.content;
+                lbTitle.text = value.title;
                 lbAuthor.text = value.author;
             } 
         ]]> 
@@ -22,6 +22,6 @@
 
     <s:HGroup left="2" right="2" top="2" bottom="2">
         <s:Label id="lbAuthor"/>
-        <s:Label id="lbContent"/>
+        <s:Label id="lbTitle"/>
     </s:HGroup>
 </s:ItemRenderer>

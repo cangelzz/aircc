@@ -7,7 +7,7 @@
     creationComplete="initApp()"> 
     <fx:Style>
         @namespace "library://ns.adobe.com/flex/spark";
-        DataGrid {
+        WindowedApplication {
             font-size: 14px;
             font-family: "SimSun";
         }
@@ -66,7 +66,7 @@
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
                     <mx:Tree id="boardTree" width="150" height="100%" labelField="bname" change="new BoardLoader(event, threadList)" />
-            	    <s:DataGrid id="threadList" width="100%" height="100%"  variableRowHeight="true"
+                 <s:DataGrid id="threadList" width="100%" height="100%"  variableRowHeight="true"
 				         gridClick="new SubjectLoader(event, postList)" >
                         <s:columns>
                             <s:ArrayCollection>
@@ -92,14 +92,7 @@
             <mx:ViewStack id="myViewStack" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
                 <mx:Canvas id="vSubject" backgroundColor="#CCFFFF" label="Customer Info" width="100%" height="100%">
-                    <s:DataGrid id="postList" width="100%" height="100%" variableRowHeight="true">
-                        <s:columns>
-                            <s:ArrayCollection>
-                                <s:GridColumn dataField="author" headerText="author" width="100" />
-                                <s:GridColumn dataField="content" headerText="content" />
-                            </s:ArrayCollection>
-                        </s:columns>
-                    </s:DataGrid>
+                    <s:List id="postList" width="100%" height="100%" itemRenderer="com.airsmth.renders.PostListRenderer" />
                 </mx:Canvas>
             </mx:ViewStack>            
         </s:VGroup>

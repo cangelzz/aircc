@@ -3,7 +3,7 @@
 	import flash.net.*;
 	import mx.collections.*;
 
-	import spark.components.DataGrid;
+	import spark.components.List;
 	import mx.controls.Alert;
     
     import com.airsmth.defines.*
@@ -11,11 +11,11 @@
 	public class PostLoader {
 
 		private var _text:String;
-		private var _grid:DataGrid;
+		private var _grid:List;
 		private var _id:Number;
         private var _loader:Loader;
         private var _po:Post;
-		public function PostLoader(po:Post,li:DataGrid,id:Number):void {
+		public function PostLoader(po:Post,li:List,id:Number):void {
 			_grid = li;
 			_id = id;
             _po = po;
