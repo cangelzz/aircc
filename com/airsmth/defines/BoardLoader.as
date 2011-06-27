@@ -3,18 +3,19 @@
     import flash.net.*;
     import mx.collections.*;
     import mx.controls.Tree;
-    import spark.components.DataGrid;
+    import mx.controls.Alert;
+    import spark.components.List;
     import com.airsmth.defines.*;
     
     public class BoardLoader {
         private var _board:Board;
-        private var _grid:DataGrid;
+        private var _list:List;
         private var _loader:Loader;
         
         
-        public function BoardLoader(event:Event, grid:DataGrid):void {
+        public function BoardLoader(event:Event, grid:List):void {
             _board = event.target.selectedItem as Board;
-            _grid = grid;
+            _list = grid;
             loadBoard();
         }
         
@@ -26,6 +27,7 @@
         
         private function onBoardLoad(event:Event):void {
              var text:String = _loader.content;
+             Alert.show(text);
              var p:RegExp = new RegExp("c\\.o\\((\\d+),(\\d+),'(.*?)','(.*?)',(\\d+),'(.*?)',(\\d+),\\d+,\\d+\\)", "ig");
              var p2:RegExp = new RegExp("docWriter\\('(.*?)',(\\d+)");
              var result:Object = p.exec(text);
@@ -46,8 +48,7 @@
                  lines.addItem(thread);
                  result = p.exec(text);
              }
-             lines.addItem(new Date().toLocaleTimeString());
-             _grid.dataProvider = lines;
+             _list.dataProvider = lines;
         }
     }
 }

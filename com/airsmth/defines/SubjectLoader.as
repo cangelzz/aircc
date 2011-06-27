@@ -8,12 +8,12 @@
     
     public class SubjectLoader {
         private var _sub:Subject;
-        private var _grid:List;
+        private var _list:List;
         private var _loader:Loader;
         
         public function SubjectLoader(event:Event, grid:List):void {
             _sub = event.currentTarget.selectedItem as Subject;
-            _grid = grid;
+            _list = grid;
             loadSubject();
         }
         
@@ -49,10 +49,10 @@
         	
         	for (var i:Number = 0; i < lines.length; i++) {
         		//ploaders.addItem(new PostLoader(lines.getItemAt(i) as Post, postList, i));
-        		new PostLoader(lines.getItemAt(i) as Post, _grid, i);
+        		new PostLoader(lines.getItemAt(i) as Post, _list, i);
         	}
         	
-        	_grid.dataProvider = lines;
+        	_list.dataProvider = lines;
         	
 			
         } //end onSubjectLoad
