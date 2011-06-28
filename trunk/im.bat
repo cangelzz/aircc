@@ -1,0 +1,1 @@
+adt -installApp -platform android -platformsdk c:\android -package mobile.apk

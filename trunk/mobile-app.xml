@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://ns.adobe.com/air/application/2.6"> 
+    <id>samples.flex.HelloWorld</id> 
+    <versionNumber>0.1</versionNumber> 
+    <filename>HelloWorld</filename> 
+    <initialWindow> 
+        <content>mobile.swf</content> 
+        <visible>true</visible> 
+        <width>320</width> 
+        <height>480</height>
+        <systemChrome>none</systemChrome>
+    </initialWindow> 
+</application>

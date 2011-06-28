@@ -1,0 +1,1 @@
+amxmlc mobile.mxml

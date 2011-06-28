@@ -20,7 +20,7 @@
         ]]> 
     </fx:Script> 
 
-    <s:HGroup left="2" right="2" top="2" bottom="2">
+    <s:HGroup width="95%" id="threadGroup">
         <s:Label id="lbAuthor"/>
         <s:Label id="lbTitle"/>
     </s:HGroup>
