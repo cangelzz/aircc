@@ -36,8 +36,10 @@
 			var result:Object = p.exec(_text);
 			if (result == null)
 				content = "error";
-			else
+			else {
 				content = StringHelper.trim(result[1].replace(/\\n/ig, "\n"), "\n");
+                content = content.replace(/\\\//ig, "\/");
+            }
 //			dispatchEvent(new postEvent(postEvent.LOADED));
 			var po:Post = _list.dataProvider.getItemAt(_id) as Post;
 			po.content = content;
