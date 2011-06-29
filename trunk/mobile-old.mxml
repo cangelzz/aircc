@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx"
     minWidth="320" 
-    minHeight="480"
+    minHeight="600"
     creationComplete="initApp()"> 
     <fx:Style source="main.css" />
     <fx:Style>
@@ -33,6 +33,7 @@
                         
             public function initApp():void 
             { 
+                return;
                 //maximize();
                 var f:File = new File("app:/config.xml");
                 var r:FileStream = new FileStream();
@@ -45,31 +46,18 @@
                 
             } 
             
-            public function toggleBoardTree():void
-            {
-                boardTree.width = 150 - boardTree.width;
-                boardTree.visible = !boardTree.visible;
-            }
-            
+
         ]]> 
     </fx:Script> 
     
     <s:VGroup width="100%" height="100%" gap="0">
-        <s:ButtonBar dataProvider="{stack}" requireSelection="true" />
-        <mx:ViewStack id="stack" borderStyle="none" width="100%" height="100%" creationPolicy="all">
-            <mx:Canvas id="vFavor" width="100%" height="100%" label="Favor">
-                <mx:Tree id="boardTree" width="100%" height="100%" labelField="bname" change="new BoardLoader(event, threadList);stack.selectedChild=vBoard" />
-            </mx:Canvas>
-            <mx:Canvas id="vBoard" width="100%" height="100%" label="Board">
+                <!-- mx:Tree id="boardTree" width="100%" height="100%" labelField="bname"
+                 change="new BoardLoader(event, threadList);stack.selectedChild=vBoard" /-->
                 <s:List id="threadList" width="100%" height="100%"
                         itemRenderer="com.airsmth.renders.ThreadListRenderer"
-				        click="new SubjectLoader(event, postList);stack.selectedChild=vSubject" />
-            </mx:Canvas>
-            <mx:Canvas id="vSubject" width="100%" height="100%" label="Subject">
+				        click="new SubjectLoader(event, postList)" />
                 <s:List id="postList" width="100%" height="100%"
                         itemRenderer="com.airsmth.renders.PostListRenderer" />
-            </mx:Canvas>
-        </mx:ViewStack>
     </s:VGroup>
      
 </s:Application>
