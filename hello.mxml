@@ -66,10 +66,10 @@
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
                     <s:List id="boardList" width="150" height="100%" itemRenderer="com.airsmth.renders.BoardListRenderer"
-                        click="new BoardLoader(boardList.selectedItem, threadList)" />
+                        change="new BoardLoader(boardList.selectedItem, threadList)" />
                     <s:List id="threadList" width="100%" height="100%"
                         itemRenderer="com.airsmth.renders.ThreadListRenderer"
-				        click="new SubjectLoader(threadList.selectedItem, postList)" />
+				        change="new SubjectLoader(threadList.selectedItem, postList)" />
                 </s:HGroup>
                 </mx:Canvas>
             </mx:ViewStack>
