@@ -10,6 +10,12 @@
         <![CDATA[
             import spark.events.IndexChangeEvent;
             import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            
+            public function login():void {
+                var log:Login = new Login(tId.text, tPass.text);
+                navigator.pushView(BoardView, log);
+            }
             
         ]]>
     </fx:Script>
@@ -19,5 +25,6 @@
     <s:Label text="Login"/>
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" />
-    <s:Button label="Submit" click="new MSMTH(new Login(tId.text, tPass.text), navigator).login()" />
+    <!-- s:Button label="Submit" click="new MSMTH(new Login(tId.text, tPass.text), navigator).login()" /-->
+    <s:Button label="Submit" click="login()" />
 </s:View>
