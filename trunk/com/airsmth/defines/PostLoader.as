@@ -4,7 +4,6 @@
 	import mx.collections.*;
 
 	import spark.components.List;
-	import mx.controls.Alert;
     
     import com.airsmth.defines.*
 

@@ -2,8 +2,6 @@
     import flash.events.*;
     import flash.net.*;
     import mx.collections.*;
-    import mx.controls.Tree;
-    import mx.controls.Alert;
     import spark.components.List;
     import com.airsmth.defines.*;
     
@@ -13,8 +11,8 @@
         private var _loader:Loader;
         
         
-        public function BoardLoader(event:Event, grid:List):void {
-            _board = event.currentTarget.selectedItem as Board;
+        public function BoardLoader(board:Board, grid:List):void {
+            _board = board;
             _list = grid;
             loadBoard();
         }

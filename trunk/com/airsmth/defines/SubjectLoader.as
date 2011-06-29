@@ -2,7 +2,6 @@
     import flash.events.*;
     import flash.net.*;
     import mx.collections.*;
-    import mx.controls.Alert;
     import spark.components.List;
     import com.airsmth.defines.*;
     
@@ -11,8 +10,8 @@
         private var _list:List;
         private var _loader:Loader;
         
-        public function SubjectLoader(event:Event, grid:List):void {
-            _sub = event.currentTarget.selectedItem as Subject;
+        public function SubjectLoader(sub:Subject, grid:List):void {
+            _sub = sub;
             _list = grid;
             loadSubject();
         }
@@ -31,7 +30,6 @@
         	var result2:Object = p2.exec(content);
         	if (result == null || result2 == null) 
         	{
-        		Alert.show("Error occurred");
         		return;
         	}
         	var bid:String = result2[1];
