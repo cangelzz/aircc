@@ -11,9 +11,6 @@
             
             protected function init():void
             {
-                var log:Login = new Login("guest", "");
-                var smth:MSMTH = new MSMTH(log, homeTab);
-                smth.login();
             }
         ]]>
     </fx:Script>
