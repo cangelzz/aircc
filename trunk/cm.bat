@@ -1,1 +1,1 @@
-amxmlc mobile.mxml
+amxmlc +configname=airmobile mobile.mxml
