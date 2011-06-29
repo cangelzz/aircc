@@ -26,7 +26,7 @@
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/home.png')" />
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:Label text="Select an employee name"/>
     <s:List id="threadList"
