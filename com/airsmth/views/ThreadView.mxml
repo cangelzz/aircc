@@ -9,10 +9,9 @@
     <fx:Script>
         <![CDATA[
             import spark.events.IndexChangeEvent;
-            import com.airsmth.defines.*;
             
             protected function myList_changeHandler(event:IndexChangeEvent):void {
-                navigator.pushView(com.airsmth.views.Home, boardList.selectedItem);
+                navigator.pushView(com.airsmth.views.Home, threadList.selectedItem);
             }
 
         ]]>
@@ -24,7 +23,7 @@
         <s:Button icon="@Embed(source='../../../assets/home.png')" />
     </s:navigationContent>
     <s:Label text="Select an employee name"/>
-    <s:List id="boardList"
+    <s:List id="threadList"
         width="100%" height="100%" dataProvider="{data}" 
-        itemRenderer="com.airsmth.renders.BoardListRenderer" change="new MBoardLoader(event, navigator)" />
+        itemRenderer="com.airsmth.renders.ThreadListRenderer" />
 </s:View>
