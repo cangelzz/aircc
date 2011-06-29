@@ -1,8 +1,7 @@
 ﻿package com.airsmth.defines {
     import flash.net.*;
     import flash.events.*;
-    import mx.controls.Tree;
-    //import spark.component.DataGrid;
+    import spark.components.List;
     import mx.collections.ArrayCollection;
     import com.airsmth.defines.*;
     
@@ -17,9 +16,9 @@
         private var isLoggedIn:Boolean = false;
         private var isFavorUpdated:Boolean = false;
         public var acFavor:ArrayCollection;
-        private var _vboard:Tree;
+        private var _vboard:List;
         
-        public function SMTH(login:Login, vboard:Tree):void {
+        public function SMTH(login:Login, vboard:List):void {
             _login = login;
             _vboard = vboard;
         }
