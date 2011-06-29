@@ -75,7 +75,7 @@
                 result = p.exec(content);
             }
             isFavorUpdated = true;
-            _vboard.pushView(com.airsmth.views.Home, acFavor);
+            _vboard.pushView(com.airsmth.views.BoardView, acFavor);
 
         }
     }

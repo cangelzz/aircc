@@ -4,6 +4,7 @@
     import mx.collections.*;
     import spark.components.ViewNavigator;
     import com.airsmth.defines.*;
+    import com.airsmth.views.*;
     
     public class MSubjectLoader {
         private var _sub:Subject;
@@ -45,12 +46,12 @@
         		result = p.exec(content);
         	}
         	
-        	for (var i:Number = 0; i < lines.length; i++) {
+        	//for (var i:Number = 0; i < lines.length; i++) {
         		//ploaders.addItem(new PostLoader(lines.getItemAt(i) as Post, postList, i));
-        		new PostLoader(lines.getItemAt(i) as Post, _list, i);
-        	}
+        	//	new PostLoader(lines.getItemAt(i) as Post, _list, i);
+        	//}
         	
-        	_list.pushView(com.airsmth.views.Subject, lines);
+        	_list.pushView(com.airsmth.views.SubjectView, lines);
 			
         } //end onSubjectLoad
     }
