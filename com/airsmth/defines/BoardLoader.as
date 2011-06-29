@@ -14,7 +14,7 @@
         
         
         public function BoardLoader(event:Event, grid:List):void {
-            _board = event.target.selectedItem as Board;
+            _board = event.currentTarget.selectedItem as Board;
             _list = grid;
             loadBoard();
         }

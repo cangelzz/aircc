@@ -12,7 +12,7 @@
             font-size: 14px;
             font-family: "SimSun", Helvetica, Arial, Calibri;
         }
-        #boardTree { border-style: solid}
+        #boardList { border-style: solid}
     </fx:Style>
           
     <fx:Script>
@@ -41,15 +41,15 @@
                 var config:XML = XML(r.readUTFBytes(r.bytesAvailable));
                 r.close();
                 var log:Login = new Login(config.auth.id, config.auth.pass);
-                smth = new SMTH(log, boardTree);
+                smth = new SMTH(log, boardList);
                 smth.login();
                 
             } 
             
-            public function toggleBoardTree():void
+            public function toggleboardList():void
             {
-                boardTree.width = 150 - boardTree.width;
-                boardTree.visible = !boardTree.visible;
+                boardList.width = 150 - boardList.width;
+                boardList.visible = !boardList.visible;
             }
             
         ]]> 
@@ -58,14 +58,15 @@
     <s:HGroup left="5" top="5" right="5" bottom="5" height="100%">
         <s:VGroup width="500" height="100%">
             <s:HGroup>
-                <s:Button label="Favor" click="toggleBoardTree()" />
+                <s:Button label="Favor" click="toggleboardList()" />
                 <s:Button label="Mail" />
             </s:HGroup>
             <mx:ViewStack id="stackLeft" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
-                    <mx:Tree id="boardTree" width="150" height="100%" labelField="bname" change="new BoardLoader(event, threadList)" />
+                    <s:List id="boardList" width="150" height="100%" itemRenderer="com.airsmth.renders.BoardListRenderer"
+                        click="new BoardLoader(event, threadList)" />
                     <s:List id="threadList" width="100%" height="100%"
                         itemRenderer="com.airsmth.renders.ThreadListRenderer"
 				        click="new SubjectLoader(event, postList)" />
