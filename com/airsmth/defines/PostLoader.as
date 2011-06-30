@@ -32,16 +32,27 @@
 			//var p:RegExp = new RegExp("prints\\(.(.*).\\);o.h", "g");
             var p:RegExp = new RegExp("站内(.*)--", "g");
 			var content:String;
+            var reply:String;
 			var result:Object = p.exec(_text);
 			if (result == null)
 				content = "error";
 			else {
 				content = StringHelper.trim(result[1].replace(/\\n/ig, "\n"), "\n");
                 content = content.replace(/\\\//ig, "\/");
+                content = content.replace(/\n\n/g, "\n");
+                var idx:Number = content.indexOf("【");
+                if (idx != -1) {
+                    reply = content.substr(idx);
+                    content = content.substr(0, idx);
+                    var p2:RegExp = new RegExp("【 在\\s(.*?)\\s.*?】", "g");
+                    reply.replace(p2, "[$2]");
+                    
+                }
             }
-//			dispatchEvent(new postEvent(postEvent.LOADED));
+
 			var po:Post = _list.dataProvider.getItemAt(_id) as Post;
 			po.content = content;
+            po.reply = reply;
 			_list.dataProvider.setItemAt(po, _id);
 			
 			

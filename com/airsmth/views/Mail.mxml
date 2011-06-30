@@ -6,28 +6,13 @@
         <s:VerticalLayout paddingTop="10"/>
     </s:layout>
         
-    <fx:Script>
-        <![CDATA[
-            import spark.events.IndexChangeEvent;
-
-            protected function myList_changeHandler(event:IndexChangeEvent):void {
-                navigator.pushView(com.airsmth.views.Home, myList.selectedItem);
-            }
-
-        ]]>
-    </fx:Script>
-        <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/home.png')" />
+<s:titleContent>
+        <s:TextInput width="100%"/>
+    </s:titleContent>
+    <s:actionContent>
+      <s:Button label="Search" />
+    </s:actionContent>
+    <s:navigationContent>
+        <s:Button label="Home" click="navigator.popToFirstView()" />
     </s:navigationContent>
-    <s:Label text="a"/>
-    <s:List id="myList"
-        width="100%" height="100%"
-        labelField="firstName">
-        <s:ArrayCollection>
-            <fx:Object firstName="Bill" lastName="Smith" companyID="11233"/>
-            <fx:Object firstName="Dave" lastName="Jones" companyID="13455"/>
-            <fx:Object firstName="Mary" lastName="Davis" companyID="11543"/>
-            <fx:Object firstName="Debbie" lastName="Cooper" companyID="14266"/>
-        </s:ArrayCollection>
-    </s:List>
 </s:View>

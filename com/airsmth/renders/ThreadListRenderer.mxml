@@ -20,8 +20,8 @@
         ]]> 
     </fx:Script> 
 
-    <s:HGroup width="95%" id="threadGroup">
-        <s:Label id="lbAuthor"/>
-        <s:Label id="lbTitle"/>
+    <s:HGroup width="95%" id="threadGroup" paddingBottom="3" paddingTop="3" paddingLeft="5" >
+        <s:Label id="lbAuthor" />
+        <s:Label id="lbTitle" />
     </s:HGroup>
 </s:ItemRenderer>

@@ -5,8 +5,10 @@
     public class Post {
     	public var bid:String = null;
     	public var id:String = null;
-    	public var author:String = " ";
-    	public var content:String = " ";
+    	public var author:String = null;
+    	public var content:String = "";
+        public var reply:String = "";
+        
 
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();

@@ -16,14 +16,16 @@
                 // set the Label controls appropriately. 
                 lbContent.text = value.content;
                 lbAuthor.text = value.author;
+                lbReply.text = value.reply;
                 //lbContent.width = postGroup.width - 20;
 
             } 
         ]]> 
     </fx:Script> 
 
-    <s:VGroup width="95%" id="postGroup">
+    <s:VGroup width="95%" id="postGroup"  paddingBottom="3" paddingTop="3">
         <s:Label id="lbAuthor" styleName="postauthor" />
         <s:Label id="lbContent" styleName="postcontent" measuredHeight="10" width="{postGroup.width}" />
+        <s:Label id="lbReply" styleName="postreply" measuredHeight="10" width="{postGroup.width}" />
     </s:VGroup>
 </s:ItemRenderer>
