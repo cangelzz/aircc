@@ -50,6 +50,11 @@
         <s:ComboBox id="jump" width="40" change="jumppage(jump.selectedIndex + 1)" />
     </s:navigationContent>
     <s:List id="postList"
-        width="100%" height="100%" 
+        width="100%" height="100%" change="mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=true;"
         itemRendererFunction="RenderUtil.selectRenderer" />
+        
+    <s:viewMenuItems> 
+        <s:ViewMenuItem label="Reply" click="navigator.pushView(ReplyView, postList.selectedItem)" /> 
+        <s:ViewMenuItem label="Cancel"/> 
+    </s:viewMenuItems>
 </s:View>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    viewActivate="init()">
+    <s:layout>
+        <s:VerticalLayout paddingTop="10"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import spark.events.IndexChangeEvent;
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            
+            
+            public function init():void {
+                new ReplyReadLoader(data as Post, tTitle, tContent);
+            }
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+        <s:Button icon="@Embed(source='../../../assets/forward.png')"/>
+    </s:navigationContent>
+    <s:TextInput id='tTitle' />
+    <s:TextArea id="tContent" />
+</s:View>

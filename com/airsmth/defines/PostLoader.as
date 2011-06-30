@@ -31,9 +31,16 @@
 			_text = _loader.content;
 			//var p:RegExp = new RegExp("prints\\(.(.*).\\);o.h", "g");
             var p:RegExp = new RegExp("站内(.*)--", "g");
+            var pt:RegExp = new RegExp("conWriter.*?'(.*?)'");
 			var content:String;
             var reply:String;
+            var bname:String = "";
 			var result:Object = p.exec(_text);
+            var result2:Object = pt.exec(_text);
+            if (result2 != null) {
+                bname = result2[1];
+            }
+                
 			if (result == null)
 				content = "error";
 			else {
@@ -51,6 +58,7 @@
             }
 
 			var po:Post = _list.dataProvider.getItemAt(_id) as Post;
+            po.bname = bname;
 			po.content = content;
             po.reply = reply;
 			_list.dataProvider.setItemAt(po, _id);
