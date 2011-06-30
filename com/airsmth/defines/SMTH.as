@@ -10,6 +10,7 @@
         public static const BBSCON:String = "http://www.newsmth.net/bbscon.php";
         public static const BBSTCON:String = "http://www.newsmth.net/bbstcon.php";
         public static const BBSPST:String = "http://www.newsmth.net/bbspst.php";
+        public static const BBSSND:String = "http://www.newsmth.net/bbssnd.php";
         public static const LOGINURL:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
         public static const ATOMIC:String = "http://www.newsmth.net/atomic.php";
         private var _login:Login;
