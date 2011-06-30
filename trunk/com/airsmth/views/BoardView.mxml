@@ -11,6 +11,7 @@
             import spark.events.IndexChangeEvent;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
+            import com.airsmth.renders.*;
             
             public function init():void {
                 new SMTH(data as Login, boardList).login();
@@ -28,8 +29,7 @@
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
-    <s:Label text="Select an employee name"/>
     <s:List id="boardList"
-        width="100%" height="100%" itemRenderer="com.airsmth.renders.BoardListRenderer"
+        width="100%" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
          change="navigator.pushView(ThreadView, boardList.selectedItem)" />
 </s:View>

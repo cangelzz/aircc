@@ -9,7 +9,7 @@
     <fx:Style>
         @namespace "library://ns.adobe.com/flex/spark";
         WindowedApplication {
-            font-size: 14px;
+            font-size:16px;
             font-family: "SimSun", Helvetica, Arial, Calibri;
         }
         #boardList { border-style: solid}
@@ -58,17 +58,17 @@
     <s:HGroup left="5" top="5" right="5" bottom="5" height="100%">
         <s:VGroup width="500" height="100%">
             <s:HGroup>
-                <s:Button label="Favor" click="toggleboardList()" />
-                <s:Button label="Mail" />
+                <s:Button icon="@Embed(source='assets/star.png')" click="toggleboardList()" />
+                <s:Button icon="@Embed(source='assets/mail_red.png')" />
             </s:HGroup>
             <mx:ViewStack id="stackLeft" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
-                    <s:List id="boardList" width="150" height="100%" itemRenderer="com.airsmth.renders.BoardListRenderer"
+                    <s:List id="boardList" width="150" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
                         change="new BoardLoader(boardList.selectedItem, threadList)" />
                     <s:List id="threadList" width="100%" height="100%"
-                        itemRenderer="com.airsmth.renders.ThreadListRenderer"
+                        itemRendererFunction="RenderUtil.selectRenderer"
 				        change="new SubjectLoader(threadList.selectedItem, postList)" />
                 </s:HGroup>
                 </mx:Canvas>
@@ -88,7 +88,7 @@
             	creationPolicy="all">
                 <mx:Canvas id="vSubject" backgroundColor="#CCFFFF" width="100%" height="100%">
                     <s:List id="postList" width="100%" height="100%"
-                        itemRenderer="com.airsmth.renders.PostListRenderer" />
+                        itemRendererFunction="RenderUtil.selectRenderer" />
                 </mx:Canvas>
             </mx:ViewStack>            
         </s:VGroup>
