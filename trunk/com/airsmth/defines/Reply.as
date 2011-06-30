@@ -11,9 +11,11 @@
         public var id:String;
         public var bname:String;
         
-        public function Reply(t:String, c:String):void {
+        public function Reply(post:Post, t:String, c:String):void {
             title = t;
             content = c;
+            id = post.id;
+            bname = post.bname;
         }
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
@@ -25,5 +27,8 @@
             return _data;
         }
         
+        public function get url():String {
+            return SMTH.BBSSND + "?board=" + bname + "&reid=" + id;
+        }
     }
 }

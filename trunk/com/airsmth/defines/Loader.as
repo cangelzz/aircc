@@ -15,6 +15,8 @@
             _url = url;
             _data = data;
             _method = method;
+            _request = new URLRequest(_url);
+            _request.method = _method;
         }
 
         public function get content():String {
@@ -22,8 +24,6 @@
         }
         
         public function load():void {
-            _request = new URLRequest(_url);
-            _request.method = _method;
             _request.data = _data;
             _stream = new URLStream();
             _stream.load(_request);
