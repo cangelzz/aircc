@@ -3,16 +3,21 @@
     import flash.net.*;
     import mx.collections.*;
     import spark.components.List;
+    import spark.components.Button;
     import com.airsmth.defines.*;
     
     public class SubjectLoader {
         private var _sub:Subject;
         private var _list:List;
         private var _loader:Loader;
+        private var _prevBtn:Button;
+        private var _nextBtn:Button;
         
-        public function SubjectLoader(sub:Subject, grid:List):void {
+        public function SubjectLoader(sub:Subject, grid:List, prevBtn:Button = null, nextBtn:Button = null):void {
             _sub = sub;
             _list = grid;
+            _prevBtn = prevBtn;
+            _nextBtn = nextBtn;
             loadSubject();
         }
         
@@ -33,6 +38,20 @@
         		return;
         	}
         	var bid:String = result2[1];
+            _sub.tpage = Number(result2[2]);
+            _sub.pno = Number(result2[3]);
+            if ((_prevBtn != null) && (_nextBtn != null)) {
+                if (_sub.tpage == 1) {
+                    _prevBtn.enabled = false;
+                    _nextBtn.enabled = false;
+                }
+                if (_sub.pno > 1) _prevBtn.enabled = true;
+                else _prevBtn.enabled = false;
+                if (_sub.pno < _sub.tpage) _nextBtn.enabled = true;
+                else _nextBtn.enabled = false;
+            }
+
+            
         	var lines:ArrayCollection = new ArrayCollection();
         	var cnt:Number = 0;
         	while (result != null) {
