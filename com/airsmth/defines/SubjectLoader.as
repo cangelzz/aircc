@@ -4,6 +4,7 @@
     import mx.collections.*;
     import spark.components.List;
     import spark.components.Button;
+    import spark.components.ComboBox;
     import com.airsmth.defines.*;
     
     public class SubjectLoader {
@@ -12,12 +13,15 @@
         private var _loader:Loader;
         private var _prevBtn:Button;
         private var _nextBtn:Button;
+        private var _jump:ComboBox;
         
-        public function SubjectLoader(sub:Subject, grid:List, prevBtn:Button = null, nextBtn:Button = null):void {
+        public function SubjectLoader(sub:Subject, grid:List, prevBtn:Button = null, nextBtn:Button = null,
+            jump:ComboBox = null):void {
             _sub = sub;
             _list = grid;
             _prevBtn = prevBtn;
             _nextBtn = nextBtn;
+            _jump = jump;
             loadSubject();
         }
         
@@ -33,6 +37,7 @@
         	var p2:RegExp = new RegExp("tconWriter.*?(\\d+),\\d+,\\d+,(\\d+),(\\d+),\\d+,\\d+,\\d+,'(.*?)'");
         	var result:Object = p.exec(content);
         	var result2:Object = p2.exec(content);
+            var i:Number;
         	if (result == null || result2 == null) 
         	{
         		return;
@@ -44,11 +49,16 @@
                 if (_sub.tpage == 1) {
                     _prevBtn.enabled = false;
                     _nextBtn.enabled = false;
+                    _jump.enabled = false;
                 }
                 if (_sub.pno > 1) _prevBtn.enabled = true;
                 else _prevBtn.enabled = false;
                 if (_sub.pno < _sub.tpage) _nextBtn.enabled = true;
                 else _nextBtn.enabled = false;
+                var pages:ArrayCollection = new ArrayCollection();
+                for (i = 1; i <= _sub.tpage; i++) { pages.addItem(i); }
+                _jump.dataProvider = pages;
+                _jump.selectedIndex = _sub.pno - 1;
             }
 
             
@@ -64,7 +74,7 @@
         		result = p.exec(content);
         	}
         	
-        	for (var i:Number = 0; i < lines.length; i++) {
+        	for (i = 0; i < lines.length; i++) {
         		//ploaders.addItem(new PostLoader(lines.getItemAt(i) as Post, postList, i));
         		new PostLoader(lines.getItemAt(i) as Post, _list, i);
         	}
