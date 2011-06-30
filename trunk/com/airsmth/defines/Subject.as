@@ -13,10 +13,12 @@
     	public var time:String = null;
     	public var size:String = null;
     	public var title:String = null;
+        public var pno:Number = 1;
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
             _data.board = bname;
             _data.gid = gid;
+            _data.pno = pno.toString();
             return _data;
         }
     }

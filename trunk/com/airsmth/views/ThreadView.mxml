@@ -18,7 +18,25 @@
             }
             
             public function init():void {
-                new BoardLoader(data as Board, threadList);
+                new BoardLoader(data as Board, threadList, prevBtn, nextBtn);
+            }
+            
+            protected function next():void {
+                var board:Board = data as Board;
+                board.page = board.page + 1;
+                navigator.replaceView(ThreadView, board);
+            }
+            
+            protected function prev():void {
+                var board:Board = data as Board;
+                board.page = board.page - 1;
+                navigator.replaceView(ThreadView, board);
+            }
+            
+            protected function last():void {
+                var board:Board = data as Board;
+                board.page = 0;
+                navigator.replaceView(ThreadView, board);
             }
 
         ]]>
@@ -28,6 +46,9 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="prevBtn" />
+        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="nextBtn" />
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="last()" id="lastBtn" />
     </s:navigationContent>
     <s:List id="threadList"
         width="100%" height="100%"

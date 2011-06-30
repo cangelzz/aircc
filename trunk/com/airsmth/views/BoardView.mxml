@@ -16,10 +16,6 @@
             public function init():void {
                 new SMTH(data as Login, boardList).login();
             }
-            
-            public function loadBoard(event:Event):void {
-                navigator.pushView(ThreadView, event);
-            }
 
         ]]>
     </fx:Script>
