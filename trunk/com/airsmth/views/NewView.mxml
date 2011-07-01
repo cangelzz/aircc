@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+    <s:layout>
+        <s:VerticalLayout paddingTop="10"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import spark.events.IndexChangeEvent;
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            
+            import flash.utils.ByteArray;
+            
+            public function t(str:String):String {
+                var target:String;
+                var b:ByteArray = new ByteArray();
+                b.writeMultiByte(str, "gb2312");
+                target = b.toString();
+                return target;
+            }
+            
+            public function submit():void {
+                var p:Post = new Post();
+                p.bname = data as String;
+                p.id = "0";
+                var newp:Reply = new Reply(p, t(tTitle.text), t(tContent.text));
+                new ReplyPostLoader(newp);
+            }
+            
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="submit()"/>
+    </s:navigationContent>
+    <s:TextInput id='tTitle' />
+    <s:TextArea id="tContent" />
+</s:View>
