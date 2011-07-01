@@ -14,20 +14,19 @@
             
             import flash.utils.ByteArray;
             
-            public function t(str:String):String {
-                var target:String;
-                var b:ByteArray = new ByteArray();
-                b.writeMultiByte(str, "gb2312");
-                target = b.toString();
-                return target;
+            public function submit():void {
+                var re:Reply = new Reply();
+                re.bname = data as String;
+                re.id = "0";
+                re.title = tTitle.text;
+                re.content = tContent.text;
+                var rp:ReplyPostSender = new ReplyPostSender(re);
+                rp.addEventListener(LoadEvent.DONE, onPost);
+                rp.send();
             }
             
-            public function submit():void {
-                var p:Post = new Post();
-                p.bname = data as String;
-                p.id = "0";
-                var newp:Reply = new Reply(p, tTitle.text, tContent.text);
-                new ReplyPostLoader(newp);
+            public function onPost(event:Event):void {
+                navigator.popView();
             }
             
         ]]>

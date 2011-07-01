@@ -8,12 +8,14 @@
         private var _request:URLRequest = null;
         private var _url:String = "";
         private var _content:String = "";
+        private var _data:String = "";
         
-        public function Sender(url:String, data:String):void {
+        public function Sender(url:String, data:String = ""):void {
             _url = url;
+            _data = data;
             _request = new URLRequest(_url);
             _request.method = URLRequestMethod.POST;
-            _request.data = data;
+            _request.data = _data;
             _request.useCache = false;
         }
 
@@ -21,14 +23,14 @@
             return _content;
         }
         
-        public function load():void {
+        public function send():void {
             _stream = new URLStream();
             _stream.load(_request);
-            _stream.addEventListener(Event.COMPLETE, onLoad);
+            _stream.addEventListener(Event.COMPLETE, onSend);
             
         }
         
-        private function onLoad(event:Event):void {
+        private function onSend(event:Event):void {
             _content = _stream.readMultiByte(_stream.bytesAvailable, "gb2312");
             dispatchEvent(new LoadEvent(LoadEvent.LOADED));
         }

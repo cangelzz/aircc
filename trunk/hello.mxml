@@ -44,7 +44,7 @@
                 r.close();
                 var log:Login = new Login(config.auth.id, config.auth.pass);
                 smth = new SMTH(log, boardList);
-                //smth.login();
+                smth.login();
                 
             } 
             
@@ -57,30 +57,30 @@
             public function prevBoard():void {
                 var board:Board = boardList.selectedItem as Board;
                 board.page = board.page - 1;
-                new BoardLoader(board, threadList, bprevBtn, bnextBtn);
+                loadBoard(board);
             }
             
             public function nextBoard():void {
                 var board:Board = boardList.selectedItem as Board;
                 board.page = board.page + 1;
-                new BoardLoader(board, threadList, bprevBtn, bnextBtn);
+                loadBoard(board);
             }
             
             public function prevPage():void {
                 var sub:Subject = threadList.selectedItem as Subject;
                 sub.pno = sub.pno - 1;
-                new SubjectLoader(sub, postList, sprevBtn, snextBtn, jump);
+                loadSubject(sub);
             }
             public function nextPage():void {
                 var sub:Subject = threadList.selectedItem as Subject;
                 sub.pno = sub.pno + 1;
-                new SubjectLoader(sub, postList, sprevBtn, snextBtn, jump);
+                loadSubject(sub);
             }
             
             public function jumpPage(page:Number):void {
                 var sub:Subject = threadList.selectedItem as Subject;
                 sub.pno = page;
-                new SubjectLoader(sub, postList, sprevBtn, snextBtn, jump);
+                loadSubject(sub);
             }
             
             public function test(str:String):void {
@@ -92,6 +92,64 @@
                 //target = escape(b.toString());
                 Alert.show(target);
                 
+            }
+            
+            public function loadBoard(board:Board, page:String = null):void {
+                if (page != null) board.page = 0;
+                var bl:BoardLoader = new BoardLoader(board);
+                bl.addEventListener(LoadEvent.DONE, loadBoardDone);
+                bl.load();
+            }
+            
+            public function loadBoardDone(event:Event):void {
+                var bl:BoardLoader = event.currentTarget as BoardLoader;
+                var brd:Board = bl.board;
+                threadList.dataProvider = bl.data;
+                if (brd.start <= brd.total - 30) bnextBtn.enabled = true;
+                else bnextBtn.enabled = false;
+            }
+            
+            public function loadSubject(subject:Subject):void {
+                var sl:SubjectLoader = new SubjectLoader(subject);
+                sl.addEventListener(LoadEvent.DONE, loadSubjectDone);
+                sl.load();
+            }
+            
+            public function loadSubjectDone(event:Event):void {
+                var sl:SubjectLoader = event.currentTarget as SubjectLoader;
+                var sub:Subject = sl.subject;
+                postList.dataProvider = sl.data;
+                if (sub.tpage == 1) {
+                    sprevBtn.enabled = false;
+                    snextBtn.enabled = false;
+                }
+                if (sub.pno > 1) sprevBtn.enabled = true;
+                else sprevBtn.enabled = false;
+                if (sub.pno < sub.tpage) snextBtn.enabled = true;
+                else snextBtn.enabled = false;
+                var pages:ArrayCollection = new ArrayCollection();
+                for (i = 1; i <= sub.tpage; i++) { pages.addItem(i); }
+                jump.dataProvider = pages;
+                jump.selectedIndex = sub.pno - 1;
+                
+                for (var i:Number = 0; i < sl.data.length; i++) {
+        	        //nw PostLoader(sl.data.getItemAt(i) as Post, postList, i);
+                    loadPost(sl.data.getItemAt(i) as Post, i);
+                }
+               
+            } // loadSubject
+            
+            public function loadPost(post:Post, idx:Number):void {
+                var pl:PostLoader = new PostLoader(post, idx);
+                pl.addEventListener(LoadEvent.DONE, loadPostDone);
+                pl.load();
+            }
+            
+            public function loadPostDone(event:Event):void {
+                var pl:PostLoader = event.currentTarget as PostLoader;
+                var idx:Number = pl.idx;
+                var po:Post = pl.post;
+                postList.dataProvider.setItemAt(po, idx);
             }
             
         ]]> 
@@ -112,10 +170,10 @@
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
                     <s:List id="boardList" width="150" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
-                        change="new BoardLoader(boardList.selectedItem, threadList, bprevBtn, bnextBtn)" />
+                        change="loadBoard(boardList.selectedItem, 'top')" />
                     <s:List id="threadList" width="100%" height="100%"
                         itemRendererFunction="RenderUtil.selectRenderer"
-				        change="new SubjectLoader(threadList.selectedItem, postList, sprevBtn, snextBtn, jump)" />
+				        change="loadSubject(threadList.selectedItem)" />
                 </s:HGroup>
                 </mx:Canvas>
             </mx:ViewStack>

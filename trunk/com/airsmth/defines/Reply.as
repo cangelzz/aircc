@@ -13,12 +13,6 @@
         public var id:String;
         public var bname:String;
         
-        public function Reply(post:Post, t:String, c:String):void {
-            title = t;
-            content = c;
-            id = post.id;
-            bname = post.bname;
-        }
         public function get data():String {
             return "signature=" + signature + "&title=" + UrlMultiEncode.urlencodeGB2312(title) +
                  "&text=" + UrlMultiEncode.urlencodeGB2312(content.replace(/\r/g,"\r\n"));

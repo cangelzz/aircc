@@ -13,13 +13,34 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
-            
             public function init():void {
-                new ReplyReadLoader(data as Post, tTitle, tContent);
+                var rl:ReplyReadLoader = new ReplyReadLoader(data as Post);
+                rl.addEventListener(LoadEvent.DONE, onLoad);
+                rl.load();
+            }
+            
+            public function onLoad(event:Event):void {
+                var rl:ReplyReadLoader = event.currentTarget as ReplyReadLoader;
+                var re:Reply = rl.reply;
+                tTitle.text = re.title;
+                tContent.text = re.content;
+                submitBtn.enabled = true;
             }
             
             public function submit():void {
-                new ReplyPostLoader(new Reply(data as Post, tTitle.text, tContent.text));
+                submitBtn.enabled = false;
+                var re:Reply = new Reply();
+                re.bname = (data as Post).bname;
+                re.id = (data as Post).id;
+                re.title = tTitle.text;
+                re.content = tContent.text;
+                var rp:ReplyPostSender = new ReplyPostSender(re);
+                rp.addEventListener(LoadEvent.DONE, onPost);
+                rp.send();
+            }
+            
+            public function onPost(event:Event):void {
+                navigator.popView();
             }
             
         ]]>
@@ -29,7 +50,7 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="submit()"/>
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:navigationContent>
     <s:TextInput id='tTitle' />
     <s:TextArea id="tContent" />

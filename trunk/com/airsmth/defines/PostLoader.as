@@ -1,35 +1,28 @@
 ﻿package com.airsmth.defines {
 	import flash.events.*;
 	import flash.net.*;
-	import mx.collections.*;
-
-	import spark.components.List;
-    
+	import mx.collections.ArrayCollection;
     import com.airsmth.defines.*
 
-	public class PostLoader {
-
-		private var _text:String;
-		private var _list:List;
-		private var _id:Number;
-        private var _loader:Loader;
-        private var _po:Post;
-		public function PostLoader(po:Post,li:List,id:Number):void {
-			_list = li;
-			_id = id;
-            _po = po;
-			loadPost();
+	public class PostLoader extends TextLoader {
+		private var _idx:Number;
+        private var _post:Post;
+        
+		public function PostLoader(post:Post, idx:Number):void {
+            super(SMTH.BBSCON, post.data);
+            _post = post;
+            _idx = idx;
 		}
+        
+        public function get post():Post {
+            return _post;
+        }
 		
-		private function loadPost():void {
-            _loader = new Loader(SMTH.BBSCON, _po.data);
-            _loader.addEventListener(LoadEvent.LOADED, onPostLoad);
-            _loader.load();
-		}
-		
-		private function onPostLoad(event:Event):void {
-			_text = _loader.content;
-			//var p:RegExp = new RegExp("prints\\(.(.*).\\);o.h", "g");
+		public function get idx():Number {
+            return _idx;
+        }
+		override protected function onLoad(event:Event):void {
+			var _text:String = _loader.content;
             var p:RegExp = new RegExp("站内(.*)--", "g");
             var pt:RegExp = new RegExp("conWriter.*?'(.*?)'");
 			var content:String;
@@ -57,13 +50,10 @@
                 }
             }
 
-			var po:Post = _list.dataProvider.getItemAt(_id) as Post;
-            po.bname = bname;
-			po.content = content;
-            po.reply = reply;
-			_list.dataProvider.setItemAt(po, _id);
-			
-			
+            _post.bname = bname;
+			_post.content = content;
+            _post.reply = reply;
+			dispatchEvent(new LoadEvent(LoadEvent.DONE));
 		}
 	}
 }

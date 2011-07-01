@@ -6,9 +6,9 @@
     <initialWindow> 
         <content>mobile.swf</content> 
         <visible>true</visible> 
-        <width>320</width> 
-        <height>480</height>
-        <systemChrome>none</systemChrome>
+        <width>480</width> 
+        <height>600</height>
+        <systemChrome>standard</systemChrome>
     </initialWindow> 
     <android>
         <manifestAdditions><![CDATA[
