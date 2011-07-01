@@ -49,7 +49,6 @@
                 if (_sub.tpage == 1) {
                     _prevBtn.enabled = false;
                     _nextBtn.enabled = false;
-                    _jump.enabled = false;
                 }
                 if (_sub.pno > 1) _prevBtn.enabled = true;
                 else _prevBtn.enabled = false;
