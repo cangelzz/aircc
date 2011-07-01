@@ -14,6 +14,7 @@
             _request = new URLRequest(_url);
             _request.method = URLRequestMethod.POST;
             _request.data = data;
+            _request.useCache = false;
         }
 
         public function get content():String {

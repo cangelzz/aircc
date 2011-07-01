@@ -21,7 +21,7 @@
         }
         public function get data():String {
             return "signature=" + signature + "&title=" + UrlMultiEncode.urlencodeGB2312(title) +
-                 "&text=" + UrlMultiEncode.urlencodeGB2312(content);
+                 "&text=" + UrlMultiEncode.urlencodeGB2312(content.replace(/\r/g,"\r\n"));
         }
         
         public function get url():String {
