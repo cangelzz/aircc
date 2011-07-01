@@ -84,7 +84,7 @@
             }
             
             public function test(str:String):void {
-                
+                str = "1\r\n2";
                 var target:String = UrlMultiEncode.urlencodeGB2312(str);
                 
    

@@ -17,6 +17,7 @@
             _method = method;
             _request = new URLRequest(_url);
             _request.method = _method;
+            _request.useCache = false;
         }
 
         public function get content():String {
