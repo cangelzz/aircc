@@ -52,6 +52,35 @@
                 boardList.visible = !boardList.visible;
             }
             
+            public function prevBoard():void {
+                var board:Board = boardList.selectedItem as Board;
+                board.page = board.page - 1;
+                new BoardLoader(board, threadList, bprevBtn, bnextBtn);
+            }
+            
+            public function nextBoard():void {
+                var board:Board = boardList.selectedItem as Board;
+                board.page = board.page + 1;
+                new BoardLoader(board, threadList, bprevBtn, bnextBtn);
+            }
+            
+            public function prevPage():void {
+                var sub:Subject = threadList.selectedItem as Subject;
+                sub.pno = sub.pno - 1;
+                new SubjectLoader(sub, postList, sprevBtn, snextBtn, jump);
+            }
+            public function nextPage():void {
+                var sub:Subject = threadList.selectedItem as Subject;
+                sub.pno = sub.pno + 1;
+                new SubjectLoader(sub, postList, sprevBtn, snextBtn, jump);
+            }
+            
+            public function jumpPage(page:Number):void {
+                var sub:Subject = threadList.selectedItem as Subject;
+                sub.pno = page;
+                new SubjectLoader(sub, postList, sprevBtn, snextBtn, jump);
+            }
+            
         ]]> 
     </fx:Script> 
      
@@ -60,16 +89,18 @@
             <s:HGroup>
                 <s:Button icon="@Embed(source='assets/star.png')" click="toggleboardList()" />
                 <s:Button icon="@Embed(source='assets/mail_red.png')" />
+                <s:Button icon="@Embed(source='assets/prev.png')" click="prevBoard()" id="bprevBtn" />
+                <s:Button icon="@Embed(source='assets/next.png')" click="nextBoard()" id="bnextBtn" />
             </s:HGroup>
             <mx:ViewStack id="stackLeft" borderStyle="none" width="100%" height="100%"
             	creationPolicy="all">
                 <mx:Canvas id="vBoard" width="100%" height="100%">
                 <s:HGroup width="100%" height="100%" gap="-1">
                     <s:List id="boardList" width="150" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
-                        change="new BoardLoader(boardList.selectedItem, threadList)" />
+                        change="new BoardLoader(boardList.selectedItem, threadList, bprevBtn, bnextBtn)" />
                     <s:List id="threadList" width="100%" height="100%"
                         itemRendererFunction="RenderUtil.selectRenderer"
-				        change="new SubjectLoader(threadList.selectedItem, postList)" />
+				        change="new SubjectLoader(threadList.selectedItem, postList, sprevBtn, snextBtn, jump)" />
                 </s:HGroup>
                 </mx:Canvas>
             </mx:ViewStack>
@@ -78,8 +109,9 @@
         <s:VGroup left="10" right="10" top="10" bottom="10" width="100%" height="100%">
 
             <s:HGroup>
-                <s:Button id="btnSubject" label="Subject"
-                    click="myViewStack.selectedChild = vSubject;"/>
+                <s:Button icon="@Embed(source='assets/prev.png')" click="prevPage()" id="sprevBtn" />
+                <s:Button icon="@Embed(source='assets/next.png')" click="nextPage()" id="snextBtn" />
+                <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
             </s:HGroup>
 
             <!-- Define the ViewStack and the three child containers and have it
