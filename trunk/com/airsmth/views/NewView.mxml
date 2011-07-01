@@ -26,7 +26,7 @@
                 var p:Post = new Post();
                 p.bname = data as String;
                 p.id = "0";
-                var newp:Reply = new Reply(p, t(tTitle.text), t(tContent.text));
+                var newp:Reply = new Reply(p, tTitle.text, tContent.text);
                 new ReplyPostLoader(newp);
             }
             
@@ -41,4 +41,5 @@
     </s:navigationContent>
     <s:TextInput id='tTitle' />
     <s:TextArea id="tContent" />
+    <s:Label width="100%" id="lResult"/>
 </s:View>
