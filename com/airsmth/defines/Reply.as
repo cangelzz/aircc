@@ -14,8 +14,8 @@
         public var bname:String;
         
         public function Reply(post:Post, t:String, c:String):void {
-            title = "一二三";
-            content = "北京欢迎你";
+            title = t;
+            content = c;
             id = post.id;
             bname = post.bname;
         }
