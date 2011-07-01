@@ -5,7 +5,7 @@ package com.airsmth.defines {
     
     public class ReplyPostLoader {
         private var _reply:Reply;
-        private var _loader:Loader;
+        private var _sender:Sender;
     
         public function ReplyPostLoader(reply:Reply):void {
             _reply = reply;
@@ -13,13 +13,13 @@ package com.airsmth.defines {
         }
         
         private function postReply():void {
-            _loader = new Loader(_reply.url, _reply.data, "POST");
-            _loader.addEventListener(LoadEvent.LOADED, onReplyPost);
-            _loader.load();
+            _sender = new Sender(_reply.url, _reply.data);
+            _sender.addEventListener(LoadEvent.LOADED, onReplyPost);
+            _sender.load();
         }
         
         private function onReplyPost(event:Event):void {
-            var _text:String = _loader.content;
+            var _text:String = _sender.content;
             
         }
     }

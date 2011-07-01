@@ -1,0 +1,12 @@
+﻿
+Right
+%D2%BB%B6%FE%C8%FD
+
+no-change
+%E4%B8%80%E4%BA%8C%E4%B8%89
+
+escaped
+%25u4E00%25u4E8C%25u4E09
+
+encodeURI
+%25E4%25B8%2580%25E4%25BA%258C%25E4%25B8%2589
