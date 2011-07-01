@@ -1,34 +1,22 @@
 ﻿package com.airsmth.defines {
     import flash.events.*;
     import flash.net.*;
-    import mx.collections.*;
-    import spark.components.List;
-    import spark.components.Button;
+    import mx.collections.ArrayCollection;
     import com.airsmth.defines.*;
     
-    public class BoardLoader {
+    public class BoardLoader extends TextLoader {
         private var _board:Board;
-        private var _list:List;
-        private var _loader:Loader;
-        private var _prevBtn:Button = null;
-        private var _nextBtn:Button = null;
         
-        
-        public function BoardLoader(board:Board, grid:List, prevBtn:Button = null, nextBtn:Button = null):void {
+        public function BoardLoader(board:Board):void {
+            super(SMTH.BBSDOC, board.data);
             _board = board;
-            _list = grid;
-            _prevBtn = prevBtn;
-            _nextBtn = nextBtn;
-            loadBoard();
         }
         
-        private function loadBoard():void {
-            _loader = new Loader(SMTH.BBSDOC, _board.data);
-            _loader.addEventListener(LoadEvent.LOADED, onBoardLoad);
-            _loader.load();
+        public function get board():Board {
+            return _board;
         }
         
-        private function onBoardLoad(event:Event):void {
+        override protected function onLoad(event:Event):void {
              var text:String = _loader.content;
              var p:RegExp = new RegExp("c\\.o\\((\\d+),(\\d+),'(.*?)','(.*?)',(\\d+),'(.*?)',(\\d+),\\d+,\\d+\\)", "ig");
              var p2:RegExp = new RegExp("docWriter\\('(.*?)',(\\d+),(\\d+),(\\d+),(\\d+),(\\d+),(\\d+)"); 
@@ -39,11 +27,6 @@
              _board.page = Number(result2[6]);
              _board.start = Number(result2[3]);
              _board.total = Number(result2[7]);
-             
-             if ((_prevBtn != null) && (_nextBtn != null)) {
-                if (_board.start <= _board.total - 30) _nextBtn.enabled = true;
-                else _nextBtn.enabled = false;
-             }
              
              var lines:ArrayCollection = new ArrayCollection();
              
@@ -61,7 +44,8 @@
                  lines.addItem(thread);
                  result = p.exec(text);
              }
-             _list.dataProvider = lines;
+             _data = lines;
+             dispatchEvent(new LoadEvent(LoadEvent.DONE));
         }
     }
 }

@@ -8,17 +8,22 @@
         
     <fx:Script>
         <![CDATA[
-            import spark.events.IndexChangeEvent;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
-            protected function myList_changeHandler(event:IndexChangeEvent):void {
-                navigator.pushView(com.airsmth.views.Home, threadList.selectedItem);
+            public function init():void {
+                var bl:BoardLoader = new BoardLoader(data as Board);
+                bl.addEventListener(LoadEvent.DONE, onLoad);
+                bl.load();
             }
             
-            public function init():void {
-                new BoardLoader(data as Board, threadList, prevBtn, nextBtn);
+            public function onLoad(event:Event):void {
+                var bl:BoardLoader = event.currentTarget as BoardLoader;
+                var brd:Board = bl.board;
+                threadList.dataProvider = bl.data;
+                if (brd.start <= brd.total - 30) bnextBtn.enabled = true;
+                else bnextBtn.enabled = false;
             }
             
             protected function next():void {
@@ -50,8 +55,8 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="prevBtn" />
-        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="nextBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="bprevBtn" />
+        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="bnextBtn" />
         <s:Button icon="@Embed(source='../../../assets/forward.png')" click="last()" id="lastBtn" />
         <s:Button icon="@Embed(source='../../../assets/new.png')" click="newPost()" id="newBtn" />
     </s:navigationContent>

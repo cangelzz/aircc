@@ -13,12 +13,46 @@
             import com.airsmth.renders.*;
             import com.airsmth.views.*;
             
-            protected function myList_changeHandler(event:IndexChangeEvent):void {
-                navigator.pushView(Home, postList.selectedItem);
+            public function init():void {
+                var sl:SubjectLoader = new SubjectLoader(data as Subject);
+                sl.addEventListener(LoadEvent.DONE, onLoad);
+                sl.load();
             }
             
-            protected function init():void {
-                new SubjectLoader(data as Subject, postList, prevBtn, nextBtn, jump);
+            public function onLoad(event:Event):void {
+                var sl:SubjectLoader = event.currentTarget as SubjectLoader;
+                var sub:Subject = sl.subject;
+                postList.dataProvider = sl.data;
+                if (sub.tpage == 1) {
+                    sprevBtn.enabled = false;
+                    snextBtn.enabled = false;
+                }
+                if (sub.pno > 1) sprevBtn.enabled = true;
+                else sprevBtn.enabled = false;
+                if (sub.pno < sub.tpage) snextBtn.enabled = true;
+                else snextBtn.enabled = false;
+                var pages:ArrayCollection = new ArrayCollection();
+                for (i = 1; i <= sub.tpage; i++) { pages.addItem(i); }
+                jump.dataProvider = pages;
+                jump.selectedIndex = sub.pno - 1;
+                
+                for (var i:Number = 0; i < sl.data.length; i++) {
+        	        //nw PostLoader(sl.data.getItemAt(i) as Post, postList, i);
+                    loadPost(sl.data.getItemAt(i) as Post, i);
+                }
+            }
+            
+            public function loadPost(post:Post, idx:Number):void {
+                var pl:PostLoader = new PostLoader(post, idx);
+                pl.addEventListener(LoadEvent.DONE, loadPostDone);
+                pl.load();
+            }
+            
+            public function loadPostDone(event:Event):void {
+                var pl:PostLoader = event.currentTarget as PostLoader;
+                var idx:Number = pl.idx;
+                var po:Post = pl.post;
+                postList.dataProvider.setItemAt(po, idx);
             }
             
             protected function next():void {
@@ -45,8 +79,8 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="prevBtn" />
-        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="nextBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="sprevBtn" />
+        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="snextBtn" />
         <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
     <s:List id="postList"

@@ -26,7 +26,7 @@
         }
         
         public function login():void {
-            _loader = new Loader(LOGINURL, _login.data, "POST");
+            _loader = new Loader(LOGINURL, _login.data, URLRequestMethod.POST);
             _loader.addEventListener(LoadEvent.LOADED, onLogin);
             _loader.load();
         }
