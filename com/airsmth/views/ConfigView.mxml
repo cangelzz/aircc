@@ -11,15 +11,18 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             public var config:XML;
+            public var boards:Object;
             
             public function init():void {
-                config = Util.getConfig();
+                config = mx.core.FlexGlobals.topLevelApplication.TopConfig;
                 tId.text = config.auth.id;
                 tPass.text = config.auth.pass;
                 var auto:Number = Number(config.auth.auto);
+                if (auto == 1) ckAuto.selected = true;
+                else ckAuto.selected = false;
             }
             
-            public function login():void {
+            public function save():void {
                 config.auth.id = tId.text;
                 config.auth.pass = tPass.text;
                 var smth:SMTH = new SMTH();
@@ -37,6 +40,13 @@
                 if (ckAuto.selected) config.auth.auto = "1";
                 else config.auth.auto = "0";
                 SMTH.smth.saveConfig(config);
+                mx.core.FlexGlobals.topLevelApplication.TopConfig = config;
+                boards = (event.currentTarget as SMTH).acFavor;
+                navigator.replaceView(BoardView, boards);
+            }
+            
+            override public function createReturnObject():Object {
+                return boards;
             }
             
             private function onLoginFail(event:Login):void {
@@ -45,11 +55,13 @@
         ]]>
     </fx:Script>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/home.png')" />
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.replaceView(BoardView, data)" />
     </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="save()" />
+    </s:actionContent>
     <s:Label text="Login"/>
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />
-    <s:Button label="Save" click="login()" />
     <s:CheckBox label="Auto" id="ckAuto" />
 </s:View>

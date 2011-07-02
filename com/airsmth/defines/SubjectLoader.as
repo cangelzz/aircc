@@ -35,6 +35,7 @@
         	var cnt:Number = 0;
         	while (result != null) {
         		var po:Post = new Post();
+                po.lz = _sub.author;
         		po.bid = bid;
         		po.id = result[1];
         		po.author = result[2];

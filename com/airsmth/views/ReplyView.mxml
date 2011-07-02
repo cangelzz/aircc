@@ -50,8 +50,10 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()" enabled="false" id="submitBtn" />
+    </s:actionContent>
     <s:TextInput id='tTitle' />
     <s:TextArea id="tContent" />
 </s:View>

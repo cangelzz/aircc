@@ -47,6 +47,10 @@
             protected function newPost():void {
                 navigator.pushView(NewView, (data as Board).bname);
             }
+            
+            protected function refresh():void {
+                navigator.replaceView(ThreadView, data as Board);
+            }
 
         ]]>
     </fx:Script>
@@ -58,8 +62,12 @@
         <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="bprevBtn" />
         <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="bnextBtn" />
         <s:Button icon="@Embed(source='../../../assets/forward.png')" click="last()" id="lastBtn" />
-        <s:Button icon="@Embed(source='../../../assets/new.png')" click="newPost()" id="newBtn" />
+
     </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
+        <s:Button icon="@Embed(source='../../../assets/new.png')" click="newPost()" id="newBtn" />
+    </s:actionContent>
     <s:List id="threadList"
         width="100%" height="100%"
         change="navigator.pushView(PostView, threadList.selectedItem)"
