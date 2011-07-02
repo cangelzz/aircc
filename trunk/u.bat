@@ -1,1 +1,1 @@
-adt -uninstallApp -platform android -appid samples.flex.HelloWorld
+adt -uninstallApp -platform android -appid com.cc.airsmth
