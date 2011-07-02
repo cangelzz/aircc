@@ -14,9 +14,7 @@
             import com.airsmth.renders.*;
             
             public function init():void {
-                var smth:SMTH = new SMTH();
-                smth.input(data as Auth, boardList);
-                smth.login();
+                boardList.dataProvider = data as ArrayCollection;
             }
 
         ]]>
@@ -25,7 +23,6 @@
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:List id="boardList"
         width="100%" height="100%" itemRendererFunction="RenderUtil.selectRenderer"

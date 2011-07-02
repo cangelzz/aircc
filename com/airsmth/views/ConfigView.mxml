@@ -13,11 +13,10 @@
             public var config:XML;
             
             public function init():void {
-                config = data as XML;
+                config = Util.getConfig();
                 tId.text = config.auth.id;
                 tPass.text = config.auth.pass;
                 var auto:Number = Number(config.auth.auto);
-                if (auto == 1) login();
             }
             
             public function login():void {
@@ -35,9 +34,9 @@
             }
             
             private function onLoginSucc(event:Event):void {
-                config.auth.auto = "1";
-                if (ckAuto.selected) SMTH.smth.saveConfig(config);
-                navigator.pushView(BoardView, (event.currentTarget as SMTH).acFavor);
+                if (ckAuto.selected) config.auth.auto = "1";
+                else config.auth.auto = "0";
+                SMTH.smth.saveConfig(config);
             }
             
             private function onLoginFail(event:Login):void {
@@ -51,6 +50,6 @@
     <s:Label text="Login"/>
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />
-    <s:Button label="Submit" click="login()" />
+    <s:Button label="Save" click="login()" />
     <s:CheckBox label="Auto" id="ckAuto" />
 </s:View>
