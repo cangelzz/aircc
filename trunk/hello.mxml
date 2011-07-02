@@ -42,8 +42,9 @@
                 r.open(f, FileMode.READ);
                 var config:XML = XML(r.readUTFBytes(r.bytesAvailable));
                 r.close();
-                var log:Login = new Login(config.auth.id, config.auth.pass);
-                smth = new SMTH(log, boardList);
+                var log:Auth = new Auth(config.auth.id, config.auth.pass);
+                smth = new SMTH();
+                smth.input(log, boardList);
                 smth.login();
                 
             } 

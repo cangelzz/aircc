@@ -14,7 +14,9 @@
             import com.airsmth.renders.*;
             
             public function init():void {
-                new SMTH(data as Login, boardList).login();
+                var smth:SMTH = new SMTH();
+                smth.input(data as Auth, boardList);
+                smth.login();
             }
 
         ]]>
