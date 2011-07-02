@@ -14,7 +14,7 @@
             import com.airsmth.views.*;
             
             public function login():void {
-                var log:Login = new Login(tId.text, tPass.text);
+                var log:Auth = new Auth(tId.text, tPass.text);
                 navigator.pushView(BoardView, log);
             }
             
