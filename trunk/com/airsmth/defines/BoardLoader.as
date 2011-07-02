@@ -41,7 +41,7 @@
                  thread.time = result[5];
                  thread.title = result[6];
                  thread.size = result[7];
-                 lines.addItem(thread);
+                 lines.addItemAt(thread, 0);
                  result = p.exec(text);
              }
              _data = lines;

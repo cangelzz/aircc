@@ -45,12 +45,10 @@
             
         ]]>
     </fx:Script>
-    <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/home.png')" />
-    </s:navigationContent>
-    <s:Label text="Login"/>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="login()" />
+    </s:actionContent>
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />
-    <s:Button label="Submit" click="login()" />
     <s:CheckBox label="Auto" id="ckAuto" />
 </s:View>
