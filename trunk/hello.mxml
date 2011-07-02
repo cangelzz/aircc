@@ -85,14 +85,8 @@
             }
             
             public function test(str:String):void {
-                str = "1\r\n2";
-                var target:String = UrlMultiEncode.urlencodeGB2312(str);
-                
-   
-                
-                //target = escape(b.toString());
-                Alert.show(target);
-                
+                var f:File = File.applicationStorageDirectory.resolvePath("config.xml");
+                Alert.show(f.nativePath);
             }
             
             public function loadBoard(board:Board, page:String = null):void {

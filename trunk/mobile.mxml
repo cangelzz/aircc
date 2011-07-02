@@ -6,14 +6,18 @@
     <fx:Script>
         <![CDATA[
             import com.airsmth.defines.*;
+            import com.airsmth.views.Home;
             
-            protected function init():void
-            {
+            protected function init():void {
+                var config:XML = Util.getConfig();
+                homeTab.pushView(Home, config);
             }
+            
         ]]>
     </fx:Script>
-    <s:ViewNavigator id="homeTab" label="Home" width="100%" height="100%"
-        firstView="com.airsmth.views.Home"/>
+    <s:ViewNavigator id="homeTab" label="Home" width="100%" height="100%" />
     <s:ViewNavigator id="mailTab" label="Mail" width="100%" height="100%"
         firstView="com.airsmth.views.Mail"/>
+    <s:ViewNavigator id="configTab" label="Config" width="100%" height="100%"
+        firstView="com.airsmth.views.ConfigView" />
 </s:TabbedViewNavigatorApplication>

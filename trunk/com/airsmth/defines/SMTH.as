@@ -1,11 +1,12 @@
 ﻿package com.airsmth.defines {
     import flash.net.*;
     import flash.events.*;
+    import flash.filesystem.*;
     import spark.components.List;
     import mx.collections.ArrayCollection;
     import com.airsmth.defines.*;
     
-    public class SMTH {
+    public class SMTH extends EventDispatcher {
         public static var _smth:SMTH;
         public static const BBSDOC:String = "http://www.newsmth.net/bbsdoc.php";
         public static const BBSCON:String = "http://www.newsmth.net/bbscon.php";
@@ -14,13 +15,14 @@
         public static const BBSSND:String = "http://www.newsmth.net/bbssnd.php";
         public static const LOGINURL:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
         public static const ATOMIC:String = "http://www.newsmth.net/atomic.php";
+        public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
         private var _auth:Auth;
+        private var _config:XML;
         private var isLoggedIn:Boolean = false;
         private var isFavorUpdated:Boolean = false;
         public var acFavor:ArrayCollection;
-        private var _vboard:List;
         
-        public static function smth():SMTH {
+        public static function get smth():SMTH {
             if (_smth == null) {
                 _smth = new SMTH();
             }
@@ -30,10 +32,21 @@
         public function SMTH():void {
         }
         
-        public function input(auth:Auth, vboard:List):SMTH {
-            _auth = auth;
-            _vboard = vboard;
+        public function input(config:XML):SMTH {
+            _config = config;
+            _auth = new Auth(config.auth.id, config.auth.pass);
             return _smth;
+        }
+        
+        public function get config():XML {
+            return _config;
+        }
+        
+        public function saveConfig(config:XML):void {
+            var f:FileStream = new FileStream();
+            f.open(CONFIGPATH, FileMode.WRITE);
+            f.writeUTFBytes(config.toXMLString());
+            f.close();
         }
         
         public function login():void {
@@ -41,6 +54,7 @@
             ll.addEventListener(LoadEvent.LOGINSUCC, onLoginSucc);
             ll.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
             ll.load();
+            dispatchEvent(new LoadEvent(LoadEvent.LOGINSTART));
         }
         
         private function onLoginSucc(event:Event):void {
@@ -60,7 +74,7 @@
                 board.ftype = "6";
                 acFavor.addItem(board);
             }
-            _vboard.dataProvider = acFavor;
+            dispatchEvent(new LoadEvent(LoadEvent.LOGINFAIL));
         }
         
         public function loadFavor():void {
@@ -73,7 +87,7 @@
             var fl:FavorLoader = event.currentTarget as FavorLoader;
             isFavorUpdated = true;
             acFavor = fl.data;
-            _vboard.dataProvider = acFavor;
+            dispatchEvent(new LoadEvent(LoadEvent.LOGINSUCC));
         }
     }
     
