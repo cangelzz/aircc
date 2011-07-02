@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
-    viewActivate="init()">
+     viewActivate="activate()">
     <s:layout>
         <s:VerticalLayout paddingTop="10"/>
     </s:layout>
@@ -12,8 +12,18 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
+            import mx.collections.ArrayCollection;
+            public var boards:ArrayCollection;
             
             public function init():void {
+                if (navigator.poppedViewReturnedObject != null )
+                    data = navigator.poppedViewReturnedObject.object as ArrayCollection;
+                else
+                    data = data as ArrayCollection;
+                
+            }
+            
+            public function activate():void {
                 boardList.dataProvider = data as ArrayCollection;
             }
 
@@ -23,7 +33,11 @@
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
     <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/config.png')" click="navigator.replaceView(ConfigView, data)" />
     </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/max_up.png')" />
+    </s:actionContent>
     <s:List id="boardList"
         width="100%" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
          change="navigator.pushView(ThreadView, boardList.selectedItem)" />

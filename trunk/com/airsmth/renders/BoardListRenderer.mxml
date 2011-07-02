@@ -18,6 +18,6 @@
             } 
         ]]> 
     </fx:Script> 
-    <s:Label id="lbBoard" paddingBottom="3" paddingTop="3" paddingLeft="5" />
+    <s:Label id="lbBoard" paddingBottom="5" paddingTop="5" paddingLeft="5" />
     
 </s:ItemRenderer>

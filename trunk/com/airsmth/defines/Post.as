@@ -10,7 +10,7 @@
     	public var content:String = "";
         public var reply:String = "";
         public var title:String = "";
-        
+        public var lz:String = "";
 
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();

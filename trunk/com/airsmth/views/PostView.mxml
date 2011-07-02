@@ -71,6 +71,14 @@
                 sub.pno = page;
                 navigator.replaceView(PostView, sub);
             }
+            
+            protected function openMenu():void {
+                var post:Post = postList.selectedItem as Post;
+                var I:String = mx.core.FlexGlobals.topLevelApplication.TopConfig.auth.id;
+                if (post.lz == I) meTrash.enabled = true;
+                else meTrash.enabled = false;
+                mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=true;
+            }
 
         ]]>
     </fx:Script>
@@ -84,11 +92,15 @@
         <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
     <s:List id="postList"
-        width="100%" height="100%" change="mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=true;"
+        width="100%" height="100%" change="openMenu()"
         itemRendererFunction="RenderUtil.selectRenderer" />
         
-    <s:viewMenuItems> 
-        <s:ViewMenuItem label="Reply" click="navigator.pushView(ReplyView, postList.selectedItem)" /> 
-        <s:ViewMenuItem label="Cancel"/> 
+    <s:viewMenuItems>
+        <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
+            icon="@Embed(source='../../../assets/reply.png')" />
+        <s:ViewMenuItem id="meTrash"
+            icon="@Embed(source='../../../assets/trash.png')" />
+        <s:ViewMenuItem 
+            icon="@Embed(source='../../../assets/mail_white.png')" />
     </s:viewMenuItems>
 </s:View>

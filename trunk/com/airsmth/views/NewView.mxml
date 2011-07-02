@@ -36,8 +36,10 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="submit()"/>
     </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()"/>
+    </s:actionContent>
     <s:TextInput id='tTitle' />
     <s:TextArea id="tContent" />
     <s:Label width="100%" id="lResult"/>
