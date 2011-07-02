@@ -60,7 +60,6 @@
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/forward.png')" click="save()" />
     </s:actionContent>
-    <s:Label text="Login"/>
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />
     <s:CheckBox label="Auto" id="ckAuto" />

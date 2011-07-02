@@ -9,19 +9,22 @@
             override public function set data(value:Object):void { 
                 super.data = value; 
                 
-                // Check to see if the data property is null. 
                 if (value== null) 
                     return; 
-                // If the data property is not null, 
-                // set the Label controls appropriately. 
                 lbTitle.text = value.title;
                 lbAuthor.text = value.author;
             } 
         ]]> 
     </fx:Script> 
+    <fx:Style>
+        @namespace "library://ns.adobe.com/flex/spark";
+        .d {
+            backgroundColor:FF0000;
+        }
+    </fx:Style>
 
-    <s:HGroup width="95%" id="threadGroup" paddingBottom="3" paddingTop="3" paddingLeft="5" >
-        <s:Label id="lbAuthor" />
-        <s:Label id="lbTitle" />
-    </s:HGroup>
+    <s:VGroup width="95%" id="threadGroup" paddingBottom="3" paddingTop="3" paddingLeft="5" >
+        <s:Label id="lbTitle" width="100%" />
+        <s:Label id="lbAuthor" paddingBottom="10" fontWeight="bold" />
+    </s:VGroup>
 </s:ItemRenderer>

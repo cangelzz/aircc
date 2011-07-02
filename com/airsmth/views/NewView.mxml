@@ -40,7 +40,6 @@
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()"/>
     </s:actionContent>
-    <s:TextInput id='tTitle' />
-    <s:TextArea id="tContent" />
-    <s:Label width="100%" id="lResult"/>
+    <s:TextInput id='tTitle' width="100%" />
+    <s:TextArea id="tContent" width="100%" height="100%" />
 </s:View>
