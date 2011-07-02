@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     viewActivate="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="10"/>
+        <s:VerticalLayout paddingTop="5"/>
     </s:layout>
         
     <fx:Script>
