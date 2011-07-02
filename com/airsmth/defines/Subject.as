@@ -17,6 +17,11 @@
         public var tpage:Number;
         public var lz:String = "";
         
+        private var p_m:RegExp = /m/i;
+        private var p_a:RegExp = /@/i;
+        private var p_d:RegExp = /d/i;
+        private var p_g:RegExp = /g/i;
+        
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
             _data.board = bname;
@@ -26,16 +31,16 @@
         }
         
         public function get m():Boolean {
-            return new RegExp("/m/i").test(flag);
+            return p_m.test(flag);
         }
         public function get g():Boolean {
-            return new RegExp("/g/i").test(flag);
+            return p_g.test(flag);
         }
         public function get a():Boolean {
-            return new RegExp("/@/i").test(flag);
+            return p_a.test(flag);
         }
         public function get d():Boolean {
-            return new RegExp("/d/i").test(flag);
+            return p_d.test(flag);
         }
     }
 }
