@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" locale="zh-CN"
     xmlns:s="library://ns.adobe.com/flex/spark" applicationComplete="init()"
-    applicationDPI="160">
+    applicationDPI="160"
+    splashScreenImage="@Embed('assets/splash.png')"
+    splashScreenScaleMode="zoom">
 
     <fx:Style source="main.css" />
         <fx:Style>
@@ -22,14 +24,19 @@
     </fx:Style>
     <fx:Script>
         <![CDATA[
+            import flash.events.*;
             import com.airsmth.defines.*;
             import com.airsmth.views.Home;
             public var TopConfig:XML;
             
             protected function init():void {
+                NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExit);
                 var config:XML = Util.getConfig();
                 TopConfig = config;
                 homeTab.pushView(Home, config);
+            }
+            
+            protected function onExit(event:Event):void {
             }
             
         ]]>

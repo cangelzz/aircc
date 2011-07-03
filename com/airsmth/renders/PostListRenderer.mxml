@@ -23,6 +23,7 @@
                // lbAuthor.text = value.author;
                 //lbReply.text = value.reply;
                 lz = value.lz;
+                if (lz == value.author) lbAuthor.styleName = "postlz";
                 //lbContent.width = postGroup.width - 20;
 
             } 
@@ -55,21 +56,21 @@
                 <s:SolidColor id="scBackground" />
             </s:fill>
         </s:Rect>
-
-    <s:VGroup width="95%" id="postGroup"  paddingBottom="3" paddingTop="3">
-        <s:HGroup width="100%">
-          <s:Label text="{itemIndex.toString()}" textAlign="right" styleName="postindex" width="10" />
+    <s:HGroup width="100%">
+        
+        <s:VGroup width="100%" id="postGroup"  paddingBottom="3">
           <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
           <!-- s:HGroup horizontalAlign="right" width="10" id="btnGroup">
               <s:Image source="../../../assets/max_up_small.png" click="showrefer()" id="btnShowrefer" />
               <s:Image source="../../../assets/reply_small.png" click="reply()"/>
               <s:Image source="../../../assets/down_orange_small.png" click="openMenu()"/>
           </s:HGroup-->
-          
-        </s:HGroup>
         <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="{postGroup.width}" />
         <s:Label id="lbReply" text="{data.replyshow}" styleName="postreply" measuredHeight="10" width="{postGroup.width}" />
-    </s:VGroup>
-    
+        </s:VGroup>
+        <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="5">
+            <s:Label text="{itemIndex.toString()}" textAlign="left" styleName="postindex"/>
+        </s:HGroup>
+    </s:HGroup>
     </s:Group>
 </s:ItemRenderer>
