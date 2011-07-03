@@ -11,6 +11,7 @@
         public var reply:String = "";
         public var title:String = "";
         public var lz:String = "";
+        public var replyshow:String = "";
 
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
