@@ -15,6 +15,7 @@
             
             public function init():void {
                 var sl:SubjectLoader = new SubjectLoader(data as Subject);
+                lbSubTitle.text = (data as Subject).title;
                 sl.addEventListener(LoadEvent.DONE, onLoad);
                 sl.load();
             }
@@ -75,8 +76,13 @@
             protected function menuOpen():void {
                 var post:Post = postList.selectedItem as Post;
                 var I:String = mx.core.FlexGlobals.topLevelApplication.TopConfig.auth.id;
-                if (post.lz == I) meTrash.enabled = true;
-                else meTrash.enabled = false;
+                if (post.lz == I) {
+                    meTrash.visible = true;
+                    meTrash.includeInLayout = true;
+                } else {
+                    meTrash.visible = false;
+                    meTrash.includeInLayout = false;
+                }
                 mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=true;
             }
 
@@ -91,6 +97,7 @@
         <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="snextBtn" />
         <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
+    <s:Label id="lbSubTitle" styleName="subjecttitle"/>
     <s:List id="postList"
         width="100%" height="100%" 
         itemRendererFunction="RenderUtil.selectRenderer"
