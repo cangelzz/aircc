@@ -5,6 +5,9 @@
     
     <fx:Script> 
         <![CDATA[ 
+            import com.airsmth.views.ReplyView;
+            import spark.components.Label;
+            public var lz:String;
             
             override public function set data(value:Object):void { 
                 super.data = value; 
@@ -12,20 +15,60 @@
                 // Check to see if the data property is null. 
                 if (value== null) 
                     return; 
+                if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
+                else scBackground.color =  0xF6F6F6;
                 // If the data property is not null, 
                 // set the Label controls appropriately. 
                 lbContent.text = value.content;
                 lbAuthor.text = value.author;
-                lbReply.text = value.reply;
+                //lbReply.text = value.reply;
+                lz = value.lz;
                 //lbContent.width = postGroup.width - 20;
 
             } 
+            
+            protected function openMenu():void {
+                //var post:Post = value as Post;
+                //var I:String = mx.core.FlexGlobals.topLevelApplication.TopConfig.auth.id;
+                //if (data.lz == I) parentApplication.menuMeTrash.enabled = true;
+                //else parentApplication.menuMeTrash.enabled = false;
+                mx.core.FlexGlobals.topLevelApplication.viewMenuOpen = true;
+            }
+            
+            protected function reply():void {
+                parentApplication.homeTab.pushView(ReplyView, super.data);
+            }
+            
+            protected function showrefer():void {
+                var l:Label = new Label();
+                l.text = super.data.reply;
+                l.styleName = "postreply";
+                l.width = postGroup.width;
+                postGroup.addElement(l);
+                btnGroup.removeElement(btnShowrefer);
+            }
         ]]> 
     </fx:Script> 
+    <s:Group width="100%">
+        <s:Rect width="100%" height="100%">
+            <s:fill>
+                <s:SolidColor id="scBackground" />
+            </s:fill>
+        </s:Rect>
 
     <s:VGroup width="95%" id="postGroup"  paddingBottom="3" paddingTop="3">
-        <s:Label id="lbAuthor" styleName="postauthor" />
+        <s:HGroup width="100%">
+          <s:Label id="lbAuthor" styleName="postauthor" />
+          <s:HGroup horizontalAlign="right" width="100%" id="btnGroup">
+              <s:Image source="../../../assets/max_up_small.png" click="showrefer()" id="btnShowrefer" />
+              <s:Image source="../../../assets/reply_small.png" click="reply()"/>
+              <s:Image source="../../../assets/down_orange_small.png" click="openMenu()"/>
+          </s:HGroup>
+        </s:HGroup>
         <s:Label id="lbContent" styleName="postcontent" measuredHeight="10" width="{postGroup.width}" />
-        <s:Label id="lbReply" styleName="postreply" measuredHeight="10" width="{postGroup.width}" />
+        
+        <!-- s:Label id="lbReply" styleName="postreply" measuredHeight="10" width="{postGroup.width}" visible="false"/ -->
     </s:VGroup>
+    
+    </s:Group>
 </s:ItemRenderer>

@@ -12,12 +12,21 @@
                 // Check to see if the data property is null. 
                 if (value== null) 
                     return; 
+                if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
+                else scBackground.color =  0xF6F6F6;
                 // If the data property is not null, 
                 // set the Label controls appropriately. 
                 lbBoard.text = value.bname;
             } 
         ]]> 
     </fx:Script> 
-    <s:Label id="lbBoard" paddingBottom="5" paddingTop="5" paddingLeft="5" />
+    <s:Group width="100%">
+        <s:Rect width="100%" height="100%">
+            <s:fill>
+                <s:SolidColor id="scBackground" />
+            </s:fill>
+        </s:Rect>
+        <s:Label id="lbBoard" paddingBottom="8" paddingTop="8" paddingLeft="5" />
+    </s:Group>
     
 </s:ItemRenderer>
