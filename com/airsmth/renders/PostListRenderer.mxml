@@ -19,8 +19,8 @@
                 else scBackground.color =  0xF6F6F6;
                 // If the data property is not null, 
                 // set the Label controls appropriately. 
-                lbContent.text = value.content;
-                lbAuthor.text = value.author;
+               // lbContent.text = value.content;
+               // lbAuthor.text = value.author;
                 //lbReply.text = value.reply;
                 lz = value.lz;
                 //lbContent.width = postGroup.width - 20;
@@ -45,7 +45,7 @@
                 l.styleName = "postreply";
                 l.width = postGroup.width;
                 postGroup.addElement(l);
-                btnGroup.removeElement(btnShowrefer);
+          //      btnGroup.removeElement(btnShowrefer);
             }
         ]]> 
     </fx:Script> 
@@ -58,16 +58,17 @@
 
     <s:VGroup width="95%" id="postGroup"  paddingBottom="3" paddingTop="3">
         <s:HGroup width="100%">
-          <s:Label id="lbAuthor" styleName="postauthor" />
-          <s:HGroup horizontalAlign="right" width="100%" id="btnGroup">
+          <s:Label text="{itemIndex.toString()}" textAlign="right" styleName="postindex" width="10" />
+          <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
+          <!-- s:HGroup horizontalAlign="right" width="10" id="btnGroup">
               <s:Image source="../../../assets/max_up_small.png" click="showrefer()" id="btnShowrefer" />
               <s:Image source="../../../assets/reply_small.png" click="reply()"/>
               <s:Image source="../../../assets/down_orange_small.png" click="openMenu()"/>
-          </s:HGroup>
+          </s:HGroup-->
+          
         </s:HGroup>
-        <s:Label id="lbContent" styleName="postcontent" measuredHeight="10" width="{postGroup.width}" />
-        
-        <!-- s:Label id="lbReply" styleName="postreply" measuredHeight="10" width="{postGroup.width}" visible="false"/ -->
+        <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="{postGroup.width}" />
+        <s:Label id="lbReply" text="{data.replyshow}" styleName="postreply" measuredHeight="10" width="{postGroup.width}" />
     </s:VGroup>
     
     </s:Group>

@@ -4,6 +4,7 @@
     [Bindable]
     public class Board {
     	public var bname:String = null;
+        public var cname:String = "";
     	public var bid:String = null;
         public var ftype:String = "6";
         public var page:Number = 0;

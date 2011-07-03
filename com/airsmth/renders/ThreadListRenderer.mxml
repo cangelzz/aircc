@@ -5,7 +5,6 @@
 
     <fx:Script> 
         <![CDATA[ 
-            import com.airsmth.graphic.*;
             
             override public function set data(value:Object):void { 
                 super.data = value; 
@@ -49,7 +48,7 @@
                 <s:SolidColor id="mFlagColor" color="0xFFFFFF" />
             </s:fill>
         </s:Rect>
-    <s:VGroup width="95%" id="threadGroup" paddingBottom="3" paddingTop="3" paddingLeft="5" top="0" left="0">
+    <s:VGroup width="95%" id="threadGroup" paddingBottom="3" paddingTop="3" paddingLeft="3">
         <s:Label id="lbTitle" width="100%" />
         <s:Label id="lbAuthor" paddingBottom="10" fontWeight="bold" />
     </s:VGroup>
