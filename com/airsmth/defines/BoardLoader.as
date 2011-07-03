@@ -32,6 +32,7 @@
              
              while (result != null) {
                  var thread:Subject = new Subject();
+                
                  thread.bname = result2[1];
                  thread.bid = result2[2];
                  thread.pid = result[1];
@@ -41,7 +42,8 @@
                  thread.time = result[5];
                  thread.title = result[6];
                  thread.size = result[7];
-                 lines.addItemAt(thread, 0);
+                 // ignore Bottom post
+                 if (!thread.d) lines.addItemAt(thread, 0);
                  result = p.exec(text);
              }
              _data = lines;
