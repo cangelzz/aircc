@@ -6,7 +6,7 @@
     splashScreenScaleMode="zoom">
 
     <fx:Style source="main.css" />
-        <fx:Style>
+    <fx:Style>
         @namespace s "library://ns.adobe.com/flex/spark";
  
         s|ActionBar
@@ -20,6 +20,17 @@
         s|TabbedViewNavigator #tabBar
         {
             iconPlacement:top;
+        }
+
+        s|ViewMenuItem
+        {
+	        color:#ffffff;
+	        skinClass: ClassReference("com.airsmth.skins.CustomViewMenuItemSkin");
+        }
+        
+        s|ViewMenu
+        {
+	        skinClass: ClassReference("com.airsmth.skins.CustomViewMenuSkin");
         }
     </fx:Style>
     <fx:Script>
