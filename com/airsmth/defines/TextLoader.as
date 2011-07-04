@@ -8,8 +8,8 @@
         protected var _data:ArrayCollection;
         protected var _loader:Loader;
         
-        public function TextLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
-            _loader = new Loader(url, data, method);
+        public function TextLoader(url:String, data:Object = null):void {
+            _loader = new Loader(url, data, URLRequestMethod.GET);
         }
         
         public function load():void {

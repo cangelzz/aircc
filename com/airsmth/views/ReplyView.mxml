@@ -36,7 +36,7 @@
                 re.content = tContent.text;
                 var rp:ReplyPostSender = new ReplyPostSender(re);
                 rp.addEventListener(LoadEvent.DONE, onPost);
-                rp.send();
+                rp.load();
             }
             
             public function onPost(event:Event):void {
