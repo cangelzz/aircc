@@ -49,12 +49,12 @@
             
             protected function onExit(event:Event):void {
             }
-            
+            public var inbox:MailBox = new MailBox();
         ]]>
     </fx:Script>
     <s:ViewNavigator id="homeTab" width="100%" height="100%"
         icon="@Embed(source='assets/heart.png')" />
     <s:ViewNavigator id="mailTab" width="100%" height="100%"
-        firstView="com.airsmth.views.MailFolderView" firstViewData=".DIR"
+        firstView="com.airsmth.views.MailFolderView"
         icon="@Embed(source='assets/mail_red.png')" />
 </s:TabbedViewNavigatorApplication>

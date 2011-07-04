@@ -11,6 +11,7 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
+            public var CurMail:MailFolderLoader;
             
             [@Embed(source='../../../assets/rss_orange.png')]
             [Bindable]
@@ -29,7 +30,10 @@
             public var iconMark:Class;
 
             public function init():void {
-                var ml:MailFolderLoader = new MailFolderLoader(data as String);
+                var mb:MailBox;
+                if (data == null) mb = new MailBox();
+                else mb = data as MailBox;
+                var ml:MailFolderLoader = new MailFolderLoader(mb);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
             }
@@ -37,25 +41,15 @@
             public function onLoad(event:Event):void {
                 var ml:MailFolderLoader = event.currentTarget as MailFolderLoader;
                 mailList.dataProvider = ml.data;
-            
+                if (ml.prev != null) mprevBtn.enabled = false;
+                if (ml.next != null) mnextBtn.enabled = false;
+                CurMail = ml;
             }
             
-            protected function next():void {
-                var board:Board = data as Board;
-                board.page = board.page + 1;
-                navigator.replaceView(ThreadView, board);
-            }
-            
-            protected function prev():void {
-                var board:Board = data as Board;
-                board.page = board.page - 1;
-                navigator.replaceView(ThreadView, board);
-            }
-            
-            protected function last():void {
-                var board:Board = data as Board;
-                board.page = 0;
-                navigator.replaceView(ThreadView, board);
+            protected function go(start:String):void {
+                var mb:MailBox = CurMail.box;
+                mb.start = start;
+                navigator.replaceView(MailFolderView, mb);
             }
             
             protected function newPost():void {
@@ -63,7 +57,7 @@
             }
             
             protected function refresh():void {
-                navigator.replaceView(ThreadView, data as Board);
+                navigator.replaceView(ThreadView, CurMail.box);
             }
             
             protected function changeType():void {
@@ -86,9 +80,9 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="bprevBtn" />
-        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="bnextBtn" />
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="last()" id="lastBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
+        <s:Button icon="@Embed(source='../../../assets/next.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="go(null)" id="lastBtn" />
         <s:Button click="changeType()" id="typeBtn" />
     </s:navigationContent>
     <s:actionContent>
