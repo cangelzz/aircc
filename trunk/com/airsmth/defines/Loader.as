@@ -8,9 +8,9 @@
         private var _request:URLRequest = null;
         private var _url:String = "";
         private var _content:String = "";
-        private var _data:URLVariables = null;
+        private var _data:Object = null;
         
-        public function Loader(url:String, data:URLVariables = null, method:String = URLRequestMethod.GET):void {
+        public function Loader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
             _url = url;
             _data = data;
             _request = new URLRequest(_url);

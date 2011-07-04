@@ -8,9 +8,7 @@
         private var _sub:Subject;
         
         public function SearchBoardLoader(searchText:String):void {
-            var param:URLVariables = new URLVariables();
-            param.board = searchText;
-            super(SMTH.BBSSEL, param);
+            super(SMTH.BBSSEL, "board=" + UrlMultiEncode.urlencodeGB2312(searchText));
         }
         
         override protected function onLoad(e:Event):void {
