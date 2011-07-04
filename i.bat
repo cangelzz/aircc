@@ -1,1 +1,1 @@
-adt -installApp -platform android -platformsdk c:\android -package hello.apk
+adt -installApp -platform android -platformsdk c:\android -package desktop.apk

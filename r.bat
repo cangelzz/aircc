@@ -1,1 +1,1 @@
-adl hello-app.xml
+adl desktop-app.xml
