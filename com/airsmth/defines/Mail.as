@@ -13,8 +13,12 @@
         public var fileno:String;
         public var path:String;
         
-        public static const DIR:String = ".DIR";
-        public static const SENT:String = ".SENT";
-        public static const DELETED:String = ".DELETED";
+        public function get data():URLVariables {
+            var _data:URLVariables = new URLVariables();
+            _data.dir = path;
+            _data.num = id;
+            return _data;
+            
+        }
     }
 }

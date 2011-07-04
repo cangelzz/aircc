@@ -18,6 +18,7 @@
         public static const LOGINURL:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
         public static const ATOMIC:String = "http://www.newsmth.net/atomic.php";
         public static const BBSFAV:String = "http://www.newsmth.net/bbsfav.php"
+        public static const MAILCON:String = "http://www.newsmth.net/bbsmailcon.php";
         public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
         private var _auth:Auth;
         private var _config:XML;

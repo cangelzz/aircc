@@ -9,7 +9,7 @@
         <content>mobile.swf</content> 
         <visible>true</visible> 
         <width>480</width> 
-        <height>800</height>
+        <height>600</height>
         <resizable>false</resizable>
         <systemChrome>standard</systemChrome>
     </initialWindow>
