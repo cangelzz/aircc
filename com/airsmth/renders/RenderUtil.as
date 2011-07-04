@@ -10,6 +10,7 @@
             else if (item is Board) c = new ClassFactory(BoardListRenderer);
             else if (item is Subject) c = new ClassFactory(ThreadListRenderer);
             else if (item is Post) c = new ClassFactory(PostListRenderer);
+            else if (item is Mail) c = new ClassFactory(MailListRenderer);
             return c;
         }
     }

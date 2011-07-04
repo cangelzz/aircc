@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    viewActivate="init()">
+    <s:layout>
+        <s:VerticalLayout paddingTop="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            
+            [@Embed(source='../../../assets/rss_orange.png')]
+            [Bindable]
+            public var iconSubject:Class;
+
+            [@Embed(source='../../../assets/rss_green.png')]
+            [Bindable]
+            public var iconSingle:Class;
+            
+            [@Embed(source='../../../assets/rss_red.png')]
+            [Bindable]
+            public var iconDigest:Class;
+
+            [@Embed(source='../../../assets/star.png')]
+            [Bindable]
+            public var iconMark:Class;
+
+            public function init():void {
+                var ml:MailFolderLoader = new MailFolderLoader(data as String);
+                ml.addEventListener(LoadEvent.DONE, onLoad);
+                ml.load();
+            }
+            
+            public function onLoad(event:Event):void {
+                var ml:MailFolderLoader = event.currentTarget as MailFolderLoader;
+                mailList.dataProvider = ml.data;
+            
+            }
+            
+            protected function next():void {
+                var board:Board = data as Board;
+                board.page = board.page + 1;
+                navigator.replaceView(ThreadView, board);
+            }
+            
+            protected function prev():void {
+                var board:Board = data as Board;
+                board.page = board.page - 1;
+                navigator.replaceView(ThreadView, board);
+            }
+            
+            protected function last():void {
+                var board:Board = data as Board;
+                board.page = 0;
+                navigator.replaceView(ThreadView, board);
+            }
+            
+            protected function newPost():void {
+                navigator.pushView(NewView, (data as Board).bname);
+            }
+            
+            protected function refresh():void {
+                navigator.replaceView(ThreadView, data as Board);
+            }
+            
+            protected function changeType():void {
+                var board:Board = data as Board;
+                if (board.ftype == "6") board.ftype = "0";
+                else board.ftype = "6";
+                navigator.replaceView(ThreadView, board);
+            }
+            
+            protected function filterType(type:Number = 0):void {
+                var board:Board = data as Board;
+                if (type != 0) board.ftype = type.toString();
+                navigator.replaceView(ThreadView, board);
+            }
+            
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="bprevBtn" />
+        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="bnextBtn" />
+        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="last()" id="lastBtn" />
+        <s:Button click="changeType()" id="typeBtn" />
+    </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
+        <s:Button icon="@Embed(source='../../../assets/new.png')" click="newPost()" id="newBtn" />
+    </s:actionContent>
+    <s:List id="mailList"
+        width="100%" height="100%"
+        change="navigator.pushView(MailView, mailList.selectedItem)"
+        itemRendererFunction="RenderUtil.selectRenderer" />
+
+</s:View>

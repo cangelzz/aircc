@@ -1,5 +1,6 @@
 ﻿package com.airsmth.defines {
     import flash.utils.ByteArray;
+    import mx.collections.ArrayCollection;
 
     public class StringHelper {
 
@@ -38,6 +39,16 @@
             var byte:ByteArray = new ByteArray();
             byte.writeMultiByte(str, "gb2312");
             return byte.toString();
+        }
+        
+        public static function findall(pat:RegExp, text:String):ArrayCollection {
+            var lines:ArrayCollection = new ArrayCollection();
+            var result:Object = pat.exec(text);
+            while (result != null) {
+                lines.addItem(result[1]);
+                result = pat.exec(text);
+            }
+            return lines;
         }
     }
 }
