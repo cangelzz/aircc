@@ -33,21 +33,31 @@
             private var isLoggedIn:Boolean = false;
             private var isFavorUpdated:Boolean = false;
             private var smth:SMTH;
+            public var config:XML;
                         
             public function initApp():void 
             { 
                 //maximize();
-                var f:File = new File("app:/config.xml");
-                var r:FileStream = new FileStream();
-                r.open(f, FileMode.READ);
-                var config:XML = XML(r.readUTFBytes(r.bytesAvailable));
-                r.close();
-                var log:Auth = new Auth(config.auth.id, config.auth.pass);
-                smth = new SMTH();
-                smth.input(log, boardList);
+                config = Util.getConfig();
+                var smth:SMTH = new SMTH();
+                smth.input(config);
+                smth.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
+                smth.addEventListener(LoadEvent.LOGINSUCC, onLoginSucc);
+                smth.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
                 smth.login();
-                
-            } 
+            }
+            
+            private function onLoginStart(event:Event):void {
+            }
+            
+            private function onLoginSucc(event:Event):void {
+                config.auth.auto = "1";
+                SMTH.smth.saveConfig(config);
+                boardList.dataProvider = (event.currentTarget as SMTH).acFavor;
+            }
+            
+            private function onLoginFail(event:Login):void {
+            }
             
             public function toggleboardList():void
             {
@@ -85,7 +95,7 @@
             }
             
             public function test(str:String):void {
-                var f:File = File.applicationStorageDirectory.resolvePath("config.xml");
+                var f:File = SMTH.CONFIGPATH;
                 Alert.show(f.nativePath);
             }
             

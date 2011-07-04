@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?> 
 <application xmlns="http://ns.adobe.com/air/application/2.6"> 
-    <id>samples.flex.HelloWorld</id> 
+    <id>com.cc.airsmth</id> 
     <versionNumber>0.1</versionNumber> 
-    <filename>HelloWorld</filename> 
+    <filename>AIRSMTH</filename> 
     <initialWindow> 
-        <content>hello.swf</content> 
+        <content>desktop.swf</content> 
         <visible>true</visible> 
         <width>1024</width> 
         <height>768</height>
