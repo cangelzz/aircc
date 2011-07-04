@@ -55,6 +55,6 @@
     <s:ViewNavigator id="homeTab" width="100%" height="100%"
         icon="@Embed(source='assets/heart.png')" />
     <s:ViewNavigator id="mailTab" width="100%" height="100%"
-        firstView="com.airsmth.views.Mail"
+        firstView="com.airsmth.views.MailFolderView" firstViewData=".DIR"
         icon="@Embed(source='assets/mail_red.png')" />
 </s:TabbedViewNavigatorApplication>
