@@ -48,7 +48,7 @@
             var flags:ArrayCollection = StringHelper.findall(new RegExp("^.*?mt4.*?nbsp;(.*?)&nbsp.*$", "mg"), text);
             var authors:ArrayCollection = StringHelper.findall(new RegExp("bbsqry.php.userid=(\\w+)", "g"), text);
             var titles:ArrayCollection = StringHelper.findall(new RegExp("mt5.*>(.*?)<\\/a", "g"), text);
-            var filenos:ArrayCollection = StringHelper.findall(new RegExp("value=.(M.*?).", "g"), text);
+            var filenos:ArrayCollection = StringHelper.findall(new RegExp("file=(.*?)&title", "g"), text);
             _data = new ArrayCollection();
             for (var i:Number = 0; i < ids.length; i++) {
                 m = new Mail();
@@ -58,7 +58,7 @@
                 m.author = authors[i];
                 m.title = titles[i];
                 m.fileno = filenos[i];
-                _data.addItem(m);
+                _data.addItemAt(m, 0);
             }
             //m = new Mail();
             //m.path = _path;

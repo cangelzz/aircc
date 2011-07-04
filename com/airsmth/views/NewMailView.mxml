@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+    <s:layout>
+        <s:VerticalLayout paddingTop="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            
+            public function submit():void {
+                var mail:Mail = new Mail();
+                mail.author = tUserId.text;
+                mail.title = tTitle.text;
+                mail.content = tContent.text;
+                var ms:MailSender = new MailSender(mail);
+                ms.addEventListener(LoadEvent.DONE, onPost);
+                ms.load();
+            }
+            
+            public function onPost(event:Event):void {
+                navigator.popView();
+            }
+            
+        ]]>
+    </fx:Script>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+    </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()"/>
+    </s:actionContent>
+    <s:TextInput id="tUserId" width="50%" />
+    <s:TextInput id='tTitle' width="100%" />
+    <s:TextArea id="tContent" width="100%" height="100%" />
+</s:View>
