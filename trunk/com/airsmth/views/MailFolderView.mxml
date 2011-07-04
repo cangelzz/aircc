@@ -52,8 +52,8 @@
                 navigator.replaceView(MailFolderView, mb);
             }
             
-            protected function newPost():void {
-                navigator.pushView(NewView, (data as Board).bname);
+            protected function newMail():void {
+                navigator.pushView(NewMailView);
             }
             
             protected function refresh():void {
@@ -87,7 +87,7 @@
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
-        <s:Button icon="@Embed(source='../../../assets/new.png')" click="newPost()" id="newBtn" />
+        <s:Button icon="@Embed(source='../../../assets/new.png')" click="newMail()" id="newBtn" />
     </s:actionContent>
     <s:List id="mailList"
         width="100%" height="100%"

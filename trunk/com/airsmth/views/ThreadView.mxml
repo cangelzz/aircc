@@ -67,7 +67,7 @@
             }
             
             protected function newPost():void {
-                navigator.pushView(NewView, (data as Board).bname);
+                navigator.pushView(NewPostView, (data as Board).bname);
             }
             
             protected function refresh():void {

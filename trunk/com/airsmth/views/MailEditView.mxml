@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    viewActivate="init()">
+    <s:layout>
+        <s:VerticalLayout paddingTop="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import spark.events.IndexChangeEvent;
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            public var CurMail:Mail;
+            
+            public function init():void {
+                var ml:MailEditLoader = new MailEditLoader(data as Mail);
+                ml.addEventListener(LoadEvent.DONE, onLoad);
+                ml.load();
+            }
+            
+            public function onLoad(event:Event):void {
+                var ml:MailEditLoader = event.currentTarget as MailEditLoader;
+                var ma:Mail = ml.mail;
+                CurMail = ml.mail;
+                tTitle.text = ma.title;
+                tContent.text = ma.content;
+                submitBtn.enabled = true;
+            }
+            
+            public function submit():void {
+                submitBtn.enabled = false;
+                CurMail.title = tTitle.text;
+                CurMail.content = tContent.text;
+                var ms:MailSender = new MailSender(CurMail);
+                ms.addEventListener(LoadEvent.DONE, onPost);
+                ms.load();
+            }
+            
+            public function onPost(event:Event):void {
+                navigator.popView();
+            }
+            
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+    </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()" enabled="false" id="submitBtn" />
+    </s:actionContent>
+    <s:TextInput id='tTitle' width="100%" />
+    <s:TextArea id="tContent" width="100%" height="100%" />
+</s:View>
