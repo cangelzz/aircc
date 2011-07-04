@@ -75,7 +75,7 @@
             
             protected function menuOpen():void {
                 var post:Post = postList.selectedItem as Post;
-                var I:String = mx.core.FlexGlobals.topLevelApplication.TopConfig.auth.id;
+                var I:String = parentApplication.TopConfig.auth.id;
                 if (post.lz == I) {
                     meTrash.visible = true;
                     meTrash.includeInLayout = true;
@@ -83,7 +83,7 @@
                     meTrash.visible = false;
                     meTrash.includeInLayout = false;
                 }
-                mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=true;
+                parentApplication.viewMenuOpen=true;
             }
 
         ]]>
@@ -108,9 +108,9 @@
             icon="@Embed(source='../../../assets/max_up.png')" />
         <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
             icon="@Embed(source='../../../assets/reply.png')" />
-        <s:ViewMenuItem id="meTrash"
-            icon="@Embed(source='../../../assets/trash.png')" />
         <s:ViewMenuItem 
             icon="@Embed(source='../../../assets/mail_white.png')" />
+        <s:ViewMenuItem id="meTrash"
+            icon="@Embed(source='../../../assets/trash.png')" />
     </s:viewMenuItems>
 </s:View>
