@@ -11,8 +11,10 @@
                 
                 if (value== null) 
                     return; 
-                if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
-                else scBackground.color =  0xF6F6F6;
+                if (!selected) {
+                    if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
+                    else scBackground.color =  0xF6F6F6;
+                }
                 lbTitle.text = value.title;
                 lbAuthor.text = value.author;
                 if (value.d) dFlagColor.color = 0x000000;
@@ -24,11 +26,16 @@
                 //if (value.g) gFlag.color = 0xFFFF00;
             }
         ]]> 
-    </fx:Script> 
+    </fx:Script>
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="hovered"/>
+        <s:State name="selected"/>
+    </s:states>
     <s:Group width="100%">
     <s:Rect width="100%" height="100%">
         <s:fill>
-            <s:SolidColor id="scBackground" />
+            <s:SolidColor id="scBackground" color.selected="0xA8C6EE" />
         </s:fill>
     </s:Rect>
 

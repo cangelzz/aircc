@@ -5,7 +5,7 @@
     
     <fx:Script> 
         <![CDATA[ 
-            import com.airsmth.views.ReplyView;
+            //import com.airsmth.views.ReplyView;
             import spark.components.Label;
             public var lz:String;
             
@@ -15,45 +15,27 @@
                 // Check to see if the data property is null. 
                 if (value== null) 
                     return; 
-                if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
-                else scBackground.color =  0xF6F6F6;
-                // If the data property is not null, 
-                // set the Label controls appropriately. 
-               // lbContent.text = value.content;
-               // lbAuthor.text = value.author;
-                //lbReply.text = value.reply;
+                if (!selected) {
+                    if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
+                    else scBackground.color =  0xF6F6F6;
+                }
                 lz = value.lz;
                 if (lz == value.author) lbAuthor.styleName = "postlz";
                 //lbContent.width = postGroup.width - 20;
 
             } 
             
-            protected function openMenu():void {
-                //var post:Post = value as Post;
-                //var I:String = mx.core.FlexGlobals.topLevelApplication.TopConfig.auth.id;
-                //if (data.lz == I) parentApplication.menuMeTrash.enabled = true;
-                //else parentApplication.menuMeTrash.enabled = false;
-                mx.core.FlexGlobals.topLevelApplication.viewMenuOpen = true;
-            }
-            
-            protected function reply():void {
-                parentApplication.homeTab.pushView(ReplyView, super.data);
-            }
-            
-            protected function showrefer():void {
-                var l:Label = new Label();
-                l.text = super.data.reply;
-                l.styleName = "postreply";
-                l.width = postGroup.width;
-                postGroup.addElement(l);
-          //      btnGroup.removeElement(btnShowrefer);
-            }
         ]]> 
-    </fx:Script> 
+    </fx:Script>
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="hovered"/>
+        <s:State name="selected"/>
+    </s:states>
     <s:Group width="100%">
         <s:Rect width="100%" height="100%">
             <s:fill>
-                <s:SolidColor id="scBackground" />
+                <s:SolidColor id="scBackground" color.selected="0xA8C6EE" />
             </s:fill>
         </s:Rect>
     <s:HGroup width="100%">

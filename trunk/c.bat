@@ -1,1 +1,1 @@
-amxmlc hello.mxml
+amxmlc desktop.mxml
