@@ -26,7 +26,17 @@
             public function activate():void {
                 boardList.dataProvider = data as ArrayCollection;
             }
-
+            
+            public function search():void {
+                var sl:SearchBoardLoader = new SearchBoardLoader(tSearch.text);
+                sl.addEventListener(LoadEvent.DONE, onSearchMulti);
+                sl.load();
+            }
+            
+            private function onSearchMulti(event:Event):void {
+                boardList.dataProvider = (event.currentTarget as SearchBoardLoader).data;
+            }
+            
         ]]>
     </fx:Script>
     <fx:Declarations>
@@ -36,8 +46,8 @@
         <s:Button icon="@Embed(source='../../../assets/config.png')" click="navigator.replaceView(ConfigView, data)" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/max_up.png')" />
-        <s:Button icon="@Embed(source='../../../assets/search_1.png')" />
+        <s:TextInput id="tSearch" />
+        <s:Button icon="@Embed(source='../../../assets/search_1.png')" click="search()" />
     </s:actionContent>
     <s:List id="boardList"
         width="100%" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
