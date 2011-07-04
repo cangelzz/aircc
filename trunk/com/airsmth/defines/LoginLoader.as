@@ -3,12 +3,12 @@
 	import flash.net.*;
     import com.airsmth.defines.*
 
-	public class LoginLoader extends TextLoader {
+	public class LoginLoader extends TextSender {
 		private var _auth:Auth;
         public var isLoggedIn:Boolean = false;
         
 		public function LoginLoader(auth:Auth):void {
-            super(SMTH.LOGINURL, auth.data, URLRequestMethod.POST);
+            super(SMTH.LOGINURL, auth.data);
             _auth = auth;
 		}
         

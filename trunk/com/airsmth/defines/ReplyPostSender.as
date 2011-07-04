@@ -11,8 +11,8 @@
             _reply = reply;
         }
         
-        override protected function onSend(event:Event):void {
-            var _text:String = _sender.content;
+        override protected function onLoad(event:Event):void {
+            var _text:String = _loader.content;
             if (_text.indexOf("操作成功") != -1) dispatchEvent(new LoadEvent(LoadEvent.DONE));
         }
     }

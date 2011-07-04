@@ -5,18 +5,24 @@
     import com.airsmth.defines.*;
     
     public class TextSender extends EventDispatcher {
-        protected var _sender:Sender;
+        protected var _data:ArrayCollection;
+        protected var _loader:Loader;
         
-        public function TextSender(url:String, data:String):void {
-            _sender = new Sender(url, data);
+        public function TextSender(url:String, data:Object = null):void {
+            _loader = new Loader(url, data, URLRequestMethod.POST);
         }
         
-        public function send():void {
-            _sender.addEventListener(LoadEvent.LOADED, onSend);
-            _sender.send();
+        public function load():void {
+            _loader.addEventListener(LoadEvent.LOADED, onLoad);
+            _loader.load();
         }
         
-        protected function onSend(event:Event):void {
+        protected function onLoad(event:Event):void {
+
+        }
+        
+        public function get data():ArrayCollection {
+            return _data;
         }
     }
 }
