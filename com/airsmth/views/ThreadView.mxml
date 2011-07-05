@@ -78,11 +78,13 @@
                 var board:Board = data as Board;
                 if (board.ftype == "6") board.ftype = "0";
                 else board.ftype = "6";
+                board.page = 0;
                 navigator.replaceView(ThreadView, board);
             }
             
             protected function filterType(type:Number = 0):void {
                 var board:Board = data as Board;
+                board.page = 0;
                 if (type != 0) board.ftype = type.toString();
                 navigator.replaceView(ThreadView, board);
             }

@@ -34,7 +34,11 @@
         override protected function onStatus(e:Event):void {
             var code:Number = _loader.statusevent.status;
             if (code == 302) {
-                var url:String = _loader.statusevent.responseURL;
+                var url:String;
+                for each(var h:URLRequestHeader in _loader.statusevent.responseHeaders) {
+                    if (h.name == "Location") url = h.value;
+                }
+                //var url:String = _loader.statusevent.responseURL;
                 var bname:String = url.substr(url.indexOf("board=") + 6);
                 board = new Board;
                 board.bname = bname;
