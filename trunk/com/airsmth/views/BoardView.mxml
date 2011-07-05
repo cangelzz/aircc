@@ -43,10 +43,8 @@
         <s:Button icon="@Embed(source='../../../assets/config.png')" click="navigator.replaceView(ConfigView, data)" />
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="activate()" />
     </s:navigationContent>
-    <s:titleContent>
-        <s:TextInput id="tSearch" />
-    </s:titleContent>
     <s:actionContent>
+        <s:TextInput id="tSearch"  width="200" />
         <s:Button icon="@Embed(source='../../../assets/search.png')" click="search()" />
     </s:actionContent>
     <s:List id="boardList"
