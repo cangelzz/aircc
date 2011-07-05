@@ -7,6 +7,7 @@
         <![CDATA[ 
             //import com.airsmth.views.ReplyView;
             import spark.components.Label;
+            import spark.components.Image;
             public var lz:String;
             
             override public function set data(value:Object):void { 
@@ -22,6 +23,24 @@
                 lz = value.lz;
                 if (lz == value.author) lbAuthor.styleName = "postlz";
                 //lbContent.width = postGroup.width - 20;
+                
+                if (value.images != null) {
+                    for (var i:Number = 0; i < value.images.length; i++) {
+                        var image:Image = new Image();
+                        //image.width= postGroup.width;
+                        //image.horizontalAlign = "left";
+                        //image.verticalAlign = "top";
+                        //image.preliminaryWidth = 480;
+                        //image.preliminaryHeight = 320;
+                        image.source = value.images.getItemAt(i) as String;
+                        
+                        image.setStyle("enableLoadingState", "true");
+                        imageGroup.addElement(image);
+                        //var lb:Label = new Label();
+//                        lb.text = value.images.getItemAt(i) as String;
+                        //postGroup.addElement(lb);
+                    }
+                }
 
             } 
             
@@ -43,8 +62,9 @@
             <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
             <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="100%" />
             <s:Label id="lbReply" text="{data.replyshow}" styleName="postreply" measuredHeight="10" width="100%" />
+            <s:VGroup id="imageGroup" width="90%" />
         </s:VGroup>
-        <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="8">
+        <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="8" width="20">
             <s:Label text="{itemIndex.toString()}" textAlign="left" styleName="postindex"/>
         </s:HGroup>
     </s:HGroup>

@@ -1,6 +1,7 @@
 ﻿package com.airsmth.defines {
 	import flash.events.*;
 	import flash.net.*;
+    import mx.collections.ArrayList;
 	import mx.collections.ArrayCollection;
     import com.airsmth.defines.*
 
@@ -49,10 +50,23 @@
                     
                 }
             }
-
             _post.bname = bname;
 			_post.content = content;
             _post.reply = reply;
+            
+            var pa:RegExp = new RegExp("attach\\('(.*?)',\\s(\\d+),\\s(\\d+)\\);", "g");
+            var att:Object = pa.exec(_text);
+            var urls:ArrayList = new ArrayList();
+            var pf:RegExp = /(jpg|png|jpeg|gif)/i;
+            while (att != null) {
+                var fname:String = att[1];
+                var ext:String = fname.substr(fname.lastIndexOf("."));
+                if (pf.test(fname)) {
+                    urls.addItem("http://att.newsmth.net/att.php?p."+_post.bid+"."+_post.id+"."+att[3] +ext);
+                }
+                att = pa.exec(_text);
+            }
+            if (urls.length > 0) _post.images = urls;
 			dispatchEvent(new LoadEvent(LoadEvent.DONE));
 		}
 	}
