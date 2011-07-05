@@ -3,7 +3,8 @@
     xmlns:s="library://ns.adobe.com/flex/spark" applicationComplete="init()"
     applicationDPI="240"
     splashScreenImage="@Embed('assets/splash.png')"
-    splashScreenScaleMode="zoom">
+    splashScreenScaleMode="zoom"
+    splashScreenMinimumDisplayTime="2000">
 
     <fx:Style source="main.css" />
     <fx:Style>
