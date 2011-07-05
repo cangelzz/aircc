@@ -1,5 +1,6 @@
 ﻿package com.airsmth.defines {
     import flash.net.*;
+    import mx.collections.ArrayList;
     
     [Bindable]
     public class Post {
@@ -12,6 +13,7 @@
         public var title:String = "";
         public var lz:String = "";
         public var replyshow:String = "";
+        public var images:ArrayList = null;
 
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
