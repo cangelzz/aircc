@@ -33,7 +33,6 @@
                         //image.preliminaryWidth = 480;
                         //image.preliminaryHeight = 320;
                         image.source = value.images.getItemAt(i) as String;
-                        
                         image.setStyle("enableLoadingState", "true");
                         imageGroup.addElement(image);
                         //var lb:Label = new Label();
