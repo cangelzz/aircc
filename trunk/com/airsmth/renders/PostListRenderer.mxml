@@ -39,18 +39,12 @@
             </s:fill>
         </s:Rect>
     <s:HGroup width="100%">
-        
         <s:VGroup width="100%" id="postGroup"  paddingBottom="3">
-          <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
-          <!-- s:HGroup horizontalAlign="right" width="10" id="btnGroup">
-              <s:Image source="../../../assets/max_up_small.png" click="showrefer()" id="btnShowrefer" />
-              <s:Image source="../../../assets/reply_small.png" click="reply()"/>
-              <s:Image source="../../../assets/down_orange_small.png" click="openMenu()"/>
-          </s:HGroup-->
-        <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="{postGroup.width}" />
-        <s:Label id="lbReply" text="{data.replyshow}" styleName="postreply" measuredHeight="10" width="{postGroup.width}" />
+            <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
+            <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="100%" />
+            <s:Label id="lbReply" text="{data.replyshow}" styleName="postreply" measuredHeight="10" width="100%" />
         </s:VGroup>
-        <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="5">
+        <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="8">
             <s:Label text="{itemIndex.toString()}" textAlign="left" styleName="postindex"/>
         </s:HGroup>
     </s:HGroup>

@@ -34,12 +34,8 @@
             </s:fill>
         </s:Rect>
     <s:HGroup width="100%" id="threadGroup" paddingBottom="5" paddingTop="8" paddingLeft="5" paddingRight="5">
-        <s:HGroup horizontalAlign="left" width="100%">
-            <s:Label id="lbcname" text="{data.bname}"/>
-        </s:HGroup>
-        <s:HGroup horizontalAlign="right" width="100%">
-            <s:Label id="lbBoard" text="{data.cname}"/>
-        </s:HGroup>
+            <s:Label id="lbcname" text="{data.bname}" width="100%"/>
+            <s:Label id="lbBoard" text="{data.cname}" textAlign="end" width="100%"/>
     </s:HGroup>
     </s:Group>
     
