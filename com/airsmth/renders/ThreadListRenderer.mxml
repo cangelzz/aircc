@@ -55,10 +55,10 @@
                 <s:SolidColor id="mFlagColor" color="0xFFFFFF" />
             </s:fill>
         </s:Rect>
-        <s:VGroup width="95%" id="threadGroup" paddingBottom="3" paddingTop="3" paddingLeft="3">
+        <s:HGroup width="100%" id="threadGroup" paddingBottom="3" paddingTop="8" paddingLeft="3" paddingRight="8">
             <s:Label id="lbTitle" width="100%" />
-            <s:Label id="lbAuthor" paddingBottom="10" fontWeight="bold" />
-        </s:VGroup>
+            <s:Label id="lbAuthor" paddingBottom="10" textAlign="end" />
+        </s:HGroup>
     </s:HGroup>
     </s:Group>
 </s:ItemRenderer>

@@ -97,7 +97,10 @@
         <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" />
         <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
+    <s:HGroup width="100%">
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
+    <s:Label id="lbLoaded"  textAlign="end" width="100%"/>
+    </s:HGroup>
     <s:List id="postList"
         width="100%" height="100%" 
         itemRendererFunction="RenderUtil.selectRenderer"
