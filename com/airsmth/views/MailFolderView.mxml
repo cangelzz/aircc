@@ -13,22 +13,6 @@
             import com.airsmth.renders.*;
             public var CurMail:MailFolderLoader;
             
-            [@Embed(source='../../../assets/rss_orange.png')]
-            [Bindable]
-            public var iconSubject:Class;
-
-            [@Embed(source='../../../assets/rss_green.png')]
-            [Bindable]
-            public var iconSingle:Class;
-            
-            [@Embed(source='../../../assets/rss_red.png')]
-            [Bindable]
-            public var iconDigest:Class;
-
-            [@Embed(source='../../../assets/star.png')]
-            [Bindable]
-            public var iconMark:Class;
-
             public function init():void {
                 var mb:MailBox;
                 if (data == null) mb = new MailBox();
@@ -80,14 +64,14 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
-        <s:Button icon="@Embed(source='../../../assets/next.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="go(null)" id="lastBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
+        <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
+        <s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="go(null)" id="lastBtn" />
         <s:Button click="changeType()" id="typeBtn" />
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
-        <s:Button icon="@Embed(source='../../../assets/new.png')" click="newMail()" id="newBtn" />
+        <s:Button icon="@Embed(source='../../../assets/new_mail.png')" click="newMail()" id="newBtn" />
     </s:actionContent>
     <s:List id="mailList"
         width="100%" height="100%"

@@ -30,7 +30,7 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/reply.png')" id="newBtn" click="navigator.pushView(MailEditView, data as Mail)" />
+        <s:Button icon="@Embed(source='../../../assets/reply_mail.png')" id="newBtn" click="navigator.pushView(MailEditView, data as Mail)" />
     </s:actionContent>
     <s:Label id="lbAuthor" width="100%" />
     <s:Label id="lbContent" width="100%" />

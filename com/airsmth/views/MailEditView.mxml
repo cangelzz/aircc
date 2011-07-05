@@ -51,7 +51,7 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()" enabled="false" id="submitBtn" />
+        <s:Button icon="@Embed(source='../../../assets/submit_mail.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:actionContent>
     <s:TextInput id='tTitle' width="100%" />
     <s:TextArea id="tContent" width="100%" height="100%" />

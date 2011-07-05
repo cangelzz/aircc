@@ -1,1 +1,1 @@
-adt -package -target apk-emulator -storetype pkcs12 -keystore sampleCert.pfx mobile.apk mobile-app.xml mobile.swf assets\icon16.png assets\icon32.png assets\icon48.png assets\icon128.png
+adt -package -target apk-emulator -storetype pkcs12 -keystore sampleCert.pfx mobile.apk mobile-app.xml mobile.swf assets\icon48.png assets\icon128.png
