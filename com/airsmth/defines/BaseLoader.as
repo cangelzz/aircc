@@ -3,14 +3,14 @@
     import flash.events.*;
     import com.airsmth.defines.LoadEvent;
     
-    public class Loader extends EventDispatcher {
+    public class BaseLoader extends EventDispatcher {
         private var _stream:URLStream = null;
         private var _request:URLRequest = null;
         private var _url:String = "";
         private var _content:String = "";
         private var _data:Object = null;
         
-        public function Loader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
+        public function BaseLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
             _url = url;
             _data = data;
             _request = new URLRequest(_url);

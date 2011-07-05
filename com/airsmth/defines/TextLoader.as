@@ -6,10 +6,10 @@
     
     public class TextLoader extends EventDispatcher {
         protected var _data:ArrayCollection;
-        protected var _loader:Loader;
+        protected var _loader:BaseLoader;
         
         public function TextLoader(url:String, data:Object = null):void {
-            _loader = new Loader(url, data, URLRequestMethod.GET);
+            _loader = new BaseLoader(url, data, URLRequestMethod.GET);
         }
         
         public function load():void {

@@ -6,10 +6,10 @@
     
     public class TextSender extends EventDispatcher {
         protected var _data:ArrayCollection;
-        protected var _loader:Loader;
+        protected var _loader:BaseLoader;
         
         public function TextSender(url:String, data:Object = null):void {
-            _loader = new Loader(url, data, URLRequestMethod.POST);
+            _loader = new BaseLoader(url, data, URLRequestMethod.POST);
         }
         
         public function load():void {
