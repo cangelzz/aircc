@@ -25,8 +25,8 @@
             public function onLoad(event:Event):void {
                 var ml:MailFolderLoader = event.currentTarget as MailFolderLoader;
                 mailList.dataProvider = ml.data;
-                if (ml.prev != null) mprevBtn.enabled = false;
-                if (ml.next != null) mnextBtn.enabled = false;
+                if (ml.prev != null) mprevBtn.enabled = true; else mprevBtn.enabled = false;
+                if (ml.next != null) mnextBtn.enabled = true; else mnextBtn.enabled = false;
                 CurMail = ml;
             }
             
@@ -41,7 +41,7 @@
             }
             
             protected function refresh():void {
-                navigator.replaceView(ThreadView, CurMail.box);
+                navigator.replaceView(MailFolderView, CurMail.box);
             }
             
             protected function changeType():void {
@@ -66,7 +66,14 @@
         <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
         <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
         <s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="go(null)" id="lastBtn" />
-        <s:Button click="changeType()" id="typeBtn" />
+        <s:ButtonBar requireSelection="true" enabled="false" >
+            <s:dataProvider>
+                <s:ArrayCollection>
+                    <fx:Object label="" icon="@Embed(source='../../../assets/mail_inbox.png')"/>
+                    <fx:Object label="" icon="@Embed(source='../../../assets/mail_sent.png')"/>
+                </s:ArrayCollection>
+            </s:dataProvider>
+        </s:ButtonBar>
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
