@@ -9,6 +9,7 @@
         private var _url:String = "";
         private var _content:String = "";
         private var _data:Object = null;
+        public var statusevent:HTTPStatusEvent;
         
         public function BaseLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
             _url = url;
@@ -17,6 +18,7 @@
             _request.method = method;
             _request.data = _data;
             _request.useCache = false;
+            _request.followRedirects = false;
         }
 
         public function get content():String {
@@ -25,14 +27,19 @@
         
         public function load():void {
             _stream = new URLStream();
-            _stream.load(_request);
             _stream.addEventListener(Event.COMPLETE, onLoad);
-            
+            _stream.addEventListener(HTTPStatusEvent.HTTP_RESPONSE_STATUS, onStatus);
+            _stream.load(_request);
         }
         
-        private function onLoad(event:Event):void {
+        protected function onLoad(event:Event):void {
             _content = _stream.readMultiByte(_stream.bytesAvailable, "gb2312");
             dispatchEvent(new LoadEvent(LoadEvent.LOADED));
+        }
+        
+        protected function onStatus(event:HTTPStatusEvent):void {
+            statusevent = event;
+            dispatchEvent(new LoadEvent(LoadEvent.STATUS));
         }
     }
 }

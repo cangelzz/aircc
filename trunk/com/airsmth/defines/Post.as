@@ -12,8 +12,8 @@
         public var reply:String = "";
         public var title:String = "";
         public var lz:String = "";
-        public var replyshow:String = "";
         public var images:ArrayList = null;
+        public var showreply:Boolean = false;
 
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();

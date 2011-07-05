@@ -14,11 +14,16 @@
         
         public function load():void {
             _loader.addEventListener(LoadEvent.LOADED, onLoad);
+            _loader.addEventListener(LoadEvent.STATUS, onStatus);
             _loader.load();
         }
         
         protected function onLoad(event:Event):void {
 
+        }
+        
+        protected function onStatus(event:Event):void {
+        
         }
         
         public function get data():ArrayCollection {
