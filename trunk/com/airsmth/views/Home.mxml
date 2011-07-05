@@ -36,8 +36,9 @@
             
             private function onLoginStart(event:Event):void {
                 var l:Label = new Label();
+                l.styleName = "loading";
                 l.text = "Logging in, please wait ...";
-                container.addElementAt(l, 0);
+                container.addElement(l);
             }
             
             private function onLoginSucc(event:Event):void {

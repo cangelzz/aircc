@@ -8,6 +8,7 @@
     <fx:Script>
         <![CDATA[
             import spark.events.IndexChangeEvent;
+            import spark.components.Label;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             public var config:XML;
@@ -34,6 +35,10 @@
             }
             
             private function onLoginStart(event:Event):void {
+                var l:Label = new Label();
+                l.styleName = "loading";
+                l.text = "Logging in, please wait ...";
+                container.addElement(l);
             }
             
             private function onLoginSucc(event:Event):void {
@@ -60,7 +65,9 @@
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/save_config.png')" click="save()" />
     </s:actionContent>
+    <s:VGroup width="100%" height="100%" id="container">
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />
     <s:CheckBox label="Auto" id="ckAuto" />
+    </s:VGroup>
 </s:View>
