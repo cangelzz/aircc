@@ -1,6 +1,9 @@
 dpi and screen resolution change, portrait and landscape change
-post loading progress 1/20 loaded at the right side of subject title
 search board and add to favor
 add local favor for guest login
 mail parse
 unified loading indicator
+password encode and decode
+image sizing problem
+mail notifier
+configration to ifLoadImage, ifHideRefernce, ifxxx
