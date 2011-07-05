@@ -114,6 +114,6 @@
         <s:ViewMenuItem click="filterType(3)"
             icon="@Embed(source='../../../assets/th_mark.png')" />
         <s:ViewMenuItem 
-            icon="@Embed(source='../../../assets/mail_white.png')" />
+            icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
     </s:viewMenuItems>
 </s:View>

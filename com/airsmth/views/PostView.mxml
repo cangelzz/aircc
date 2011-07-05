@@ -128,8 +128,8 @@
         <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
             icon="@Embed(source='../../../assets/reply_post.png')" />
         <s:ViewMenuItem 
-            icon="@Embed(source='../../../assets/mail_white.png')" />
+            icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
         <s:ViewMenuItem id="meTrash"
-            icon="@Embed(source='../../../assets/trash.png')" />
+            icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
     </s:viewMenuItems>
 </s:View>
