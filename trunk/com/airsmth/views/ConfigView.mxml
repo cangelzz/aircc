@@ -58,7 +58,7 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.replaceView(BoardView, data)" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="save()" />
+        <s:Button icon="@Embed(source='../../../assets/save_config.png')" click="save()" />
     </s:actionContent>
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />

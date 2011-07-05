@@ -93,8 +93,8 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev.png')" click="prev()" id="sprevBtn" />
-        <s:Button icon="@Embed(source='../../../assets/next.png')" click="next()" id="snextBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" />
+        <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" />
         <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
@@ -105,9 +105,9 @@
         
     <s:viewMenuItems>
         <s:ViewMenuItem click="postList.selectedItem.replyshow = postList.selectedItem.reply"
-            icon="@Embed(source='../../../assets/max_up.png')" />
+            icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
-            icon="@Embed(source='../../../assets/reply.png')" />
+            icon="@Embed(source='../../../assets/reply_post.png')" />
         <s:ViewMenuItem 
             icon="@Embed(source='../../../assets/mail_white.png')" />
         <s:ViewMenuItem id="meTrash"

@@ -31,7 +31,7 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/max_up.png')" click="submit()"/>
+        <s:Button icon="@Embed(source='../../../assets/submit_mail.png')" click="submit()"/>
     </s:actionContent>
     <s:TextInput id="tUserId" width="50%" />
     <s:TextInput id='tTitle' width="100%" />

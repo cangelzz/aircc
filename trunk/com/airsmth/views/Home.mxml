@@ -52,7 +52,7 @@
         ]]>
     </fx:Script>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/forward.png')" click="login()" />
+        <s:Button icon="@Embed(source='../../../assets/login.png')" click="login()" />
     </s:actionContent>
     <s:VGroup width="100%" height="100%" id="container">
     <s:TextInput id="tId" />
