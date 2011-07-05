@@ -58,10 +58,10 @@
             </s:fill>
         </s:Rect>
     <s:HGroup width="100%">
-        <s:VGroup width="100%" id="postGroup"  paddingBottom="3">
+        <s:VGroup width="100%" id="postGroup"  paddingBottom="10">
             <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
             <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="100%" />
-            <s:Label id="lbReply" text="{data.replyshow}" styleName="postreply" measuredHeight="10" width="100%" />
+            <s:Label id="lbReply" text="{data.reply}" styleName="postreply" measuredHeight="10" width="100%" includeInLayout="{data.showreply}" />
             <s:VGroup id="imageGroup" width="90%" />
         </s:VGroup>
         <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="8" width="20">

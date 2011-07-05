@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
-     viewActivate="activate()">
+     creationComplete="activate()">
     <s:layout>
         <s:VerticalLayout paddingTop="5"/>
     </s:layout>
@@ -15,14 +15,6 @@
             import mx.collections.ArrayCollection;
             public var boards:ArrayCollection;
             
-            public function init():void {
-                if (navigator.poppedViewReturnedObject != null )
-                    data = navigator.poppedViewReturnedObject.object as ArrayCollection;
-                else
-                    data = data as ArrayCollection;
-                
-            }
-            
             public function activate():void {
                 boardList.dataProvider = data as ArrayCollection;
             }
@@ -30,11 +22,16 @@
             public function search():void {
                 var sl:SearchBoardLoader = new SearchBoardLoader(tSearch.text);
                 sl.addEventListener(LoadEvent.DONE, onSearchMulti);
+                sl.addEventListener(LoadEvent.REDIRBOARD, onRedirect);
                 sl.load();
             }
             
             private function onSearchMulti(event:Event):void {
                 boardList.dataProvider = (event.currentTarget as SearchBoardLoader).data;
+            }
+            
+            private function onRedirect(event:Event):void {
+                navigator.pushView(ThreadView, (event.currentTarget as SearchBoardLoader).board);
             }
             
         ]]>
@@ -44,9 +41,12 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/config.png')" click="navigator.replaceView(ConfigView, data)" />
+        <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="activate()" />
     </s:navigationContent>
-    <s:actionContent>
+    <s:titleContent>
         <s:TextInput id="tSearch" />
+    </s:titleContent>
+    <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/search.png')" click="search()" />
     </s:actionContent>
     <s:List id="boardList"

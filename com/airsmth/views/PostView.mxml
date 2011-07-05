@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
-    viewActivate="init()">
+    creationComplete="init()">
     <s:layout>
         <s:VerticalLayout paddingTop="5"/>
     </s:layout>
@@ -91,6 +91,13 @@
                 }
                 parentApplication.viewMenuOpen=true;
             }
+            
+            protected function expandall():void {
+                for each(var post:Post in postList.dataProvider) {
+                    post.showreply = true;
+                    
+                }
+            }
 
         ]]>
     </fx:Script>
@@ -101,8 +108,11 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
         <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" />
         <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" />
-        <s:ComboBox id="jump" width="40" change="jumpPage(jump.selectedIndex + 1)" />
+        <s:ComboBox id="jump" width="60" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/expandall.png')" click="expandall()" id="expandBtn" />
+    </s:actionContent>
     <s:HGroup width="100%">
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
     <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
@@ -113,7 +123,7 @@
         click="menuOpen()" />
         
     <s:viewMenuItems>
-        <s:ViewMenuItem click="postList.selectedItem.replyshow = postList.selectedItem.reply"
+        <s:ViewMenuItem click="postList.selectedItem.showreply = true"
             icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
             icon="@Embed(source='../../../assets/reply_post.png')" />

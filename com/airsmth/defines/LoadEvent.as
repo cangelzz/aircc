@@ -9,7 +9,9 @@
         public static const LOGINSUCC:String = "Login Success";
         public static const LOGINFAIL:String = "Login Fail";
         public static const LOGINSTART:String = "Login Start";
-        
+        public static const STATUS:String = "httpstatus";
+        public static const REDIRBOARD:String = "redirect board";
+                
         public function LoadEvent(type:String,bubbles:Boolean=false,cancelable:Boolean=false):void {
             super(type,bubbles,cancelable);
         }
