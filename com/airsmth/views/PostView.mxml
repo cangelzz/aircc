@@ -12,6 +12,8 @@
             import com.airsmth.defines.*;
             import com.airsmth.renders.*;
             import com.airsmth.views.*;
+            private var cnt_loaded:Number;
+            private var cnt_all:Number;
             
             public function init():void {
                 var sl:SubjectLoader = new SubjectLoader(data as Subject);
@@ -36,7 +38,9 @@
                 for (i = 1; i <= sub.tpage; i++) { pages.addItem(i); }
                 jump.dataProvider = pages;
                 jump.selectedIndex = sub.pno - 1;
-                
+                cnt_all = sl.data.length;
+                cnt_loaded = 0;
+                               
                 for (var i:Number = 0; i < sl.data.length; i++) {
         	        //nw PostLoader(sl.data.getItemAt(i) as Post, postList, i);
                     loadPost(sl.data.getItemAt(i) as Post, i);
@@ -54,6 +58,8 @@
                 var idx:Number = pl.idx;
                 var po:Post = pl.post;
                 postList.dataProvider.setItemAt(po, idx);
+                cnt_loaded = cnt_loaded + 1;
+                lbLoaded.text = cnt_loaded.toString() + "/" + cnt_all.toString();
             }
             
             protected function next():void {
@@ -99,7 +105,7 @@
     </s:navigationContent>
     <s:HGroup width="100%">
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
-    <s:Label id="lbLoaded"  textAlign="end" width="100%"/>
+    <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
     </s:HGroup>
     <s:List id="postList"
         width="100%" height="100%" 

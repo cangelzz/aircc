@@ -33,7 +33,7 @@
                 <s:SolidColor id="scBackground" color.selected="0xA8C6EE" />
             </s:fill>
         </s:Rect>
-    <s:HGroup width="100%" id="threadGroup" paddingBottom="5" paddingTop="8" paddingLeft="5" paddingRight="5">
+    <s:HGroup width="100%" id="threadGroup" paddingBottom="5" paddingTop="12" paddingLeft="5" paddingRight="5">
             <s:Label id="lbcname" text="{data.bname}" width="100%"/>
             <s:Label id="lbBoard" text="{data.cname}" textAlign="end" width="100%"/>
     </s:HGroup>
