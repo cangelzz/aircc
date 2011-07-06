@@ -6,10 +6,12 @@
     
     public class BoardLoader extends TextLoader {
         private var _board:Board;
+        private var latest:Boolean = true;
         
-        public function BoardLoader(board:Board):void {
+        public function BoardLoader(board:Board, config:Config = null):void {
             super(SMTH.BBSDOC, board.data);
             _board = board;
+            if (config != null) latest = config.showlatest;
         }
         
         public function get board():Board {
@@ -43,9 +45,13 @@
                  thread.title = result[6];
                  thread.size = result[7];
                  // ignore Bottom post
-                 if (!thread.d) lines.addItemAt(thread, 0);
+                 
+                 if (!thread.d) lines.addItem(thread);
                  result = p.exec(text);
              }
+             
+             if (latest) lines.source.reverse();
+             
              _data = lines;
              dispatchEvent(new LoadEvent(LoadEvent.DONE));
         }

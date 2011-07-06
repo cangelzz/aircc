@@ -35,7 +35,7 @@
                 if (board.ftype == "1") typeBtn.setStyle("icon", iconDigest);
                 if (board.ftype == "3") typeBtn.setStyle("icon", iconMark);
                 
-                var bl:BoardLoader = new BoardLoader(data as Board);
+                var bl:BoardLoader = new BoardLoader(data as Board, parentApplication.globalSMTH.config);
                 bl.addEventListener(LoadEvent.DONE, onLoad);
                 bl.load();
             }

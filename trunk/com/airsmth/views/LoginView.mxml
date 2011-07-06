@@ -78,7 +78,7 @@
     <s:CheckBox label="自动登录" id="ckAuto" />
     <s:CheckBox label="最新主题在上" id="ckLatest" />
     <s:CheckBox label="默认同主题" id="ckSubject" />
-    <s:CheckBox label="隐藏引文" id="ckRefer" />
+    <s:CheckBox label="显示引文" id="ckRefer" />
     <s:CheckBox label="显示图片" id="ckImage" />
     </s:VGroup>
 </s:View>

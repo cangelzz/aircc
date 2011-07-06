@@ -48,7 +48,7 @@
             }
             
             public function loadPost(post:Post, idx:Number):void {
-                var pl:PostLoader = new PostLoader(post, idx);
+                var pl:PostLoader = new PostLoader(post, idx, parentApplication.globalSMTH.config);
                 pl.addEventListener(LoadEvent.DONE, loadPostDone);
                 pl.load();
             }
@@ -81,7 +81,7 @@
             
             protected function menuOpen():void {
                 var post:Post = postList.selectedItem as Post;
-                var I:String = parentApplication.TopConfig.auth.id;
+                var I:String = parentApplication.globalSMTH.config.id;
                 if (post.lz == I) {
                     meTrash.visible = true;
                     meTrash.includeInLayout = true;
