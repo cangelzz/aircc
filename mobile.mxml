@@ -45,7 +45,7 @@
                 NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExit);
                 var config:XML = Util.getConfig();
                 globalSMTH = new SMTH(config);
-                navigator.pushView(LoginView, config);
+                navigator.pushView(LoginView);
             }
             
             protected function onExit(event:Event):void {

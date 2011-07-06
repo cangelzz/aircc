@@ -7,7 +7,7 @@ package com.airsmth.defines {
             var f:FileStream;
             var cf:File = SMTH.CONFIGPATH;
             if (!cf.exists) {
-                var cx:XML = <config><auth><id>guest</id><pass></pass><auto>0</auto></auth></config>;
+                var cx:XML = <config><auth><id>guest</id><pass></pass><auto>true</auto></auth></config>;
                 f = new FileStream();
                 f.open(cf, FileMode.WRITE);
                 f.writeUTFBytes(cx.toXMLString());

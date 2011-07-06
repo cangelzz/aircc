@@ -38,7 +38,7 @@
                 <fx:Object label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"
                     view="{MailFolderView}" data=""/>
                 <fx:Object label="设置" icon="@Embed(source='../../../assets/config.png')"
-                    view="{ConfigView}" data=""/>
+                    view="{LoginView}" data="config"/>
             </s:ArrayCollection>
         </s:dataProvider>
     </s:List>
