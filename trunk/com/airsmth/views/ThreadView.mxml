@@ -108,7 +108,7 @@
         <s:Button click="changeType()" id="typeBtn" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="last()" id="refreshBtn" />
+        <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="parentApplication.viewMenuOpen=true" id="menuBtn" />
         <!--s:Button icon="@Embed(source='../../../assets/new_post.png')" click="newPost()" id="newBtn" /-->
     </s:actionContent>
@@ -119,6 +119,8 @@
     <s:viewMenuItems>
         <s:ViewMenuItem click="newPost()"
             icon="@Embed(source='../../../assets/new_post.png')" />
+        <s:ViewMenuItem click="last()"
+            icon="@Embed(source='../../../assets/last_th_page.png')" />
         <s:ViewMenuItem click="filterType(1)"
             icon="@Embed(source='../../../assets/th_digest.png')" />
         <s:ViewMenuItem click="filterType(3)"
