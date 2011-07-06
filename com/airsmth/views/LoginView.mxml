@@ -60,6 +60,7 @@
             
             private function onLoginFail(event:Event):void {
                 lbInfo.text = "Login failed";
+                //navigator.pushView(HomeView);
             }
             
         ]]>
