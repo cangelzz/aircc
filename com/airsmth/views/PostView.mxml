@@ -106,8 +106,8 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" />
-        <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" enabled="false"/>
+        <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" enabled="false"/>
         <s:ComboBox id="jump" width="60" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
     <s:actionContent>
