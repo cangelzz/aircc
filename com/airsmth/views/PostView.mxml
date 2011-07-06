@@ -123,10 +123,10 @@
         click="menuOpen()" />
         
     <s:viewMenuItems>
-        <s:ViewMenuItem click="postList.selectedItem.showrefer = true"
-            icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
             icon="@Embed(source='../../../assets/reply_post.png')" />
+        <s:ViewMenuItem click="postList.selectedItem.showrefer = true"
+            icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem 
             icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
         <s:ViewMenuItem id="meTrash"

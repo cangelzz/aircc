@@ -22,7 +22,6 @@
         {
             iconPlacement:top;
         }
-
         s|ViewMenuItem
         {
 	        color:#ffffff;
@@ -33,6 +32,7 @@
         {
 	        skinClass: ClassReference("com.airsmth.skins.CustomViewMenuSkin");
         }
+
     </fx:Style>
     <fx:Script>
         <![CDATA[

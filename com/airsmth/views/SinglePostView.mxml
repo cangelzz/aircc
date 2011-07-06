@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="init()">
+    <s:layout>
+        <s:VerticalLayout paddingTop="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import spark.events.IndexChangeEvent;
+            import com.airsmth.defines.*;
+            import com.airsmth.renders.*;
+            import com.airsmth.views.*;
+            public var post:Post;
+            
+            public function init():void {
+                var subject:Subject = data as Subject;
+                post = new Post();
+                post.bid = subject.bid;
+                post.id = subject.pid;
+                post.author = subject.author;
+                var pl:PostLoader = new PostLoader(post, 0, true);
+                pl.addEventListener(LoadEvent.DONE, onLoad);
+                pl.load();
+            }
+            
+            public function onLoad(event:Event):void {
+                var post:Post = (event.currentTarget as PostLoader).post;
+                lbAuthor.text = post.author;
+                lbContent.text = post.content;
+                lbReply.visible = post.showrefer;
+                lbReply.text = post.reply;
+            }
+            
+            protected function prev():void {
+            }
+            protected function next():void {
+            }
+            
+            protected function menuOpen():void {
+                var I:String = parentApplication.globalSMTH.config.id;
+                if (lbAuthor.text == I) {
+                    meTrash.visible = true;
+                    meTrash.includeInLayout = true;
+                } else {
+                    meTrash.visible = false;
+                    meTrash.includeInLayout = false;
+                }
+                parentApplication.viewMenuOpen=true;
+            }
+            
+            protected function expandsubject():void {
+
+            }
+
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+        <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" enabled="false"/>
+        <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" enabled="false"/>
+    </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/expandall.png')" click="expandsubject()" id="expandBtn" />
+    </s:actionContent>
+    
+    <s:VGroup width="100%" click="menuOpen()">
+    <s:Label id="lbAuthor" styleName="postauthor"/>
+    <s:Label id="lbContent" width="100%"/>
+    <s:Label id="lbReply" width="100%"/>
+    </s:VGroup>
+
+    <s:viewMenuItems>
+        <s:ViewMenuItem click="navigator.replaceView(ReplyView, post)"
+            icon="@Embed(source='../../../assets/reply_post.png')" />
+        <s:ViewMenuItem 
+            icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
+        <s:ViewMenuItem id="meTrash"
+            icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
+    </s:viewMenuItems>
+</s:View>
