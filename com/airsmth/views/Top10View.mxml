@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="init()">
+    <s:layout>
+        <s:VerticalLayout paddingTop="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            
+            public function init():void {
+                var tl:Top10Loader = new Top10Loader();
+                tl.addEventListener(LoadEvent.DONE, onLoad);
+                tl.load();
+            }
+            
+            public function onLoad(event:Event):void {
+                //lbInfo.text = (event.currentTarget as Top10Loader).debug;
+                threadList.dataProvider = (event.currentTarget as Top10Loader).data;
+            }
+            
+        ]]>
+    </fx:Script>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+    </s:navigationContent>
+    <s:actionContent>
+    </s:actionContent>
+    <s:List id="threadList"
+        width="100%" height="100%"
+        change="navigator.pushView(PostView, threadList.selectedItem)"
+        itemRendererFunction="RenderUtil.selectRenderer" />
+    <!--s:Label id="lbInfo" width="100%" /-->
+</s:View>

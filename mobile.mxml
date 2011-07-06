@@ -39,6 +39,7 @@
             import flash.events.*;
             import com.airsmth.defines.*;
             import com.airsmth.views.LoginView;
+            [Bindable]
             public var globalSMTH:SMTH;
             
             protected function init():void {
