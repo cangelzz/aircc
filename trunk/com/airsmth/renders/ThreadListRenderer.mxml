@@ -57,7 +57,7 @@
         </s:Rect>
         <s:HGroup width="100%" id="threadGroup" paddingBottom="3" paddingTop="12" paddingLeft="3" paddingRight="8">
             <s:Label id="lbTitle" width="100%" />
-            <s:Label id="lbAuthor" paddingBottom="10" textAlign="end" />
+            <s:Label id="lbAuthor" paddingBottom="10" textAlign="end" styleName="threadauthor" />
         </s:HGroup>
     </s:HGroup>
     </s:Group>
