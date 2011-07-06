@@ -16,7 +16,7 @@
             import spark.components.Label;
             
             public function init():void {
-                config = data as XML;
+                config = parentApplication.globalSMTH.config;
                 tId.text = config.auth.id;
                 tPass.text = config.auth.pass;
                 var auto:Number = Number(config.auth.auto);
@@ -26,12 +26,11 @@
             public function login():void {
                 config.auth.id = tId.text;
                 config.auth.pass = tPass.text;
-                var smth:SMTH = new SMTH();
-                smth.input(config);
-                smth.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
-                smth.addEventListener(LoadEvent.LOGINSUCC, onLoginSucc);
-                smth.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
-                smth.login();
+                var sl:SMTHLoader = new SMTHLoader(config);
+                sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
+                sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
+                sl.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
+                sl.load();
             }
             
             private function onLoginStart(event:Event):void {
@@ -41,10 +40,12 @@
                 container.addElement(l);
             }
             
-            private function onLoginSucc(event:Event):void {
-                config.auth.auto = "1";
-                if (ckAuto.selected) SMTH.smth.saveConfig(config);
-                navigator.pushView(BoardView, (event.currentTarget as SMTH).acFavor);
+            private function onLoginDone(event:Event):void {
+                //config.auth.auto = "1";
+                //if (ckAuto.selected) parentApplication.globalSMTH.saveConfig(config);
+                parentApplication.globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
+                navigator.pushView(HomeView);
+//                navigator.pushView(BoardView, (event.currentTarget as SMTH).acFavor);
             }
             
             private function onLoginFail(event:Login):void {

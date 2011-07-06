@@ -40,7 +40,7 @@
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/config.png')" click="navigator.replaceView(ConfigView, data)" />
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="activate()" />
     </s:navigationContent>
     <s:actionContent>
