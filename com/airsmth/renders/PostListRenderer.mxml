@@ -8,6 +8,7 @@
             //import com.airsmth.views.ReplyView;
             import spark.components.Label;
             import spark.components.Image;
+            
             public var lz:String;
             
             override public function set data(value:Object):void { 
@@ -32,7 +33,12 @@
                         //image.verticalAlign = "top";
                         //image.preliminaryWidth = 480;
                         //image.preliminaryHeight = 320;
-                        image.source = value.images.getItemAt(i) as String;
+                        if (parentApplication.globalSMTH.config.showimg) {
+                            image.source = value.images.getItemAt(i) as String;
+                        }
+                        else {
+                            image.source = "../../../assets/image.png";
+                        }
                         image.setStyle("enableLoadingState", "true");
                         imageGroup.addElement(image);
                         //var lb:Label = new Label();
