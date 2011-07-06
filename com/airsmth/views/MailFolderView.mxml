@@ -15,8 +15,17 @@
             
             public function init():void {
                 var mb:MailBox;
-                if (data == null || data == "") mb = new MailBox();
-                else mb = data as MailBox;
+                if (data == null || data == "") {
+                    mb = new MailBox();
+                    inboxBtn.enabled = false;
+                    lbMailBox.text = "收件箱";
+                }
+                else {
+                    mb = data as MailBox;
+                    if (mb.path == MailBox.DIR) { inboxBtn.enabled = false; lbMailBox.text = "收件箱"; }
+                    if (mb.path == MailBox.SENT) { sentBtn.enabled = false; lbMailBox.text = "发件箱"; }
+                    if (mb.path == MailBox.DELETED) { trashBtn.enabled = false; lbMailBox.text = "垃圾箱"; }
+                }
                 var ml:MailFolderLoader = new MailFolderLoader(mb);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
@@ -44,17 +53,8 @@
                 navigator.replaceView(MailFolderView, CurMail.box);
             }
             
-            protected function changeType():void {
-                var board:Board = data as Board;
-                if (board.ftype == "6") board.ftype = "0";
-                else board.ftype = "6";
-                navigator.replaceView(ThreadView, board);
-            }
-            
-            protected function filterType(type:Number = 0):void {
-                var board:Board = data as Board;
-                if (type != 0) board.ftype = type.toString();
-                navigator.replaceView(ThreadView, board);
+            protected function goBox(path:String):void {
+                navigator.replaceView(MailFolderView, new MailBox(path));
             }
             
         ]]>
@@ -66,23 +66,28 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
         <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
         <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
-        <s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="go(null)" id="lastBtn" />
-        <s:ButtonBar requireSelection="true" enabled="false" >
-            <s:dataProvider>
-                <s:ArrayCollection>
-                    <fx:Object label="" icon="@Embed(source='../../../assets/mail_inbox.png')"/>
-                    <fx:Object label="" icon="@Embed(source='../../../assets/mail_sent.png')"/>
-                </s:ArrayCollection>
-            </s:dataProvider>
-        </s:ButtonBar>
+        <!-- s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="go(null)" id="lastBtn" /-->
     </s:navigationContent>
+    <s:titleContent>
+        <s:Label id="lbMailBox" width="100%" textAlign="center" color="0xFFFFFF"/>
+    </s:titleContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
         <s:Button icon="@Embed(source='../../../assets/new_mail.png')" click="newMail()" id="newBtn" />
+        <s:Button icon="@Embed(source='../../../assets/more.png')" click="parentApplication.viewMenuOpen = true" id="moreBtn" />
     </s:actionContent>
     <s:List id="mailList"
         width="100%" height="100%"
         change="navigator.pushView(MailView, mailList.selectedItem)"
         itemRendererFunction="RenderUtil.selectRenderer" />
-
+    <s:viewMenuItems>
+        <s:ViewMenuItem id="inboxBtn" click="goBox(MailBox.DIR)"
+            icon="@Embed(source='../../../assets/mail_inbox.png')"/>
+        <s:ViewMenuItem id="sentBtn" click="goBox(MailBox.SENT)"
+            icon="@Embed(source='../../../assets/mail_sent.png')"/>
+        <s:ViewMenuItem id="trashBtn" click="goBox(MailBox.DELETED)"
+            icon="@Embed(source='../../../assets/trash.png')"/>
+        <s:ViewMenuItem id="lastBtn" click="go(null)"
+            icon="@Embed(source='../../../assets/last_mail_page.png')"/>
+    </s:viewMenuItems>
 </s:View>
