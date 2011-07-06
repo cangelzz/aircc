@@ -11,7 +11,7 @@ package com.airsmth.defines {
                                 <auth>
                                    <id>guest</id>
                                    <pass></pass>
-                                   <auto>true</auto>
+                                   <auto>false</auto>
                                 </auth>
                                 <option>
                                     <showsubject>true</showsubject>
