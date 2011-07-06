@@ -60,7 +60,7 @@
         <s:VGroup width="100%" id="postGroup"  paddingBottom="10">
             <s:Label id="lbAuthor" styleName="postauthor" text="{data.author}"/>
             <s:Label id="lbContent" text="{data.content}" styleName="postcontent" measuredHeight="10" width="100%" />
-            <s:Label id="lbReply" text="{data.reply}" styleName="postreply" measuredHeight="10" width="100%" includeInLayout="{data.showreply}" />
+            <s:Label id="lbReply" text="{data.reply}" styleName="postreply" measuredHeight="10" width="100%" includeInLayout="{data.showrefer}" />
             <s:VGroup id="imageGroup" width="90%" />
         </s:VGroup>
         <s:HGroup horizontalAlign="right" paddingTop="3" paddingRight="8" width="20">

@@ -94,7 +94,7 @@
             
             protected function expandall():void {
                 for each(var post:Post in postList.dataProvider) {
-                    post.showreply = true;
+                    post.showrefer = true;
                     
                 }
             }
@@ -123,7 +123,7 @@
         click="menuOpen()" />
         
     <s:viewMenuItems>
-        <s:ViewMenuItem click="postList.selectedItem.showreply = true"
+        <s:ViewMenuItem click="postList.selectedItem.showrefer = true"
             icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
             icon="@Embed(source='../../../assets/reply_post.png')" />

@@ -7,7 +7,20 @@ package com.airsmth.defines {
             var f:FileStream;
             var cf:File = SMTH.CONFIGPATH;
             if (!cf.exists) {
-                var cx:XML = <config><auth><id>guest</id><pass></pass><auto>true</auto></auth></config>;
+                var cx:XML = <config>
+                                <auth>
+                                   <id>guest</id>
+                                   <pass></pass>
+                                   <auto>true</auto>
+                                </auth>
+                                <option>
+                                    <showsubject>true</showsubject>
+                                    <showimg>true</showimg>
+                                    <imgsize>0</imgsize>
+                                    <showrefer>false</showrefer>
+                                    <showlatest>true</showlatest>
+                                </option>
+                             </config>
                 f = new FileStream();
                 f.open(cf, FileMode.WRITE);
                 f.writeUTFBytes(cx.toXMLString());
@@ -19,5 +32,13 @@ package com.airsmth.defines {
             f.close();
             return config;
         }
+        
+        public static function saveConfig(config:XML):void {
+            var f:FileStream = new FileStream();
+            f.open(SMTH.CONFIGPATH, FileMode.WRITE);
+            f.writeUTFBytes(config.toXMLString());
+            f.close();
+        }
+        
 	}
 }

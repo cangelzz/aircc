@@ -13,7 +13,7 @@
         public var title:String = "";
         public var lz:String = "";
         public var images:ArrayList = null;
-        public var showreply:Boolean = false;
+        public var showrefer:Boolean = false;
 
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
