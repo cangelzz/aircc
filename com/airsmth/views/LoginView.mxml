@@ -12,14 +12,19 @@
             import spark.events.IndexChangeEvent;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
-            public var config:XML;
             import spark.components.Label;
+            public var config:XML;
             
             public function init():void {
                 config = parentApplication.globalSMTH.config;
                 tId.text = config.auth.id;
                 tPass.text = config.auth.pass;
                 ckAuto.selected = config.auth.auto;
+                ckImage.selected = config.option.showimg;
+                ckLatest.selected = config.option.showlatest;
+                ckRefer.selected = config.option.showrefer;
+                ckSubject.selected = config.option.showsubject;
+                //ckAuto.selected = config.auth.auto;
                 if (data != null) {
                     btnBack.visible = true;
                     return;
@@ -30,6 +35,11 @@
             public function login():void {
                 config.auth.id = tId.text;
                 config.auth.pass = tPass.text;
+                config.auth.auto = ckAuto.selected;
+                config.option.showimg = ckImage.selected;
+                config.option.showlatest = ckLatest.selected
+                config.option.showrefer = ckRefer.selected;
+                config.option.showsubject = ckSubject.selected;
                 var sl:SMTHLoader = new SMTHLoader(config);
                 sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
@@ -45,11 +55,10 @@
             }
             
             private function onLoginDone(event:Event):void {
-                //config.auth.auto = "1";
-                //if (ckAuto.selected) parentApplication.globalSMTH.saveConfig(config);
                 parentApplication.globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
+                parentApplication.globalSMTH.config = (event.currentTarget as SMTHLoader).config;
+                Util.saveConfig(config);
                 navigator.pushView(HomeView);
-//                navigator.pushView(BoardView, (event.currentTarget as SMTH).acFavor);
             }
             
             private function onLoginFail(event:Login):void {
@@ -66,6 +75,10 @@
     <s:VGroup width="100%" height="100%" id="container">
     <s:TextInput id="tId" />
     <s:TextInput id="tPass" displayAsPassword="true" />
-    <s:CheckBox label="Auto" id="ckAuto" />
+    <s:CheckBox label="自动登录" id="ckAuto" />
+    <s:CheckBox label="最新主题在上" id="ckLatest" />
+    <s:CheckBox label="默认同主题" id="ckSubject" />
+    <s:CheckBox label="隐藏引文" id="ckRefer" />
+    <s:CheckBox label="显示图片" id="ckImage" />
     </s:VGroup>
 </s:View>

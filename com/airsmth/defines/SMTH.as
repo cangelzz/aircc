@@ -22,22 +22,11 @@
         public static const SENDMAIL:String = "http://www.newsmth.net/bbssendmail.php";
         public static const PSTMAIL:String = "http://www.newsmth.net/bbspstmail.php";
         public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
-        private var _config:XML;
+        public var config:XML;
         public var acFavor:ArrayCollection;
         
-        public function SMTH(config:XML):void {
-            _config = config;
-        }
-        
-        public function get config():XML {
-            return _config;
-        }
-        
-        public function saveConfig(config:XML):void {
-            var f:FileStream = new FileStream();
-            f.open(CONFIGPATH, FileMode.WRITE);
-            f.writeUTFBytes(config.toXMLString());
-            f.close();
+        public function SMTH(con:XML):void {
+            config = con;
         }
         
     }
