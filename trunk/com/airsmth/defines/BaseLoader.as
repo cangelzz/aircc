@@ -9,6 +9,7 @@
         private var _url:String = "";
         private var _content:String = "";
         private var _data:Object = null;
+        private var _utf8:Object = null;
         public var statusevent:HTTPStatusEvent;
         
         public function BaseLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
@@ -25,6 +26,10 @@
             return _content;
         }
         
+        public function get utf8():String {
+            return _utf8;
+        }
+        
         public function load():void {
             _stream = new URLStream();
             _stream.addEventListener(Event.COMPLETE, onLoad);
@@ -33,6 +38,7 @@
         }
         
         protected function onLoad(event:Event):void {
+            _utf8 = _stream.readMultiByte(_stream.bytesAvailable, "utf-8");
             _content = _stream.readMultiByte(_stream.bytesAvailable, "gb2312");
             dispatchEvent(new LoadEvent(LoadEvent.LOADED));
         }
