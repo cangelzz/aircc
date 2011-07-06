@@ -15,6 +15,10 @@
         public var backup:String = "1";
         public var signature:String = "0";
         
+        private var p_n:RegExp = /n/i;
+        private var p_r:RegExp = /r/i;
+
+        
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
             _data.dir = path;
@@ -35,6 +39,13 @@
             return "title=" + UrlMultiEncode.urlencodeGB2312(title) + "&userid=" + author +
                 "&num=" + id + "&dir=" + path + "&file=" + fileno + "&signature=" + signature + "&backup=" + "1"
                 + "&text=" + UrlMultiEncode.urlencodeGB2312(content.replace(/\r/g,"\r\n"));
+        }
+        
+        public function get r():Boolean {
+            return p_r.test(flag);
+        }
+        public function get n():Boolean {
+            return p_n.test(flag);
         }
     }
 }

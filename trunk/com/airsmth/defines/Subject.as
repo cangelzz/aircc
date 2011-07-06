@@ -22,6 +22,7 @@
         private var p_a:RegExp = /@/i;
         private var p_d:RegExp = /d/i;
         private var p_g:RegExp = /g/i;
+        private var p_r:RegExp = /\*/i;
         
         public function get data():URLVariables {
             var _data:URLVariables = new URLVariables();
@@ -42,6 +43,9 @@
         }
         public function get d():Boolean {
             return p_d.test(flag);
+        }
+        public function get r():Boolean {
+            return p_r.test(flag);
         }
     }
 }
