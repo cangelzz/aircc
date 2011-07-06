@@ -9,11 +9,14 @@
 		private var _idx:Number;
         private var _post:Post;
         
-		public function PostLoader(post:Post, idx:Number, config:Config = null):void {
+		public function PostLoader(post:Post, idx:Number, config:Object = null):void {
             super(SMTH.BBSCON, post.data);
             _post = post;
             _idx = idx;
-            if (config != null) _post.showrefer = config.showrefer;
+            if (config != null) {
+                if (config is Config) _post.showrefer = config.showrefer;
+                if (config is Boolean) _post.showrefer = config;
+            }
 		}
         
         public function get post():Post {

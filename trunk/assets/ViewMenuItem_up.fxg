@@ -22,7 +22,7 @@
 	<!-- Border -->
 	<Rect width="158" height="99" x=".5" y=".5">
 		<stroke>
-			<SolidColorStroke weight="1" color="#ffffff" alpha=".9"/> 
+			<SolidColorStroke weight="1" color="#ffffff" alpha=".25"/> 
 		</stroke>
 	</Rect>
 </Graphic>
