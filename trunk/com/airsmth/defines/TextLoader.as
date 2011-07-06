@@ -8,8 +8,9 @@
         protected var _data:ArrayCollection;
         protected var _loader:BaseLoader;
         
-        public function TextLoader(url:String, data:Object = null):void {
+        public function TextLoader(url:String, data:Object = null, encoding:String = "gb2312"):void {
             _loader = new BaseLoader(url, data, URLRequestMethod.GET);
+            _loader.encoding = encoding;
         }
         
         public function load():void {

@@ -16,6 +16,7 @@
         public var pno:Number = 1;
         public var tpage:Number;
         public var lz:String = "";
+        public var preview:String = "";
         
         private var p_m:RegExp = /m/i;
         private var p_a:RegExp = /@/i;

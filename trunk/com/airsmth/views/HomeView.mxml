@@ -19,37 +19,23 @@
                 lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.id;
             }
             
-            protected function go():void {
-                var obj:Object = sectionList.selectedItem;
-                switch (obj.id) {
-                    case "bTop":
-                        ;
-                        break;
-                    case "bFav":
-                        navigator.pushView(BoardView, parentApplication.globalSMTH.acFavor);
-                        break;
-                    case "bMail":
-                        navigator.pushView(MailFolderView);
-                        break;
-                    case "bConfig":
-                        navigator.pushView(LoginView, "reset");
-                        break;
-                }
-            }
-            
         ]]>
     </fx:Script>
     <s:titleContent>
         <s:Label id="lbWelcome" width="100%" textAlign="center" color="0xFFFFFF"/>
     </s:titleContent>
     <s:List width="100%" itemRenderer="com.airsmth.renders.HomeListRenderer" height="100%" id="sectionList"
-        click="go()">
+        change="navigator.pushView(sectionList.selectedItem.view, sectionList.selectedItem.data)">
         <s:dataProvider>
             <s:ArrayCollection>
-                <fx:Object id="bTop" label="十大" icon="@Embed(source='../../../assets/star.png')" />
-                <fx:Object id="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" />
-                <fx:Object id="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')" />
-                <fx:Object id="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')" />
+                <fx:Object id="bTop" label="十大" icon="@Embed(source='../../../assets/star.png')" 
+                    view="{Top10View}" data="" />
+                <fx:Object id="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" 
+                    view="{BoardView}" data="{parentApplication.globalSMTH.acFavor}" />
+                <fx:Object id="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"
+                    view="{MailFolderView}" data="" />
+                <fx:Object id="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
+                    view="{LoginView}" data="" />
             </s:ArrayCollection>
         </s:dataProvider>
     </s:List>

@@ -6,7 +6,6 @@
     import mx.collections.ArrayCollection;
     import com.airsmth.defines.*;
     
-    [Bindable]
     public class SMTH {
         public static const BBSDOC:String = "http://www.newsmth.net/bbsdoc.php";
         public static const BBSCON:String = "http://www.newsmth.net/bbscon.php";
@@ -25,6 +24,7 @@
         public static const TOP90:String = ""
         public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
         public var config:Config;
+        [Bindable]
         public var acFavor:ArrayCollection;
         
         public function SMTH(con:Config):void {

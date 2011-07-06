@@ -48,10 +48,7 @@
             }
             
             private function onLoginStart(event:Event):void {
-                var l:Label = new Label();
-                l.styleName = "loading";
-                l.text = "Logging in, please wait ...";
-                container.addElement(l);
+                lbInfo.text = "Loading, please wait ...";
             }
             
             private function onLoginDone(event:Event):void {
@@ -61,7 +58,8 @@
                 navigator.pushView(HomeView);
             }
             
-            private function onLoginFail(event:Login):void {
+            private function onLoginFail(event:Event):void {
+                lbInfo.text = "Login failed";
             }
             
         ]]>
@@ -80,5 +78,6 @@
     <s:CheckBox label="默认同主题" id="ckSubject" />
     <s:CheckBox label="显示引文" id="ckRefer" />
     <s:CheckBox label="显示图片" id="ckImage" />
+    <s:Label id="lbInfo" styleName="loading" />
     </s:VGroup>
 </s:View>
