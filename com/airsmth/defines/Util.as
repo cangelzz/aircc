@@ -3,7 +3,7 @@ package com.airsmth.defines {
     import com.airsmth.defines.SMTH;
 
 	public class Util {
-        public static function getConfig():XML {
+        public static function getConfig():Config {
             var f:FileStream;
             var cf:File = SMTH.CONFIGPATH;
             if (!cf.exists) {
@@ -28,15 +28,30 @@ package com.airsmth.defines {
             }
             f = new FileStream();
             f.open(cf, FileMode.READ);
-            var config:XML = XML(f.readUTFBytes(f.bytesAvailable));
+            var config:Config = new Config(XML(f.readUTFBytes(f.bytesAvailable)));
             f.close();
             return config;
         }
         
-        public static function saveConfig(config:XML):void {
+        public static function saveConfig(config:Config):void {
+            var cx:XML = <config></config>;
+            var auth:XML = <auth>
+                             <id>{config.id}</id>
+                             <pass>{config.pass}</pass>
+                             <auto>{config.auto}</auto>
+                           </auth>
+            cx.appendChild(auth);
+            var options:XML = <option>
+                              <showsubject>{config.showsubject}</showsubject>
+                              <showimg>{config.showimg}</showimg>
+                              <imgsize>{config.imgsize}</imgsize>
+                              <showrefer>{config.showrefer}</showrefer>
+                              <showlatest>{config.showlatest}</showlatest>
+                          </option>
+            cx.appendChild(options);
             var f:FileStream = new FileStream();
             f.open(SMTH.CONFIGPATH, FileMode.WRITE);
-            f.writeUTFBytes(config.toXMLString());
+            f.writeUTFBytes(cx.toXMLString());
             f.close();
         }
         

@@ -9,12 +9,12 @@
     [Bindable]
     public class SMTHLoader extends EventDispatcher {
         private var _auth:Auth;
-        public var config:XML;
+        public var config:Config;
         public var acFavor:ArrayCollection;
         
-        public function SMTHLoader(con:XML):void {
+        public function SMTHLoader(con:Config):void {
             config = con;
-            _auth = new Auth(config.auth.id, config.auth.pass);
+            _auth = new Auth(config.id, config.pass);
         }
         
         public function load():void {

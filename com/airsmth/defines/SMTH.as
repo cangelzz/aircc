@@ -22,10 +22,10 @@
         public static const SENDMAIL:String = "http://www.newsmth.net/bbssendmail.php";
         public static const PSTMAIL:String = "http://www.newsmth.net/bbspstmail.php";
         public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
-        public var config:XML;
+        public var config:Config;
         public var acFavor:ArrayCollection;
         
-        public function SMTH(con:XML):void {
+        public function SMTH(con:Config):void {
             config = con;
         }
         

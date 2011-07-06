@@ -13,13 +13,12 @@
             import com.airsmth.views.*;
             import mx.collections.ArrayCollection;
             import mx.core.ClassFactory;
-            public var config:XML;
             import spark.components.Label;
             [Bindable]
             public var boards:ArrayCollection
             
             protected function init():void {
-                lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.auth.id;
+                lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.id;
                 boards = parentApplication.globalSMTH.acFavor;
             }
             

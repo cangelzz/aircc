@@ -13,33 +13,33 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import spark.components.Label;
-            public var config:XML;
+            public var config:Config;
             
             public function init():void {
                 config = parentApplication.globalSMTH.config;
-                tId.text = config.auth.id;
-                tPass.text = config.auth.pass;
-                ckAuto.selected = config.auth.auto;
-                ckImage.selected = config.option.showimg;
-                ckLatest.selected = config.option.showlatest;
-                ckRefer.selected = config.option.showrefer;
-                ckSubject.selected = config.option.showsubject;
+                tId.text = config.id;
+                tPass.text = config.pass;
+                ckAuto.selected = config.auto;
+                ckImage.selected = config.showimg;
+                ckLatest.selected = config.showlatest;
+                ckRefer.selected = config.showrefer;
+                ckSubject.selected = config.showsubject;
                 //ckAuto.selected = config.auth.auto;
                 if (data != null) {
                     btnBack.visible = true;
                     return;
                 }
-                if (config.auth.auto) login();
+                if (config.auto) login();
             }
             
             public function login():void {
-                config.auth.id = tId.text;
-                config.auth.pass = tPass.text;
-                config.auth.auto = ckAuto.selected;
-                config.option.showimg = ckImage.selected;
-                config.option.showlatest = ckLatest.selected
-                config.option.showrefer = ckRefer.selected;
-                config.option.showsubject = ckSubject.selected;
+                config.id = tId.text;
+                config.pass = tPass.text;
+                config.auto = ckAuto.selected;
+                config.showimg = ckImage.selected;
+                config.showlatest = ckLatest.selected
+                config.showrefer = ckRefer.selected;
+                config.showsubject = ckSubject.selected;
                 var sl:SMTHLoader = new SMTHLoader(config);
                 sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
