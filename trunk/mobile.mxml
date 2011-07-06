@@ -43,7 +43,7 @@
             
             protected function init():void {
                 NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExit);
-                var config:XML = Util.getConfig();
+                var config:Config = Util.getConfig();
                 globalSMTH = new SMTH(config);
                 navigator.pushView(LoginView);
             }
