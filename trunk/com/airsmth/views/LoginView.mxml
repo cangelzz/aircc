@@ -19,8 +19,12 @@
                 config = parentApplication.globalSMTH.config;
                 tId.text = config.auth.id;
                 tPass.text = config.auth.pass;
-                var auto:Number = Number(config.auth.auto);
-                if (auto == 1) login();
+                ckAuto.selected = config.auth.auto;
+                if (data != null) {
+                    btnBack.visible = true;
+                    return;
+                }
+                if (config.auth.auto) login();
             }
             
             public function login():void {
@@ -53,6 +57,9 @@
             
         ]]>
     </fx:Script>
+    <s:navigationContent>
+        <s:Button id="btnBack" icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" visible="false"/>
+    </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/login.png')" click="login()" />
     </s:actionContent>
