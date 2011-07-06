@@ -1,0 +1,1 @@
+amxmlc +configname=airmobile mobiledemo.mxml -output mobile.swf
