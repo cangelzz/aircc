@@ -45,7 +45,7 @@
         }
         
         public function set pass(_pass:String):void {
-            xml.auth.pass = pass;
+            xml.auth.pass = _pass;
         }
         
         public function set auto(op:Boolean):void {
