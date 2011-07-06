@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5"/>
     </s:layout>
         
     <fx:Script>
@@ -14,6 +14,7 @@
             import com.airsmth.views.*;
             private var cnt_loaded:Number;
             private var cnt_all:Number;
+            private var last_index:Number = -1;
             
             public function init():void {
                 var sl:SubjectLoader = new SubjectLoader(data as Subject);
@@ -83,13 +84,20 @@
                 var post:Post = postList.selectedItem as Post;
                 var I:String = parentApplication.globalSMTH.config.id;
                 if (post.lz == I) {
-                    meTrash.visible = true;
-                    meTrash.includeInLayout = true;
+                    meTrash.enabled = true;
                 } else {
-                    meTrash.visible = false;
-                    meTrash.includeInLayout = false;
+                    meTrash.enabled = false;
                 }
                 parentApplication.viewMenuOpen=true;
+            }
+            
+            protected function postClick():void {
+                replyBtn.enabled = true;
+                if (parentApplication.globalSMTH.config.showrefer) return;
+                if (last_index != -1) postList.dataProvider[last_index].showrefer = false;
+                var post:Post = postList.selectedItem as Post;
+                last_index = postList.selectedIndex;
+                post.showrefer = true;
             }
             
             protected function expandall():void {
@@ -98,7 +106,7 @@
                     
                 }
             }
-
+            
         ]]>
     </fx:Script>
     <fx:Declarations>
@@ -111,7 +119,9 @@
         <s:ComboBox id="jump" width="60" change="jumpPage(jump.selectedIndex + 1)" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/expandall.png')" click="expandall()" id="expandBtn" />
+        <s:Button icon="@Embed(source='../../../assets/reply_post.png')" 
+            click="navigator.pushView(ReplyView, postList.selectedItem)" id="replyBtn" enabled="false" />
+        <s:Button icon="@Embed(source='../../../assets/more.png')" click="menuOpen()" id="moreBtn" />
     </s:actionContent>
     <s:HGroup width="100%">
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
@@ -120,12 +130,10 @@
     <s:List id="postList"
         width="100%" height="100%" 
         itemRendererFunction="RenderUtil.selectRenderer"
-        click="menuOpen()" />
+        click="postClick()" />
         
     <s:viewMenuItems>
-        <s:ViewMenuItem click="navigator.pushView(ReplyView, postList.selectedItem)"
-            icon="@Embed(source='../../../assets/reply_post.png')" />
-        <s:ViewMenuItem click="postList.selectedItem.showrefer = true"
+        <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem 
             icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
