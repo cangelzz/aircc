@@ -15,7 +15,7 @@
             
             public function init():void {
                 var mb:MailBox;
-                if (data == null) mb = new MailBox();
+                if (data == null || data == "") mb = new MailBox();
                 else mb = data as MailBox;
                 var ml:MailFolderLoader = new MailFolderLoader(mb);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
@@ -63,6 +63,7 @@
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
     <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
         <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
         <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
         <s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="go(null)" id="lastBtn" />

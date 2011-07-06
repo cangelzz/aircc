@@ -15,7 +15,7 @@
             public var boards:Object;
             
             public function init():void {
-                config = mx.core.FlexGlobals.topLevelApplication.TopConfig;
+                config = parentApplication.globalSMTH.config;
                 tId.text = config.auth.id;
                 tPass.text = config.auth.pass;
                 var auto:Number = Number(config.auth.auto);
@@ -26,12 +26,11 @@
             public function save():void {
                 config.auth.id = tId.text;
                 config.auth.pass = tPass.text;
-                var smth:SMTH = new SMTH();
-                smth.input(config);
-                smth.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
-                smth.addEventListener(LoadEvent.LOGINSUCC, onLoginSucc);
-                smth.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
-                smth.login();
+                var sl:SMTHLoader = new SMTHLoader(config);
+                sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
+                sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
+                sl.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
+                sl.load();
             }
             
             private function onLoginStart(event:Event):void {
@@ -41,17 +40,12 @@
                 container.addElement(l);
             }
             
-            private function onLoginSucc(event:Event):void {
+            private function onLoginDone(event:Event):void {
                 if (ckAuto.selected) config.auth.auto = "1";
                 else config.auth.auto = "0";
-                SMTH.smth.saveConfig(config);
-                mx.core.FlexGlobals.topLevelApplication.TopConfig = config;
-                boards = (event.currentTarget as SMTH).acFavor;
-                navigator.replaceView(BoardView, boards);
-            }
-            
-            override public function createReturnObject():Object {
-                return boards;
+                parentApplication.globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
+                parentApplication.globalSMTH.saveConfig(config);
+                navigator.popView();
             }
             
             private function onLoginFail(event:Login):void {
@@ -60,7 +54,7 @@
         ]]>
     </fx:Script>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.replaceView(BoardView, data)" />
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/save_config.png')" click="save()" />
