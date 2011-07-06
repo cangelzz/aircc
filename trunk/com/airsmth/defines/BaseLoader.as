@@ -9,7 +9,7 @@
         private var _url:String = "";
         private var _content:String = "";
         private var _data:Object = null;
-        private var _utf8:Object = null;
+        private var _utf8:String = null;
         public var statusevent:HTTPStatusEvent;
         
         public function BaseLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
