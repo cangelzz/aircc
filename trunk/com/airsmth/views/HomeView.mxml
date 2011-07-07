@@ -21,19 +21,20 @@
             }
             
             protected function go():void {
-                if (sectionList.selectedItem.oid == "bMail" && 
-                    ( (!parentApplication.globalSMTH.isLoggedOn) || 
-                        (parentApplication.globalSMTH.isLoggedOn && parentApplication.globalSMTH.isGuest))) return;
+                if (sectionList.selectedItem.oid == "bMail" && !parentApplication.globalSMTH.isLoggedOn) return;
                 navigator.pushView(sectionList.selectedItem.view, sectionList.selectedItem.data)
             }
             
         ]]>
     </fx:Script>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/shut_down.png')" click="NativeApplication.nativeApplication.exit()"/>
+    </s:navigationContent>
     <s:titleContent>
         <s:Label id="lbWelcome" width="100%" textAlign="center" color="0xFFFFFF"/>
     </s:titleContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/shut_down.png')" click="NativeApplication.nativeApplication.exit()"/>
+        <s:Button icon="@Embed(source='../../../assets/switch.png')" click="navigator.pushView(LoginView, 1)"/>
     </s:actionContent>
     <s:List width="100%" itemRenderer="com.airsmth.renders.HomeListRenderer" height="100%" id="sectionList"
         change="go()">
@@ -46,7 +47,7 @@
                 <fx:Object oid="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"
                     view="{MailFolderView}" data="" />
                 <fx:Object oid="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
-                    view="{LoginView}" data="" />
+                    view="{LoginView}" data="1" />
             </s:ArrayCollection>
         </s:dataProvider>
     </s:List>
