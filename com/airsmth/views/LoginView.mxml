@@ -63,18 +63,21 @@
             }
             
             private function onLoginFail(event:Event):void {
-                config.id = "guest";
+                //config.id = "guest";
                 lbInfo.text = "登录失败，请重试或以访客登录";
                 //navigator.pushView(HomeView);
             }
             
             protected function guestlogin():void {
                 config = parentApplication.globalSMTH.config;
+                config.id = "guest";
+                config.pass = "";
                 config.showimg = ckImage.selected;
                 config.showlatest = ckLatest.selected
                 config.showrefer = ckRefer.selected;
                 config.showsubject = ckSubject.selected;
                 config.showbottom = ckBottom.selected;
+                parentApplication.globalSMTH.isLoggedOn = false;
                 navigator.pushView(HomeView);
             }
             
