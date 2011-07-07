@@ -14,7 +14,6 @@
         <systemChrome>standard</systemChrome>
     </initialWindow>
     <icon>
-        <image48x48>assets/icon48.png</image48x48>
         <image128x128>assets/icon128.png</image128x128> 
     </icon>
     <android>
