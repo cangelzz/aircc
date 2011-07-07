@@ -26,9 +26,14 @@
         public var config:Config;
         [Bindable]
         public var acFavor:ArrayCollection;
+        public var isLoggedOn:Boolean = false;
         
         public function SMTH(con:Config):void {
             config = con;
+        }
+        
+        public function get isGuest():Boolean {
+            return config.id == "guest";
         }
         
     }

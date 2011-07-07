@@ -32,7 +32,7 @@
                 if (config.auto) login();
             }
             
-            public function login():void {
+            public function login(userid:Number = 0):void {
                 config.id = tId.text;
                 config.pass = tPass.text;
                 config.auto = ckAuto.selected;
@@ -48,18 +48,21 @@
             }
             
             private function onLoginStart(event:Event):void {
-                lbInfo.text = "Loading, please wait ...";
+                parentApplication.globalSMTH.isLoggedOn = false;
+                lbInfo.text = "正在登录, 请稍候...";
             }
             
             private function onLoginDone(event:Event):void {
                 parentApplication.globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
                 parentApplication.globalSMTH.config = (event.currentTarget as SMTHLoader).config;
+                parentApplication.globalSMTH.isLoggedOn = true;
                 Util.saveConfig(config);
                 navigator.pushView(HomeView);
             }
             
             private function onLoginFail(event:Event):void {
-                lbInfo.text = "Login failed";
+                config.id = "guest";
+                lbInfo.text = "登录失败，请重试或以访客登录";
                 //navigator.pushView(HomeView);
             }
             
@@ -67,6 +70,7 @@
     </fx:Script>
     <s:navigationContent>
         <s:Button id="btnBack" icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" visible="false"/>
+        <s:Button label="访客" icon="@Embed(source='../../../assets/guest.png')" click="tId.text='guest';login()"/>
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/login.png')" click="login()" />
