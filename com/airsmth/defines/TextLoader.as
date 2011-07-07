@@ -17,6 +17,7 @@
             _loader.addEventListener(LoadEvent.LOADED, onLoad);
             _loader.addEventListener(LoadEvent.STATUS, onStatus);
             _loader.load();
+            dispatchEvent(new LoadEvent(LoadEvent.LOADSTART));
         }
         
         protected function onLoad(event:Event):void {

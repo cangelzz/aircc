@@ -27,70 +27,88 @@
             [@Embed(source='../../../assets/th_mark.png')]
             [Bindable]
             public var iconMark:Class;
+            
+            public var CurBoard:Board;
 
             public function init():void {
+                if (data is ArrayCollection) {
+                    threadList.dataProvider = data[1] as ArrayCollection;
+                    return;
+                }
                 var board:Board = data as Board;
+                loadBoard(board);
+            }
+            
+            public function loadBoard(board:Board):void {
                 if (board.ftype == "6") typeBtn.setStyle("icon", iconSubject);
                 if (board.ftype == "0") typeBtn.setStyle("icon", iconSingle);
                 if (board.ftype == "1") typeBtn.setStyle("icon", iconDigest);
                 if (board.ftype == "3") typeBtn.setStyle("icon", iconMark);
                 
-                var bl:BoardLoader = new BoardLoader(data as Board, parentApplication.globalSMTH.config);
+                var bl:BoardLoader = new BoardLoader(board as Board, parentApplication.globalSMTH.config);
                 bl.addEventListener(LoadEvent.DONE, onLoad);
+                bl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 bl.load();
             }
             
             public function onLoad(event:Event):void {
+                lbInfo.includeInLayout = false;
                 var bl:BoardLoader = event.currentTarget as BoardLoader;
                 var brd:Board = bl.board;
                 threadList.dataProvider = bl.data;
                 if (brd.start <= brd.total - 30) bnextBtn.enabled = true;
                 else bnextBtn.enabled = false;
+                data = new ArrayCollection([bl.board, bl.data]);
+            }
+            
+            public function onLoadStart(event:Event):void {
+                lbInfo.includeInLayout = true;
             }
             
             protected function next():void {
-                var board:Board = data as Board;
+                var board:Board = data[0] as Board;
                 board.page = board.page + 1;
                 navigator.replaceView(ThreadView, board);
             }
             
             protected function prev():void {
-                var board:Board = data as Board;
+                var board:Board = data[0] as Board;
                 board.page = board.page - 1;
-                navigator.replaceView(ThreadView, board);
+                loadBoard(board)
             }
             
             protected function last():void {
-                var board:Board = data as Board;
+                var board:Board = data[0] as Board;
                 board.page = 0;
-                navigator.replaceView(ThreadView, board);
+                loadBoard(board)
             }
             
             protected function newPost():void {
-                navigator.pushView(NewPostView, (data as Board).bname);
+                navigator.pushView(NewPostView, (data[0] as Board).bname);
             }
             
             protected function refresh():void {
-                navigator.replaceView(ThreadView, data as Board);
+                //navigator.replaceView(ThreadView, data[0] as Board);
+                loadBoard(data[0] as Board);
             }
             
             protected function changeType():void {
-                var board:Board = data as Board;
+                var board:Board = data[0] as Board;
                 if (board.ftype == "6") board.ftype = "0";
                 else board.ftype = "6";
                 board.page = 0;
-                navigator.replaceView(ThreadView, board);
+                loadBoard(board)
             }
             
             protected function filterType(type:Number = 0):void {
-                var board:Board = data as Board;
+                var board:Board = data[0] as Board;
                 board.page = 0;
                 if (type != 0) board.ftype = type.toString();
-                navigator.replaceView(ThreadView, board);
+                loadBoard(board)
             }
             
             protected function go():void {
-                var ftype:String = (data as Board).ftype;
+                var ftype:String = (data[0] as Board).ftype;
                 if (ftype == "0") navigator.pushView(SinglePostView, threadList.selectedItem);
                 else navigator.pushView(PostView, threadList.selectedItem);
             }
@@ -112,6 +130,7 @@
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="parentApplication.viewMenuOpen=true" id="menuBtn" />
         <!--s:Button icon="@Embed(source='../../../assets/new_post.png')" click="newPost()" id="newBtn" /-->
     </s:actionContent>
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="threadList"
         width="100%" height="100%"
         change="go()"

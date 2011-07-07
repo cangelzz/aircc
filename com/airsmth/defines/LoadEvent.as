@@ -12,6 +12,7 @@
         public static const LOGINDONE:String = "Login Done";
         public static const STATUS:String = "httpstatus";
         public static const REDIRBOARD:String = "redirect board";
+        public static const LOADSTART:String = "Loading Start";
                 
         public function LoadEvent(type:String,bubbles:Boolean=false,cancelable:Boolean=false):void {
             super(type,bubbles,cancelable);
