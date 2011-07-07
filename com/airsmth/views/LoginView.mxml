@@ -57,7 +57,7 @@
             private function onLoginDone(event:Event):void {
                 parentApplication.globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
                 parentApplication.globalSMTH.config = (event.currentTarget as SMTHLoader).config;
-                parentApplication.globalSMTH.isLoggedOn = true;
+                parentApplication.globalSMTH.isLoggedOn = !parentApplication.globalSMTH.isGuest;
                 Util.saveConfig(config);
                 navigator.pushView(HomeView);
             }
@@ -88,7 +88,7 @@
         <s:Button label="访客" icon="@Embed(source='../../../assets/guest.png')" click="guestlogin()"/>
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/login.png')" click="login()" />
+        <s:Button icon="@Embed(source='../../../assets/save_config.png')" click="login()" />
     </s:actionContent>
     <s:VGroup width="100%" height="100%" id="container">
     <s:TextInput id="tId" />

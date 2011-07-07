@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" locale="zh-CN"
-    xmlns:s="library://ns.adobe.com/flex/spark" applicationComplete="init()"
+    xmlns:s="library://ns.adobe.com/flex/spark" add="init()"
     applicationDPI="240"
     splashScreenImage="@Embed('assets/splash.png')"
     splashScreenScaleMode="zoom"
-    splashScreenMinimumDisplayTime="2000">
+    splashScreenMinimumDisplayTime="3000">
 
     <fx:Style source="main.css" />
     <fx:Style>
@@ -38,7 +38,8 @@
         <![CDATA[
             import flash.events.*;
             import com.airsmth.defines.*;
-            import com.airsmth.views.LoginView;
+            import com.airsmth.views.*;
+            
             [Bindable]
             public var globalSMTH:SMTH;
             
@@ -46,12 +47,30 @@
                 NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExit);
                 var config:Config = Util.getConfig();
                 globalSMTH = new SMTH(config);
-                navigator.pushView(LoginView);
+                if (globalSMTH.isGuest) navigator.pushView(HomeView);
+                else {
+                    var sl:SMTHLoader = new SMTHLoader(config);
+                    sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
+                    sl.addEventListener(LoadEvent.LOGINFAIL, onLoginFail);
+                    sl.load();
+                }
+            }
+            
+            protected function onLoginDone(event:Event):void {
+            
+                globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
+                globalSMTH.config = (event.currentTarget as SMTHLoader).config;
+                globalSMTH.isLoggedOn = true;
+                Util.saveConfig(globalSMTH.config);
+                navigator.pushView(HomeView);
+            }
+            
+            protected function onLoginFail(event:Event):void {
+                navigator.pushView(LoginView, 1);
             }
             
             protected function onExit(event:Event):void {
             }
-            public var inbox:MailBox = new MailBox();
         ]]>
     </fx:Script>
     <!-- s:ViewNavigator id="homeTab" width="100%" height="100%"
