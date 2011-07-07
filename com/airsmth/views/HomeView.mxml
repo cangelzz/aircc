@@ -4,7 +4,7 @@
     creationComplete="init()">
 
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
     </s:layout>
 
     <fx:Script>
@@ -32,6 +32,9 @@
     <s:titleContent>
         <s:Label id="lbWelcome" width="100%" textAlign="center" color="0xFFFFFF"/>
     </s:titleContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/shut_down.png')" click="NativeApplication.nativeApplication.exit()"/>
+    </s:actionContent>
     <s:List width="100%" itemRenderer="com.airsmth.renders.HomeListRenderer" height="100%" id="sectionList"
         change="go()">
         <s:dataProvider>

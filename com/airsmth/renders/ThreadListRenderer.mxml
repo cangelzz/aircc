@@ -5,6 +5,21 @@
 
     <fx:Script> 
         <![CDATA[ 
+            [@Embed(source='../../../assets/flag_top.png')]
+            [Bindable]
+            public var icD:Class;
+
+            [@Embed(source='../../../assets/flag_mark.png')]
+            [Bindable]
+            public var icM:Class;
+            
+            [@Embed(source='../../../assets/flag_att.png')]
+            [Bindable]
+            public var icA:Class;
+            
+            [@Embed(source='../../../assets/flag_digest.png')]
+            [Bindable]
+            public var icG:Class;
             
             override public function set data(value:Object):void { 
                 super.data = value; 
@@ -17,17 +32,15 @@
                 }
                 lbTitle.text = value.title;
                 lbAuthor.text = value.author;
-                if (value.d) dFlagColor.color = 0x000000;
-                //else hGroup.removeElement(dFlagRect);
-                if (value.a) aFlagColor.color = 0xFF0000;
-                //else hGroup.removeElement(aFlagRect);
-                if (value.m) mFlagColor.color = 0x00FF00;
+
                 if (value.r) {
                     lbUnread.visible = true; 
-                    lbUnread.includeInLayout = true;
                 }
-                //else hGroup.removeElement(mFlagRect);
-                //if (value.g) gFlag.color = 0xFFFF00;
+                if (value.d) imD.source = icD;
+                if (value.a) imA.source = icA;
+                if (value.m) imM.source = icM;
+                if (value.g) imG.source = icG;
+               
             }
         ]]> 
     </fx:Script>
@@ -43,24 +56,14 @@
         </s:fill>
     </s:Rect>
 
-    <s:HGroup width="100%" height="100%" gap="0" id="hGroup">
-        <s:Rect top="0" left="1" bottom="0" width="1" height="100%" id="dFlagRect">
-            <s:fill>
-                <s:SolidColor id="dFlagColor" color="0xFFFFFF" />
-            </s:fill>
-        </s:Rect>
-        <s:Rect top="0" left="3" bottom="0" width="2" height="100%" id="aFlagRect">
-            <s:fill>
-                <s:SolidColor id="aFlagColor" color="0xFFFFFF" />
-            </s:fill>
-        </s:Rect>
-        <s:Rect top="0" left="3" bottom="0" width="2" height="100%" id="mFlagRect">
-            <s:fill>
-                <s:SolidColor id="mFlagColor" color="0xFFFFFF" />
-            </s:fill>
-        </s:Rect>
+    <s:HGroup width="100%" height="100%" gap="0" id="hGroup" verticalAlign="middle">
+        <s:Label id="lbUnread" text="•" visible="false" verticalAlign="middle" verticalCenter="0" color="0x0064AF" />
+        <s:Image id="imD" />
+        <s:Image id="imM" />
+        <s:Image id="imG" />
+        <s:Image id="imA" />
+        
         <s:HGroup width="100%" id="threadGroup" paddingBottom="3" paddingTop="12" paddingLeft="3" paddingRight="8">
-            <s:Label id="lbUnread" text="*" verticalCenter="0" visible="false" includeInLayout="false"/>
             <s:Label id="lbTitle" width="100%" />
             <s:Label id="lbAuthor" paddingBottom="10" textAlign="end" styleName="threadauthor" />
         </s:HGroup>

@@ -7,11 +7,15 @@
     public class BoardLoader extends TextLoader {
         private var _board:Board;
         private var latest:Boolean = true;
+        private var bottom:Boolean = false;
         
         public function BoardLoader(board:Board, config:Config = null):void {
             super(SMTH.BBSDOC, board.data);
             _board = board;
-            if (config != null) latest = config.showlatest;
+            if (config != null) {
+                latest = config.showlatest;
+                bottom = config.showbottom;
+            }
         }
         
         public function get board():Board {
@@ -46,7 +50,7 @@
                  thread.size = result[7];
                  // ignore Bottom post
                  
-                 if (!thread.d) lines.addItem(thread);
+                 if (!thread.d || (thread.d && bottom)) lines.addItem(thread);
                  result = p.exec(text);
              }
              

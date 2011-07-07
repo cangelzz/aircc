@@ -20,6 +20,12 @@
         <s:Button icon="@Embed(source='../../../assets/login.png')"/>
         <s:Button icon="@Embed(source='../../../assets/login.png')"/>
     </s:actionContent>
-    <s:VGroup width="100%" height="100%" id="container">
-    </s:VGroup>
+    <s:HGroup width="100%" height="100%" id="container">
+    <s:Image id="imUnread" source="@Embed(source='../../../assets/unread_mail.png')"/>
+    <s:Label id="lbTitle" width="100%" text="哈哈哈"/>
+    </s:HGroup>
+    <s:HGroup width="100%" id="threadGroup" paddingBottom="3" paddingTop="12" paddingLeft="3" paddingRight="8">
+            <s:Label id="lbUnread" text="•"  includeInLayout="true" color="0x0064AF" />
+            <s:Label id="lbTitle2" width="100%" text="一个帖子"/>
+    </s:HGroup>
 </s:View>

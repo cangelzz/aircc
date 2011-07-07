@@ -1,6 +1,8 @@
 package com.airsmth.defines {
     import flash.filesystem.*;
     import com.airsmth.defines.SMTH;
+    import mx.utils.Base64Encoder;
+    import mx.utils.Base64Decoder;
 
 	public class Util {
         public static function getConfig():Config {
@@ -19,6 +21,7 @@ package com.airsmth.defines {
                                     <imgsize>0</imgsize>
                                     <showrefer>false</showrefer>
                                     <showlatest>true</showlatest>
+                                    <showbottom>true</showbottom>
                                 </option>
                              </config>
                 f = new FileStream();
@@ -47,12 +50,21 @@ package com.airsmth.defines {
                               <imgsize>{config.imgsize}</imgsize>
                               <showrefer>{config.showrefer}</showrefer>
                               <showlatest>{config.showlatest}</showlatest>
+                              <showbottom>{config.showbottom}</showbottom>
                           </option>
             cx.appendChild(options);
             var f:FileStream = new FileStream();
             f.open(SMTH.CONFIGPATH, FileMode.WRITE);
             f.writeUTFBytes(cx.toXMLString());
             f.close();
+        }
+        
+        public static function encode(pass:String):String {
+            return pass;
+        }
+        
+        public static function decode(source:String):String {
+            return source;
         }
         
 	}
