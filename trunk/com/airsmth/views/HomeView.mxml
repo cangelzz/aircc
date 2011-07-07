@@ -17,6 +17,14 @@
             
             protected function init():void {
                 lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.id;
+                //if (parentApplication.globalSMTH.isGuest) sectionList.dataProvider.removeItemAt(2);
+            }
+            
+            protected function go():void {
+                if (sectionList.selectedItem.oid == "bMail" && 
+                    ( (!parentApplication.globalSMTH.isLoggedOn) || 
+                        (parentApplication.globalSMTH.isLoggedOn && parentApplication.globalSMTH.isGuest))) return;
+                navigator.pushView(sectionList.selectedItem.view, sectionList.selectedItem.data)
             }
             
         ]]>
@@ -25,16 +33,16 @@
         <s:Label id="lbWelcome" width="100%" textAlign="center" color="0xFFFFFF"/>
     </s:titleContent>
     <s:List width="100%" itemRenderer="com.airsmth.renders.HomeListRenderer" height="100%" id="sectionList"
-        change="navigator.pushView(sectionList.selectedItem.view, sectionList.selectedItem.data)">
+        change="go()">
         <s:dataProvider>
             <s:ArrayCollection>
-                <fx:Object id="bTop" label="十大" icon="@Embed(source='../../../assets/star.png')" 
+                <fx:Object oid="bTop" label="十大" icon="@Embed(source='../../../assets/star.png')" 
                     view="{Top10View}" data="" />
-                <fx:Object id="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" 
+                <fx:Object oid="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" 
                     view="{BoardView}" data="{parentApplication.globalSMTH.acFavor}" />
-                <fx:Object id="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"
+                <fx:Object oid="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"
                     view="{MailFolderView}" data="" />
-                <fx:Object id="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
+                <fx:Object oid="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
                     view="{LoginView}" data="" />
             </s:ArrayCollection>
         </s:dataProvider>
