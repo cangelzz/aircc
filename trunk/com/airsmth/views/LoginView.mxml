@@ -4,7 +4,7 @@
     creationComplete="init()">
 
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
     </s:layout>
 
     <fx:Script>
@@ -24,6 +24,7 @@
                 ckLatest.selected = config.showlatest;
                 ckRefer.selected = config.showrefer;
                 ckSubject.selected = config.showsubject;
+                ckBottom.selected = config.showbottom;
                 //ckAuto.selected = config.auth.auto;
                 if (data != null) {
                     btnBack.visible = true;
@@ -40,6 +41,7 @@
                 config.showlatest = ckLatest.selected
                 config.showrefer = ckRefer.selected;
                 config.showsubject = ckSubject.selected;
+                config.showbottom = ckBottom.selected;
                 var sl:SMTHLoader = new SMTHLoader(config);
                 sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
@@ -66,11 +68,21 @@
                 //navigator.pushView(HomeView);
             }
             
+            protected function guestlogin():void {
+                config = parentApplication.globalSMTH.config;
+                config.showimg = ckImage.selected;
+                config.showlatest = ckLatest.selected
+                config.showrefer = ckRefer.selected;
+                config.showsubject = ckSubject.selected;
+                config.showbottom = ckBottom.selected;
+                navigator.pushView(HomeView);
+            }
+            
         ]]>
     </fx:Script>
     <s:navigationContent>
         <s:Button id="btnBack" icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" visible="false"/>
-        <s:Button label="访客" icon="@Embed(source='../../../assets/guest.png')" click="tId.text='guest';login()"/>
+        <s:Button label="访客" icon="@Embed(source='../../../assets/guest.png')" click="guestlogin()"/>
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/login.png')" click="login()" />
@@ -82,7 +94,8 @@
     <s:CheckBox label="最新主题在上" id="ckLatest" />
     <s:CheckBox label="默认同主题" id="ckSubject" />
     <s:CheckBox label="显示引文" id="ckRefer" />
-    <s:CheckBox label="显示图片" id="ckImage" />
+    <s:CheckBox label="显示置底" id="ckBottom" />
+    <s:CheckBox label="加载图片" id="ckImage" />
     <s:Label id="lbInfo" styleName="loading" />
     </s:VGroup>
 </s:View>

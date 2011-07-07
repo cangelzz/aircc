@@ -1,4 +1,5 @@
 ﻿package com.airsmth.defines {
+    import com.airsmth.defines.Util;
 
     [Bindable]
 	public class Config {
@@ -13,7 +14,7 @@
         }
         
         public function get pass():String {
-            return xml.auth.pass
+            return Util.decode(xml.auth.pass);
         }
         
         public function get auto():Boolean {
@@ -36,6 +37,10 @@
             return xml.option.showimg == "true";
         }
         
+        public function get showbottom():Boolean {
+            return xml.option.showbottom == "true";
+        }
+        
         public function get imgsize():Number {
             return Number(xml.option.imgsize);
         }
@@ -45,7 +50,7 @@
         }
         
         public function set pass(_pass:String):void {
-            xml.auth.pass = _pass;
+            xml.auth.pass = Util.encode(_pass);
         }
         
         public function set auto(op:Boolean):void {
@@ -65,6 +70,9 @@
         }
         public function set imgsize(op:Number):void {
             xml.option.imgsize = op;
+        }
+        public function set showbottom(op:Boolean):void {
+            xml.option.showbottom = op;
         }
         
     }
