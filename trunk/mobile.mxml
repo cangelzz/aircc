@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" locale="zh-CN"
-    xmlns:s="library://ns.adobe.com/flex/spark" add="init()"
+    xmlns:s="library://ns.adobe.com/flex/spark" initialize="init()"
     applicationDPI="240"
     splashScreenImage="@Embed('assets/splash.png')"
     splashScreenScaleMode="zoom"
@@ -47,7 +47,7 @@
                 NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExit);
                 var config:Config = Util.getConfig();
                 globalSMTH = new SMTH(config);
-                if (globalSMTH.isGuest) navigator.pushView(HomeView);
+                if (globalSMTH.isGuest) navigator.firstView = HomeView;
                 else {
                     var sl:SMTHLoader = new SMTHLoader(config);
                     sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
