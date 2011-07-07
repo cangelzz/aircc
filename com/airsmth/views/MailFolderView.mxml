@@ -3,47 +3,90 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
     </s:layout>
         
     <fx:Script>
         <![CDATA[
-            
+            import mx.collections.ArrayCollection;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             public var CurMail:MailFolderLoader;
+            [Bindable]
+            public var flags:ArrayCollection = new ArrayCollection([false, true, true]);
             
             public function init():void {
                 var mb:MailBox;
+                if (data is MailFolderLoader) {
+                    var ml:MailFolderLoader = data as MailFolderLoader;
+                    mb = ml.box;
+                    mailList.dataProvider = ml.data;
+                    setPageUI(ml);
+                    return;
+                }
+            
+                
                 if (data == null || data == "") {
                     mb = new MailBox();
-                    inboxBtn.enabled = false;
-                    lbMailBox.text = "收件箱";
                 }
                 else {
                     mb = data as MailBox;
-                    if (mb.path == MailBox.DIR) { inboxBtn.enabled = false; lbMailBox.text = "收件箱"; }
-                    if (mb.path == MailBox.SENT) { sentBtn.enabled = false; lbMailBox.text = "发件箱"; }
-                    if (mb.path == MailBox.DELETED) { trashBtn.enabled = false; lbMailBox.text = "垃圾箱"; }
                 }
+                loadMailbox(mb);
+            }
+            
+            private function setPageUI(ml:MailFolderLoader):void {
+                if (ml.prev != null) mprevBtn.enabled = true; else mprevBtn.enabled = false;
+                if (ml.next != null) mnextBtn.enabled = true; else mnextBtn.enabled = false;
+                var mb:MailBox = ml.box;
+                if (mb.path == MailBox.DIR) { flags = new ArrayCollection([false, true, true]); lbMailBox.text = "收件箱"; }
+                if (mb.path == MailBox.SENT) { flags = new ArrayCollection([true, false, true]); lbMailBox.text = "发件箱"; }
+                if (mb.path == MailBox.DELETED) { flags = new ArrayCollection([true, true, false]); lbMailBox.text = "垃圾箱"; }
+            }
+            
+            private function loadMailbox(mb:MailBox):void {
                 var ml:MailFolderLoader = new MailFolderLoader(mb);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
+                ml.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 ml.load();
             }
             
+            private function onLoadStart(event:Event):void {
+                lbInfo.includeInLayout = true;
+            }
+            
             public function onLoad(event:Event):void {
+                lbInfo.includeInLayout = false;
                 var ml:MailFolderLoader = event.currentTarget as MailFolderLoader;
                 mailList.dataProvider = ml.data;
-                if (ml.prev != null) mprevBtn.enabled = true; else mprevBtn.enabled = false;
-                if (ml.next != null) mnextBtn.enabled = true; else mnextBtn.enabled = false;
-                CurMail = ml;
+                setPageUI(ml);
+                data = ml;
             }
             
             protected function go(start:String):void {
-                var mb:MailBox = CurMail.box;
+                var mb:MailBox = (data as MailFolderLoader).box;
                 mb.start = start;
-                navigator.replaceView(MailFolderView, mb);
+                loadMailbox(mb);
+            }
+            
+            private function prev():void {
+                var ml:MailFolderLoader = data as MailFolderLoader;
+                var mb:MailBox = ml.box;
+                mb.start = ml.prev;
+                loadMailbox(mb);
+            }
+            private function next():void {
+            var ml:MailFolderLoader = data as MailFolderLoader;
+                var mb:MailBox = ml.box;
+                mb.start = ml.next;
+                loadMailbox(mb);
+            }
+            private function last():void {
+            var ml:MailFolderLoader = data as MailFolderLoader;
+                var mb:MailBox = ml.box;
+                mb.start = null;
+                loadMailbox(mb);
             }
             
             protected function newMail():void {
@@ -51,11 +94,11 @@
             }
             
             protected function refresh():void {
-                navigator.replaceView(MailFolderView, CurMail.box);
+                loadMailbox((data as MailFolderLoader).box);
             }
             
             protected function goBox(path:String):void {
-                navigator.replaceView(MailFolderView, new MailBox(path));
+                loadMailbox(new MailBox(path));
             }
             
         ]]>
@@ -65,9 +108,9 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="go(CurMail.prev)" id="mprevBtn" enabled="false" />
-        <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="go(CurMail.next)" id="mnextBtn" enabled="false"/>
-        <!-- s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="go(null)" id="lastBtn" /-->
+        <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="prev()" id="mprevBtn" enabled="false" />
+        <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="next()" id="mnextBtn" enabled="false"/>
+        <!-- s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="last()" id="lastBtn" /-->
     </s:navigationContent>
     <s:titleContent>
         <s:Label id="lbMailBox" width="100%" textAlign="center" color="0xFFFFFF"/>
@@ -77,17 +120,18 @@
         <s:Button icon="@Embed(source='../../../assets/new_mail.png')" click="newMail()" id="newBtn" />
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="parentApplication.viewMenuOpen = true" id="moreBtn" />
     </s:actionContent>
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="mailList"
         width="100%" height="100%"
         change="navigator.pushView(MailView, mailList.selectedItem)"
         itemRendererFunction="RenderUtil.selectRenderer" />
     <s:viewMenuItems>
         <s:ViewMenuItem id="inboxBtn" click="goBox(MailBox.DIR)"
-            icon="@Embed(source='../../../assets/mail_inbox.png')"/>
+            icon="@Embed(source='../../../assets/mail_inbox.png')" enabled="{flags.getItemAt(0)}"/>
         <s:ViewMenuItem id="sentBtn" click="goBox(MailBox.SENT)"
-            icon="@Embed(source='../../../assets/mail_sent.png')"/>
+            icon="@Embed(source='../../../assets/mail_sent.png')" enabled="{flags.getItemAt(1)}"/>
         <s:ViewMenuItem id="trashBtn" click="goBox(MailBox.DELETED)"
-            icon="@Embed(source='../../../assets/trash.png')"/>
+            icon="@Embed(source='../../../assets/trash.png')" enabled="{flags.getItemAt(2)}"/>
         <s:ViewMenuItem id="lastBtn" click="go(null)"
             icon="@Embed(source='../../../assets/last_mail_page.png')"/>
     </s:viewMenuItems>

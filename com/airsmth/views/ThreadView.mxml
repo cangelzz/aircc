@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
     </s:layout>
         
     <fx:Script>
@@ -33,6 +33,7 @@
             public function init():void {
                 if (data is ArrayCollection) {
                     threadList.dataProvider = data[1] as ArrayCollection;
+                    setPageUI(data[0] as Board);
                     return;
                 }
                 var board:Board = data as Board;
@@ -40,15 +41,19 @@
             }
             
             public function loadBoard(board:Board):void {
+                var bl:BoardLoader = new BoardLoader(board, parentApplication.globalSMTH.config);
+                bl.addEventListener(LoadEvent.DONE, onLoad);
+                bl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
+                bl.load();
+            }
+            
+            private function setPageUI(board:Board):void {
                 if (board.ftype == "6") typeBtn.setStyle("icon", iconSubject);
                 if (board.ftype == "0") typeBtn.setStyle("icon", iconSingle);
                 if (board.ftype == "1") typeBtn.setStyle("icon", iconDigest);
                 if (board.ftype == "3") typeBtn.setStyle("icon", iconMark);
-                
-                var bl:BoardLoader = new BoardLoader(board as Board, parentApplication.globalSMTH.config);
-                bl.addEventListener(LoadEvent.DONE, onLoad);
-                bl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
-                bl.load();
+                if (board.start <= board.total - 30) bnextBtn.enabled = true;
+                else bnextBtn.enabled = false;
             }
             
             public function onLoad(event:Event):void {
@@ -56,8 +61,7 @@
                 var bl:BoardLoader = event.currentTarget as BoardLoader;
                 var brd:Board = bl.board;
                 threadList.dataProvider = bl.data;
-                if (brd.start <= brd.total - 30) bnextBtn.enabled = true;
-                else bnextBtn.enabled = false;
+                setPageUI(brd);
                 data = new ArrayCollection([bl.board, bl.data]);
             }
             
