@@ -15,6 +15,7 @@
             private var cnt_loaded:Number;
             private var cnt_all:Number;
             private var last_index:Number = -1;
+            private var CurSub:Subject;
             
             public function init():void {
                 var sl:SubjectLoader = new SubjectLoader(data as Subject);
@@ -26,6 +27,10 @@
             public function onLoad(event:Event):void {
                 var sl:SubjectLoader = event.currentTarget as SubjectLoader;
                 var sub:Subject = sl.subject;
+                CurSub = sl.subject;
+                //lbDebug.text = "gid=" + CurSub.gid + " pthid=" + CurSub.pthid + " nthid=" + CurSub.nthid;
+                if ("0" == CurSub.nthid) nextsubBtn.enabled = false;
+                
                 postList.dataProvider = sl.data;
                 if (sub.tpage == 1) {
                     sprevBtn.enabled = false;
@@ -81,9 +86,12 @@
             }
             
             protected function menuOpen():void {
-                var post:Post = postList.selectedItem as Post;
+                var lz:String;
+                if (postList.selectedIndex != -1) {
+                    lz = (postList.selectedItem as Post).lz;
+                }
                 var I:String = parentApplication.globalSMTH.config.id;
-                if (post.lz == I) {
+                if (lz == I) {
                     meTrash.enabled = true;
                 } else {
                     meTrash.enabled = false;
@@ -106,6 +114,18 @@
                     
                 }
             }
+
+            protected function prevsub():void {
+                CurSub.gid = CurSub.pthid;
+                CurSub.pno = 1;
+                navigator.replaceView(PostView, CurSub);
+            }
+            
+            protected function nextsub():void {
+                CurSub.gid = CurSub.nthid;
+                CurSub.pno = 1;
+                navigator.replaceView(PostView, CurSub);
+            }
             
         ]]>
     </fx:Script>
@@ -123,6 +143,7 @@
             click="navigator.pushView(ReplyView, postList.selectedItem)" id="replyBtn" enabled="false" />
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="menuOpen()" id="moreBtn" />
     </s:actionContent>
+    <!-- s:Label id="lbDebug" /-->
     <s:HGroup width="100%">
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
     <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
@@ -133,6 +154,10 @@
         click="postClick()" />
         
     <s:viewMenuItems>
+        <s:ViewMenuItem click="prevsub()"
+            icon="@Embed(source='../../../assets/prev_sub.png')" />
+        <s:ViewMenuItem click="nextsub()" id="nextsubBtn"
+            icon="@Embed(source='../../../assets/next_sub.png')" />
         <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem 

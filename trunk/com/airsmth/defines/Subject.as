@@ -17,6 +17,9 @@
         public var tpage:Number;
         public var lz:String = "";
         public var preview:String = "";
+        public var nthid:String = "";
+        public var pthid:String = "";
+        
         
         private var p_m:RegExp = /m/i;
         private var p_a:RegExp = /@/i;
