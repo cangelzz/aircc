@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
     </s:layout>
         
     <fx:Script>
@@ -19,7 +19,6 @@
             
             public function init():void {
                 var sl:SubjectLoader = new SubjectLoader(data as Subject);
-                lbSubTitle.text = (data as Subject).title;
                 sl.addEventListener(LoadEvent.DONE, onLoad);
                 sl.load();
             }
@@ -28,6 +27,7 @@
                 var sl:SubjectLoader = event.currentTarget as SubjectLoader;
                 var sub:Subject = sl.subject;
                 CurSub = sl.subject;
+                lbSubTitle.text = sub.title;
                 //lbDebug.text = "gid=" + CurSub.gid + " pthid=" + CurSub.pthid + " nthid=" + CurSub.nthid;
                 if ("0" == CurSub.nthid) nextsubBtn.enabled = false;
                 
@@ -152,7 +152,6 @@
         width="100%" height="100%" 
         itemRendererFunction="RenderUtil.selectRenderer"
         click="postClick()" />
-        
     <s:viewMenuItems>
         <s:ViewMenuItem click="prevsub()"
             icon="@Embed(source='../../../assets/prev_sub.png')" />

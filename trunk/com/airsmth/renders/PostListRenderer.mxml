@@ -5,7 +5,9 @@
     
     <fx:Script> 
         <![CDATA[ 
-            //import com.airsmth.views.ReplyView;
+            [@Embed(source='../../../assets/image.png')]
+            [Bindable]
+            public var icImage:Class;
             import spark.components.Label;
             import spark.components.Image;
             
@@ -37,7 +39,7 @@
                             image.source = value.images.getItemAt(i) as String;
                         }
                         else {
-                            image.source = "../../../assets/image.png";
+                            image.source = icImage;
                         }
                         image.setStyle("enableLoadingState", "true");
                         imageGroup.addElement(image);

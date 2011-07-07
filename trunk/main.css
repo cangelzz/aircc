@@ -31,3 +31,8 @@
 .loading {
 	color: #DC143C;
 }
+
+.copyright {
+	color: gray;
+	font-size:20px;
+}

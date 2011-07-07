@@ -46,6 +46,7 @@
             var fl:FavorLoader = new FavorLoader();
             fl.addEventListener(LoadEvent.DONE, onFavorLoad);
             fl.load();
+            dispatchEvent(new LoadEvent(LoadEvent.LOADSTART));
         }
         
         private function onFavorLoad(event:Event):void {
