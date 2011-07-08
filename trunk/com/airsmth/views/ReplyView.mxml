@@ -13,13 +13,13 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
-            public function init():void {
+            protected function init():void {
                 var rl:ReplyReadLoader = new ReplyReadLoader(data as Post);
                 rl.addEventListener(LoadEvent.DONE, onLoad);
                 rl.load();
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 var rl:ReplyReadLoader = event.currentTarget as ReplyReadLoader;
                 var re:Reply = rl.reply;
                 tTitle.text = re.title;
@@ -27,7 +27,7 @@
                 submitBtn.enabled = true;
             }
             
-            public function submit():void {
+            protected function submit():void {
                 submitBtn.enabled = false;
                 var re:Reply = new Reply();
                 re.bname = (data as Post).bname;
@@ -36,12 +36,24 @@
                 re.content = tContent.text;
                 var rp:ReplyPostSender = new ReplyPostSender(re);
                 rp.addEventListener(LoadEvent.DONE, onPost);
+                rp.addEventListener(LoadEvent.LOADSTART, onLoadStart);
+                rp.addEventListener(LoadEvent.LOADFAIL, onPostFail);
                 rp.load();
             }
             
-            public function onPost(event:Event):void {
+            protected function onPost(event:Event):void {
                 navigator.popView();
             }
+            
+            protected function onLoadStart(event:Event):void {
+                lbInfo.text = "发送中，请稍候 ...";
+                lbInfo.includeInLayout = true;
+            }
+            
+            protected function onPostFail(event:Event):void {
+                lbInfo.text = "发送失败，请重试";
+            }
+
             
         ]]>
     </fx:Script>
@@ -54,6 +66,7 @@
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/submit_post.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:actionContent>
+    <s:Label id="lbInfo" styleName="loading" includeInLayout="false" />
     <s:TextInput id='tTitle' width="100%" />
     <s:TextArea id="tContent" width="100%" height="100%" />
 </s:View>

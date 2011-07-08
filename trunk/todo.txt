@@ -10,3 +10,12 @@ configration to ifLoadImage, ifHideRefernce, ifxxx
 page up/down subject, post
 - unread mark
 add guest login button
+
+V77
+回帖是写完按那个向上的小箭头吗？我按了没反应。
+
+回帖时按返回键不是关闭键盘，而是直接退回帖子了，这个有点不习惯?
+
+返回的速度有点慢。
+
+另外能不能针对大屏幕优化一下？七寸上面看着字实在是小。

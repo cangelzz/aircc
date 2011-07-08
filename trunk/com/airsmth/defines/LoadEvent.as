@@ -13,6 +13,7 @@
         public static const STATUS:String = "httpstatus";
         public static const REDIRBOARD:String = "redirect board";
         public static const LOADSTART:String = "Loading Start";
+        public static const LOADFAIL:String = "Load Fail";
                 
         public function LoadEvent(type:String,bubbles:Boolean=false,cancelable:Boolean=false):void {
             super(type,bubbles,cancelable);

@@ -11,18 +11,29 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
-            public function submit():void {
+            protected function submit():void {
                 var mail:Mail = new Mail();
                 mail.author = tUserId.text;
                 mail.title = tTitle.text;
                 mail.content = tContent.text;
                 var ms:MailSender = new MailSender(mail);
                 ms.addEventListener(LoadEvent.DONE, onPost);
+                ms.addEventListener(LoadEvent.LOADSTART, onLoadStart);
+                ms.addEventListener(LoadEvent.LOADFAIL, onPostFail);
                 ms.load();
             }
             
-            public function onPost(event:Event):void {
+            protected function onPost(event:Event):void {
                 navigator.popView();
+            }
+            
+            protected function onLoadStart(event:Event):void {
+                lbInfo.text = "发送中，请稍候 ...";
+                lbInfo.includeInLayout = true;
+            }
+            
+            protected function onPostFail(event:Event):void {
+                lbInfo.text = "发送失败，请重试";
             }
             
         ]]>
@@ -33,7 +44,8 @@
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/submit_mail.png')" click="submit()"/>
     </s:actionContent>
-    <s:TextInput id="tUserId" width="50%" />
-    <s:TextInput id='tTitle' width="100%" />
+    <s:Label id="lbInfo" includeInLayout="false" styleName="loading" />
+    <s:TextInput id="tUserId" width="50%" prompt="收信人" />
+    <s:TextInput id='tTitle' width="100%" prompt="标题" />
     <s:TextArea id="tContent" width="100%" height="100%" />
 </s:View>

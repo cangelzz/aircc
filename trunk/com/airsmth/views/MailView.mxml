@@ -12,13 +12,13 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
-            public function init():void {
+            protected function init():void {
                 var ml:MailLoader = new MailLoader(data as Mail);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 var m:Mail = (event.currentTarget as MailLoader).mail;
                 lbAuthor.text = m.author;
                 lbContent.text = m.content;

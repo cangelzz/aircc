@@ -14,6 +14,7 @@
         override protected function onLoad(event:Event):void {
             var _text:String = _loader.content;
             if (_text.indexOf("操作成功") != -1) dispatchEvent(new LoadEvent(LoadEvent.DONE));
+            else dispatchEvent(new LoadEvent(LoadEvent.LOADFAIL));
         }
     }
 }

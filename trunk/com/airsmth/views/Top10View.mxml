@@ -12,13 +12,13 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
-            public function init():void {
+            protected function init():void {
                 var tl:Top10Loader = new Top10Loader();
                 tl.addEventListener(LoadEvent.DONE, onLoad);
                 tl.load();
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 //lbInfo.text = (event.currentTarget as Top10Loader).debug;
                 threadList.dataProvider = (event.currentTarget as Top10Loader).data;
             }

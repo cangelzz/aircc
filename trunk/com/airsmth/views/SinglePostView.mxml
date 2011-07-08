@@ -14,7 +14,7 @@
             import com.airsmth.views.*;
             public var post:Post;
             
-            public function init():void {
+            protected function init():void {
                 var subject:Subject = data as Subject;
                 post = new Post();
                 post.bid = subject.bid;
@@ -25,7 +25,7 @@
                 pl.load();
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 var post:Post = (event.currentTarget as PostLoader).post;
                 lbAuthor.text = post.author;
                 lbContent.text = post.content;

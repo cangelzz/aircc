@@ -16,7 +16,7 @@
             [Bindable]
             public var flags:ArrayCollection = new ArrayCollection([false, true, true]);
             
-            public function init():void {
+            protected function init():void {
                 var mb:MailBox;
                 if (data is MailFolderLoader) {
                     var ml:MailFolderLoader = data as MailFolderLoader;
@@ -36,7 +36,7 @@
                 loadMailbox(mb);
             }
             
-            private function setPageUI(ml:MailFolderLoader):void {
+            protected function setPageUI(ml:MailFolderLoader):void {
                 if (ml.prev != null) mprevBtn.enabled = true; else mprevBtn.enabled = false;
                 if (ml.next != null) mnextBtn.enabled = true; else mnextBtn.enabled = false;
                 var mb:MailBox = ml.box;
@@ -45,18 +45,18 @@
                 if (mb.path == MailBox.DELETED) { flags = new ArrayCollection([true, true, false]); lbMailBox.text = "垃圾箱"; }
             }
             
-            private function loadMailbox(mb:MailBox):void {
+            protected function loadMailbox(mb:MailBox):void {
                 var ml:MailFolderLoader = new MailFolderLoader(mb);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 ml.load();
             }
             
-            private function onLoadStart(event:Event):void {
+            protected function onLoadStart(event:Event):void {
                 lbInfo.includeInLayout = true;
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 lbInfo.includeInLayout = false;
                 var ml:MailFolderLoader = event.currentTarget as MailFolderLoader;
                 mailList.dataProvider = ml.data;
@@ -70,19 +70,19 @@
                 loadMailbox(mb);
             }
             
-            private function prev():void {
+            protected function prev():void {
                 var ml:MailFolderLoader = data as MailFolderLoader;
                 var mb:MailBox = ml.box;
                 mb.start = ml.prev;
                 loadMailbox(mb);
             }
-            private function next():void {
+            protected function next():void {
             var ml:MailFolderLoader = data as MailFolderLoader;
                 var mb:MailBox = ml.box;
                 mb.start = ml.next;
                 loadMailbox(mb);
             }
-            private function last():void {
+            protected function last():void {
             var ml:MailFolderLoader = data as MailFolderLoader;
                 var mb:MailBox = ml.box;
                 mb.start = null;
