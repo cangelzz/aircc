@@ -52,6 +52,6 @@
         <s:Button icon="@Embed(source='../../../assets/submit_post.png')" click="submit()"/>
     </s:actionContent>
     <s:Label id="lbInfo" styleName="loading" includeInLayout="false" />
-    <s:TextInput id='tTitle' width="100%" />
+    <s:TextInput id='tTitle' width="100%" prompt="标题" />
     <s:TextArea id="tContent" width="100%" height="100%" />
 </s:View>
