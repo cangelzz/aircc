@@ -13,6 +13,11 @@
             import com.airsmth.renders.*;
             
             protected function init():void {
+                if (data is Mail) {
+                    lbAuthor.text = (data as Mail).author;
+                    lbContent.text = (data as Mail).content;
+                    lbInfo.visible = false;
+                }
                 var ml:MailLoader = new MailLoader(data as Mail);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
@@ -23,6 +28,7 @@
                 var m:Mail = (event.currentTarget as MailLoader).mail;
                 lbAuthor.text = m.author;
                 lbContent.text = m.content;
+                data = m;
             }
             
         ]]>
