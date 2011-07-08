@@ -12,14 +12,18 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
+            import flash.utils.*;
             
             protected function init():void {
                 var rl:ReplyReadLoader = new ReplyReadLoader(data as Post);
+                lbInfo.text = "正在加载，请稍候 ...";
+                lbInfo.visible = true;
                 rl.addEventListener(LoadEvent.DONE, onLoad);
                 rl.load();
             }
             
             protected function onLoad(event:Event):void {
+                lbInfo.visible = false;
                 var rl:ReplyReadLoader = event.currentTarget as ReplyReadLoader;
                 var re:Reply = rl.reply;
                 tTitle.text = re.title;
@@ -35,8 +39,9 @@
                 re.title = tTitle.text;
                 re.content = tContent.text;
                 var rp:ReplyPostSender = new ReplyPostSender(re);
+                lbInfo.text = "正在发送，请稍候 ...";
+                lbInfo.visible = true;
                 rp.addEventListener(LoadEvent.DONE, onPost);
-                rp.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 rp.addEventListener(LoadEvent.LOADFAIL, onPostFail);
                 rp.load();
             }
@@ -45,28 +50,26 @@
                 navigator.popView();
             }
             
-            protected function onLoadStart(event:Event):void {
-                lbInfo.text = "发送中，请稍候 ...";
-                lbInfo.includeInLayout = true;
-            }
-            
             protected function onPostFail(event:Event):void {
                 lbInfo.text = "发送失败，请重试";
+                submitBtn.enabled = true;
             }
-
             
         ]]>
     </fx:Script>
     <fx:Declarations>
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
+    <s:titleContent>
+        <s:Label id="lbInfo" width="100%" styleName="titlecenter" visible="false" />
+    </s:titleContent>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/submit_post.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:actionContent>
-    <s:Label id="lbInfo" styleName="loading" includeInLayout="false" />
+    
     <s:TextInput id='tTitle' width="100%" />
     <s:TextArea id="tContent" width="100%" height="100%" />
 </s:View>

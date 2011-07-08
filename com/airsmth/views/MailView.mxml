@@ -14,11 +14,14 @@
             
             protected function init():void {
                 var ml:MailLoader = new MailLoader(data as Mail);
+                lbInfo.text = "正在发送，请稍候 ...";
+                lbInfo.visible = true;
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
             }
             
             protected function onLoad(event:Event):void {
+                lbInfo.visible = false;
                 var m:Mail = (event.currentTarget as MailLoader).mail;
                 lbAuthor.text = m.author;
                 lbContent.text = m.content;
@@ -29,6 +32,9 @@
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
+    <s:titleContent>
+        <s:Label id="lbInfo" width="100%" styleName="titlecenter" text="正在加载，请稍候 ..."/>
+    </s:titleContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/reply_mail.png')" id="newBtn" click="navigator.pushView(MailEditView, data as Mail)" />
     </s:actionContent>

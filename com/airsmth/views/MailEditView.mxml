@@ -16,11 +16,14 @@
             
             protected function init():void {
                 var ml:MailEditLoader = new MailEditLoader(data as Mail);
+                lbInfo.text = "正在加载，请稍候 ...";
+                lbInfo.visible = true;
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
             }
             
             protected function onLoad(event:Event):void {
+                lbInfo.visible = false;
                 var ml:MailEditLoader = event.currentTarget as MailEditLoader;
                 var ma:Mail = ml.mail;
                 CurMail = ml.mail;
@@ -36,8 +39,9 @@
                 CurMail.content = tContent.text;
                 var ms:MailSender = new MailSender(CurMail);
                 ms.addEventListener(LoadEvent.DONE, onPost);
-                ms.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 ms.addEventListener(LoadEvent.LOADFAIL, onPostFail);
+                lbInfo.text = "正在发送，请稍候 ...";
+                lbInfo.visible = true;
                 ms.load();
             }
             
@@ -45,13 +49,9 @@
                 navigator.popView();
             }
             
-            protected function onLoadStart(event:Event):void {
-                lbInfo.text = "发送中，请稍候 ...";
-                lbInfo.includeInLayout = true;
-            }
-            
             protected function onPostFail(event:Event):void {
                 lbInfo.text = "发送失败，请重试";
+                submitBtn.enabled = true;
             }
             
         ]]>
@@ -62,10 +62,12 @@
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
+    <s:titleContent>
+        <s:Label id="lbInfo" width="100%" styleName="titlecenter" visible="false" />
+    </s:titleContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/submit_mail.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:actionContent>
-    <s:Label id="lbInfo" includeInLayout="false" styleName="loading" />
     <s:HGroup width="100%" paddingTop="5" paddingBottom="5">
         <s:Label text="收信人" />
         <s:Label id="lbUser" styleName="postauthor" />

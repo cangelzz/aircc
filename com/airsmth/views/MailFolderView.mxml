@@ -16,6 +16,19 @@
             [Bindable]
             public var flags:ArrayCollection = new ArrayCollection([false, true, true]);
             
+            [@Embed(source='../../../assets/mail_inbox.png')]
+            [Bindable]
+            public var icInbox:Class;
+
+            [@Embed(source='../../../assets/mail_sent.png')]
+            [Bindable]
+            public var icSent:Class;
+            
+            [@Embed(source='../../../assets/trash.png')]
+            [Bindable]
+            public var icTrash:Class;
+
+            
             protected function init():void {
                 var mb:MailBox;
                 if (data is MailFolderLoader) {
@@ -40,9 +53,9 @@
                 if (ml.prev != null) mprevBtn.enabled = true; else mprevBtn.enabled = false;
                 if (ml.next != null) mnextBtn.enabled = true; else mnextBtn.enabled = false;
                 var mb:MailBox = ml.box;
-                if (mb.path == MailBox.DIR) { flags = new ArrayCollection([false, true, true]); lbMailBox.text = "收件箱"; }
-                if (mb.path == MailBox.SENT) { flags = new ArrayCollection([true, false, true]); lbMailBox.text = "发件箱"; }
-                if (mb.path == MailBox.DELETED) { flags = new ArrayCollection([true, true, false]); lbMailBox.text = "垃圾箱"; }
+                if (mb.path == MailBox.DIR) { flags = new ArrayCollection([false, true, true]); btnBox.setStyle("icon", icInbox); }
+                if (mb.path == MailBox.SENT) { flags = new ArrayCollection([true, false, true]); btnBox.setStyle("icon", icSent) }
+                if (mb.path == MailBox.DELETED) { flags = new ArrayCollection([true, true, false]); btnBox.setStyle("icon", icTrash) }
             }
             
             protected function loadMailbox(mb:MailBox):void {
@@ -110,11 +123,8 @@
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
         <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="prev()" id="mprevBtn" enabled="false" />
         <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="next()" id="mnextBtn" enabled="false"/>
-        <!-- s:Button icon="@Embed(source='../../../assets/last_mail_page.png')" click="last()" id="lastBtn" /-->
+        <s:Button id="btnBox" click="refresh()" />
     </s:navigationContent>
-    <s:titleContent>
-        <s:Label id="lbMailBox" width="100%" textAlign="center" color="0xFFFFFF"/>
-    </s:titleContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
         <s:Button icon="@Embed(source='../../../assets/new_mail.png')" click="newMail()" id="newBtn" />
