@@ -126,7 +126,6 @@
         <s:Button id="btnBox" click="refresh()" />
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/refresh.png')" click="refresh()" id="refreshBtn" />
         <s:Button icon="@Embed(source='../../../assets/new_mail.png')" click="newMail()" id="newBtn" />
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="parentApplication.viewMenuOpen = true" id="moreBtn" />
     </s:actionContent>
