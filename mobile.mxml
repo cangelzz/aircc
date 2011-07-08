@@ -36,6 +36,7 @@
     </fx:Style>
     <fx:Script>
         <![CDATA[
+            import mx.events.FlexEvent;
             import flash.events.*;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
@@ -70,6 +71,10 @@
             }
             
             protected function onExit(event:Event):void {
+            }
+            
+            protected function onBackKeyPressed(event:FlexEvent):void {
+                event.preventDefault();
             }
         ]]>
     </fx:Script>
