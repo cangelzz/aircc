@@ -22,18 +22,15 @@
             protected function search():void {
                 var sl:SearchBoardLoader = new SearchBoardLoader(tSearch.text);
                 sl.addEventListener(LoadEvent.DONE, onSearchMulti);
-                sl.addEventListener(LoadEvent.DONE, onLoadStart);
                 sl.addEventListener(LoadEvent.REDIRBOARD, onRedirect);
+                lbInfo.includeInLayout = true;
                 sl.load();
             }
             
-            protected function onLoadStart(event:Event):void {
-                lbInfo.includeInLayout = true;
-            }
             
             protected function onSearchMulti(event:Event):void {
-                lbInfo.visible = false;
                 lbInfo.includeInLayout = false;
+                lbInfo.visible = false;
                 boardList.dataProvider = (event.currentTarget as SearchBoardLoader).data;
             }
             
@@ -53,7 +50,7 @@
             protected function refresh():void {
                 var sl:SMTHLoader = new SMTHLoader(parentApplication.globalSMTH.config);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoadFavor);
-                sl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
+                lbInfo.includeInLayout = true;
                 sl.load();
             }
             

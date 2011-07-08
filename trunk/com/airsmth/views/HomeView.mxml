@@ -16,7 +16,8 @@
             import spark.components.Label;
             
             protected function init():void {
-                lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.id;
+                if (parentApplication.globalSMTH.isLoggedOn) lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.id;
+                else lbWelcome.text = "欢迎回来 Guest";
                 //if (parentApplication.globalSMTH.isGuest) sectionList.dataProvider.removeItemAt(2);
             }
             
@@ -31,7 +32,7 @@
         <s:Button icon="@Embed(source='../../../assets/shut_down.png')" click="NativeApplication.nativeApplication.exit()"/>
     </s:navigationContent>
     <s:titleContent>
-        <s:Label id="lbWelcome" width="100%" textAlign="center" color="0xFFFFFF"/>
+        <s:Label id="lbWelcome" styleName="titlecenter" width="100%"/>
     </s:titleContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/switch.png')" click="navigator.pushView(LoginView, 1)"/>

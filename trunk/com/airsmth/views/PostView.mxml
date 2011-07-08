@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
+        <s:VerticalLayout paddingTop="10" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
     </s:layout>
         
     <fx:Script>
@@ -18,20 +18,32 @@
             private var CurSub:Subject;
             
             protected function init():void {
+                if (data is ArrayCollection) {
+                    postList.dataProvider = data[1] as ArrayCollection;
+                    setPageUI(data[0] as Subject);
+                    return;
+                }
                 var sl:SubjectLoader = new SubjectLoader(data as Subject);
+                sl.addEventListener(LoadEvent.DONE, onLoad);
+                sl.addEventListener(LoadEvent.LOADSTART, onLoadSubjectStart);
+                sl.load();
+            }
+            
+            protected function onLoadSubjectStart(event:Event):void {
+                lbInfo.visible = true;
+                lbInfo.includeInLayout = true;
+            }
+            
+            protected function loadSubject(sub:Subject):void {
+                var sl:SubjectLoader = new SubjectLoader(sub);
                 sl.addEventListener(LoadEvent.DONE, onLoad);
                 sl.load();
             }
             
-            protected function onLoad(event:Event):void {
-                var sl:SubjectLoader = event.currentTarget as SubjectLoader;
-                var sub:Subject = sl.subject;
-                CurSub = sl.subject;
+            protected function setPageUI(sub:Subject):void {
+                replyBtn.enabled = false;
                 lbSubTitle.text = sub.title;
-                //lbDebug.text = "gid=" + CurSub.gid + " pthid=" + CurSub.pthid + " nthid=" + CurSub.nthid;
-                if ("0" == CurSub.nthid) nextsubBtn.enabled = false;
-                
-                postList.dataProvider = sl.data;
+                if ("0" == sub.nthid) nextsubBtn.enabled = false;
                 if (sub.tpage == 1) {
                     sprevBtn.enabled = false;
                     snextBtn.enabled = false;
@@ -41,9 +53,20 @@
                 if (sub.pno < sub.tpage) snextBtn.enabled = true;
                 else snextBtn.enabled = false;
                 var pages:ArrayCollection = new ArrayCollection();
-                for (i = 1; i <= sub.tpage; i++) { pages.addItem(i); }
+                for (var i:Number = 1; i <= sub.tpage; i++) { pages.addItem(i); }
                 jump.dataProvider = pages;
                 jump.selectedIndex = sub.pno - 1;
+            }
+            
+            protected function onLoad(event:Event):void {
+                lbInfo.visible = false;
+                lbInfo.includeInLayout = false;
+                var sl:SubjectLoader = event.currentTarget as SubjectLoader;
+                var sub:Subject = sl.subject;
+                setPageUI(sub);
+                data = new ArrayCollection([sl.subject, sl.data]);
+                
+                postList.dataProvider = sl.data;
                 cnt_all = sl.data.length;
                 cnt_loaded = 0;
                                
@@ -66,23 +89,27 @@
                 postList.dataProvider.setItemAt(po, idx);
                 cnt_loaded = cnt_loaded + 1;
                 lbLoaded.text = cnt_loaded.toString() + "/" + cnt_all.toString();
+                data.setItemAt(postList.dataProvider, 1);
             }
             
             protected function next():void {
-                var sub:Subject = data as Subject;
+                var sub:Subject = data[0] as Subject;
                 sub.pno = sub.pno + 1;
-                navigator.replaceView(PostView, sub);
+                loadSubject(sub);
+                //navigator.replaceView(PostView, sub);
             }
             
             protected function prev():void {
-                var sub:Subject = data as Subject;
+                var sub:Subject = data[0] as Subject;
                 sub.pno = sub.pno - 1;
-                navigator.replaceView(PostView, sub);
+                loadSubject(sub);
+                //navigator.replaceView(PostView, sub);
             }
             protected function jumpPage(page:Number):void {
-                var sub:Subject = data as Subject;
+                var sub:Subject = data[0] as Subject;
                 sub.pno = page;
-                navigator.replaceView(PostView, sub);
+                loadSubject(sub);
+                //navigator.replaceView(PostView, sub);
             }
             
             protected function menuOpen():void {
@@ -116,15 +143,23 @@
             }
 
             protected function prevsub():void {
-                CurSub.gid = CurSub.pthid;
-                CurSub.pno = 1;
-                navigator.replaceView(PostView, CurSub);
+                var sub:Subject = data[0] as Subject;
+                sub.gid = sub.pthid;
+                sub.pno = 1;
+                //navigator.replaceView(PostView, sub);
+                loadSubject(sub);
             }
             
             protected function nextsub():void {
-                CurSub.gid = CurSub.nthid;
-                CurSub.pno = 1;
-                navigator.replaceView(PostView, CurSub);
+                var sub:Subject = data[0] as Subject;
+                sub.gid = sub.nthid;
+                sub.pno = 1;
+                //navigator.replaceView(PostView, sub);
+                loadSubject(sub);
+            }
+            
+            protected function refresh():void {
+                loadSubject(data[0] as Subject);
             }
             
         ]]>
@@ -145,6 +180,7 @@
     </s:actionContent>
     <!-- s:Label id="lbDebug" /-->
     <s:HGroup width="100%">
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:Label id="lbSubTitle" styleName="subjecttitle"/>
     <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
     </s:HGroup>
@@ -157,6 +193,8 @@
             icon="@Embed(source='../../../assets/prev_sub.png')" />
         <s:ViewMenuItem click="nextsub()" id="nextsubBtn"
             icon="@Embed(source='../../../assets/next_sub.png')" />
+        <s:ViewMenuItem click="refresh()"
+            icon="@Embed(source='../../../assets/refresh.png')" />
         <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" />
         <s:ViewMenuItem 
