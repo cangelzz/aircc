@@ -14,32 +14,44 @@
             import com.airsmth.renders.*;
             public var CurMail:Mail;
             
-            public function init():void {
+            protected function init():void {
                 var ml:MailEditLoader = new MailEditLoader(data as Mail);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
                 ml.load();
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 var ml:MailEditLoader = event.currentTarget as MailEditLoader;
                 var ma:Mail = ml.mail;
                 CurMail = ml.mail;
                 tTitle.text = ma.title;
                 tContent.text = ma.content;
+                lbUser.text = ma.author;
                 submitBtn.enabled = true;
             }
             
-            public function submit():void {
+            protected function submit():void {
                 submitBtn.enabled = false;
                 CurMail.title = tTitle.text;
                 CurMail.content = tContent.text;
                 var ms:MailSender = new MailSender(CurMail);
                 ms.addEventListener(LoadEvent.DONE, onPost);
+                ms.addEventListener(LoadEvent.LOADSTART, onLoadStart);
+                ms.addEventListener(LoadEvent.LOADFAIL, onPostFail);
                 ms.load();
             }
             
-            public function onPost(event:Event):void {
+            protected function onPost(event:Event):void {
                 navigator.popView();
+            }
+            
+            protected function onLoadStart(event:Event):void {
+                lbInfo.text = "发送中，请稍候 ...";
+                lbInfo.includeInLayout = true;
+            }
+            
+            protected function onPostFail(event:Event):void {
+                lbInfo.text = "发送失败，请重试";
             }
             
         ]]>
@@ -53,6 +65,11 @@
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/submit_mail.png')" click="submit()" enabled="false" id="submitBtn" />
     </s:actionContent>
-    <s:TextInput id='tTitle' width="100%" />
+    <s:Label id="lbInfo" includeInLayout="false" styleName="loading" />
+    <s:HGroup width="100%" paddingTop="5" paddingBottom="5">
+        <s:Label text="收信人" />
+        <s:Label id="lbUser" styleName="postauthor" />
+    </s:HGroup>
+    <s:TextInput id='tTitle' width="100%" prompt="标题" />
     <s:TextArea id="tContent" width="100%" height="100%" />
 </s:View>

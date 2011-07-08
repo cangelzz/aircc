@@ -15,11 +15,11 @@
             import mx.collections.ArrayCollection;
             public var boards:ArrayCollection;
             
-            public function activate():void {
+            protected function activate():void {
                 boardList.dataProvider = data as ArrayCollection;
             }
             
-            public function search():void {
+            protected function search():void {
                 var sl:SearchBoardLoader = new SearchBoardLoader(tSearch.text);
                 sl.addEventListener(LoadEvent.DONE, onSearchMulti);
                 sl.addEventListener(LoadEvent.DONE, onLoadStart);
@@ -27,20 +27,22 @@
                 sl.load();
             }
             
-            private function onLoadStart(event:Event):void {
+            protected function onLoadStart(event:Event):void {
                 lbInfo.includeInLayout = true;
             }
             
-            private function onSearchMulti(event:Event):void {
+            protected function onSearchMulti(event:Event):void {
+                lbInfo.visible = false;
                 lbInfo.includeInLayout = false;
                 boardList.dataProvider = (event.currentTarget as SearchBoardLoader).data;
             }
             
-            private function onRedirect(event:Event):void {
+            protected function onRedirect(event:Event):void {
+                lbInfo.includeInLayout = false;
                 navigator.pushView(ThreadView, (event.currentTarget as SearchBoardLoader).board);
             }
             
-            private function go():void {
+            protected function go():void {
                 var board:Board = boardList.selectedItem as Board;
                 if (parentApplication.globalSMTH.config.showsubject) board.ftype = "6";
                 else board.ftype = "0";
@@ -48,14 +50,14 @@
                 navigator.pushView(ThreadView, board);
             }
             
-            private function refresh():void {
+            protected function refresh():void {
                 var sl:SMTHLoader = new SMTHLoader(parentApplication.globalSMTH.config);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoadFavor);
                 sl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 sl.load();
             }
             
-            private function onLoadFavor(event:Event):void {
+            protected function onLoadFavor(event:Event):void {
                 lbInfo.includeInLayout = false;
                 boardList.dataProvider = (event.currentTarget as SMTHLoader).acFavor;
             }

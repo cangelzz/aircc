@@ -30,7 +30,7 @@
             
             public var CurBoard:Board;
 
-            public function init():void {
+            protected function init():void {
                 if (data is ArrayCollection) {
                     threadList.dataProvider = data[1] as ArrayCollection;
                     setPageUI(data[0] as Board);
@@ -40,14 +40,14 @@
                 loadBoard(board);
             }
             
-            public function loadBoard(board:Board):void {
+            protected function loadBoard(board:Board):void {
                 var bl:BoardLoader = new BoardLoader(board, parentApplication.globalSMTH.config);
                 bl.addEventListener(LoadEvent.DONE, onLoad);
                 bl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
                 bl.load();
             }
             
-            private function setPageUI(board:Board):void {
+            protected function setPageUI(board:Board):void {
                 if (board.ftype == "6") typeBtn.setStyle("icon", iconSubject);
                 if (board.ftype == "0") typeBtn.setStyle("icon", iconSingle);
                 if (board.ftype == "1") typeBtn.setStyle("icon", iconDigest);
@@ -56,7 +56,7 @@
                 else bnextBtn.enabled = false;
             }
             
-            public function onLoad(event:Event):void {
+            protected function onLoad(event:Event):void {
                 lbInfo.includeInLayout = false;
                 var bl:BoardLoader = event.currentTarget as BoardLoader;
                 var brd:Board = bl.board;
@@ -65,7 +65,7 @@
                 data = new ArrayCollection([bl.board, bl.data]);
             }
             
-            public function onLoadStart(event:Event):void {
+            protected function onLoadStart(event:Event):void {
                 lbInfo.includeInLayout = true;
             }
             

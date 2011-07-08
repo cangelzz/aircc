@@ -15,7 +15,7 @@
             import spark.components.Label;
             public var config:Config;
             
-            public function init():void {
+            protected function init():void {
                 config = parentApplication.globalSMTH.config;
                 tId.text = config.id;
                 tPass.text = config.pass;
@@ -34,7 +34,7 @@
                 if (config.auto) login();
             }
             
-            public function login(userid:Number = 0):void {
+            protected function login(userid:Number = 0):void {
                 config.id = tId.text;
                 config.pass = tPass.text;
                 config.auto = ckAuto.selected;
@@ -50,12 +50,12 @@
                 sl.load();
             }
             
-            private function onLoginStart(event:Event):void {
+            protected function onLoginStart(event:Event):void {
                 parentApplication.globalSMTH.isLoggedOn = false;
                 lbInfo.text = "正在登录, 请稍候...";
             }
             
-            private function onLoginDone(event:Event):void {
+            protected function onLoginDone(event:Event):void {
                 parentApplication.globalSMTH.acFavor = (event.currentTarget as SMTHLoader).acFavor;
                 parentApplication.globalSMTH.config = (event.currentTarget as SMTHLoader).config;
                 parentApplication.globalSMTH.isLoggedOn = !parentApplication.globalSMTH.isGuest;
@@ -63,7 +63,7 @@
                 navigator.pushView(HomeView);
             }
             
-            private function onLoginFail(event:Event):void {
+            protected function onLoginFail(event:Event):void {
                 //config.id = "guest";
                 lbInfo.text = "登录失败，请重试或以访客登录";
                 //navigator.pushView(HomeView);
