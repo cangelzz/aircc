@@ -7,6 +7,8 @@
     public class Reply {
         public var title:String;
         public var content:String;
+        public var totalsig:String;
+        public var lastsig:String;
         public var signature:String = "0";
         public var mailback:String = "0";
         public var havemath:String = "0";
@@ -15,7 +17,7 @@
         
         public function get data():String {
             return "signature=" + signature + "&title=" + UrlMultiEncode.urlencodeGB2312(title) +
-                 "&text=" + UrlMultiEncode.urlencodeGB2312(content.replace(/\r/g,"\r\n"));
+                 "&text=" + UrlMultiEncode.urlencodeGB2312(content.replace(/\r/g,"\r\n")+"\r\n--\r\nSent from cc.airsmth");
         }
         
         public function get url():String {

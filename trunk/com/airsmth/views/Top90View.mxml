@@ -32,15 +32,15 @@
         change="go()">
         <s:dataProvider>
             <s:ArrayCollection>
-                <fx:Object label="国内院校" s="1"/>
-                <fx:Object label="休闲娱乐" s="2"/>
-                <fx:Object label="游戏天地" s="3"/>
-                <fx:Object label="体育健身" s="4"/>
-                <fx:Object label="社会信息" s="5"/>
-                <fx:Object label="知性感性" s="6"/>
-                <fx:Object label="文化人文" s="7"/>
-                <fx:Object label="学术科学" s="8"/>
-                <fx:Object label="电脑技术" s="9"/>
+                <fx:Object label="国内院校" s="1" icon="@Embed(source='../../../assets/g1.png')"/>
+                <fx:Object label="休闲娱乐" s="2" icon="@Embed(source='../../../assets/g2.png')"/>
+                <fx:Object label="游戏天地" s="3" icon="@Embed(source='../../../assets/g3.png')"/>
+                <fx:Object label="体育健身" s="4" icon="@Embed(source='../../../assets/g4.png')"/>
+                <fx:Object label="社会信息" s="5" icon="@Embed(source='../../../assets/g5.png')"/>
+                <fx:Object label="知性感性" s="6" icon="@Embed(source='../../../assets/g6.png')"/>
+                <fx:Object label="文化人文" s="7" icon="@Embed(source='../../../assets/g7.png')"/>
+                <fx:Object label="学术科学" s="8" icon="@Embed(source='../../../assets/g8.png')"/>
+                <fx:Object label="电脑技术" s="9" icon="@Embed(source='../../../assets/g9.png')"/>
             </s:ArrayCollection>
         </s:dataProvider>
     </s:List>

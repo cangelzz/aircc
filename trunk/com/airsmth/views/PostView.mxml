@@ -86,10 +86,15 @@
                 var pl:PostLoader = event.currentTarget as PostLoader;
                 var idx:Number = pl.idx;
                 var po:Post = pl.post;
-                postList.dataProvider.setItemAt(po, idx);
-                cnt_loaded = cnt_loaded + 1;
-                lbLoaded.text = cnt_loaded.toString() + "/" + cnt_all.toString();
-                data.setItemAt(postList.dataProvider, 1);
+                
+                //actually this is a bug, this just avoid the exception, 
+                //but may happens as the post is inserted to wrong subject
+                if (idx < postList.dataProvider.length) { 
+                    postList.dataProvider.setItemAt(po, idx);
+                    cnt_loaded = cnt_loaded + 1;
+                    lbLoaded.text = cnt_loaded.toString() + "/" + cnt_all.toString();
+                    data.setItemAt(postList.dataProvider, 1);
+                }
             }
             
             protected function next():void {
