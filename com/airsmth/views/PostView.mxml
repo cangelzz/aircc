@@ -126,13 +126,8 @@
                 parentApplication.viewMenuOpen=true;
             }
             
-            protected function postClick():void {
-                replyBtn.enabled = true;
-                if (parentApplication.globalSMTH.config.showrefer) return;
-                if (last_index != -1) postList.dataProvider[last_index].showrefer = false;
-                var post:Post = postList.selectedItem as Post;
-                last_index = postList.selectedIndex;
-                post.showrefer = true;
+            protected function postClick(event:IndexChangeEvent):void {
+                if (event.newIndex != -1) replyBtn.enabled = true;
             }
             
             protected function expandall():void {
@@ -187,7 +182,7 @@
     <s:List id="postList"
         width="100%" height="100%" 
         itemRendererFunction="RenderUtil.selectRenderer"
-        click="postClick()" />
+        change="postClick(event)" />
     <s:viewMenuItems>
         <s:ViewMenuItem click="prevsub()"
             icon="@Embed(source='../../../assets/prev_sub.png')" />

@@ -12,6 +12,7 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             import mx.collections.ArrayCollection;
+            import spark.events.IndexChangeEvent
             
             protected function init():void {
                 if (data is Top10Loader) {
@@ -33,6 +34,18 @@
                 data = event.currentTarget as Top10Loader;
             }
             
+            protected function enableMenu():void {
+                btnGoboard.enabled = true;
+                btnGopost.enabled = true;
+            }
+            
+            protected function goboard():void {
+                var board:Board = new Board();
+                board.bname = (threadList.selectedItem as Subject).bname;
+                if (!parentApplication.globalSMTH.config.showsubject) board.ftype = "0";
+                navigator.pushView(ThreadView, board);
+            }
+            
         ]]>
     </fx:Script>
     <s:navigationContent>
@@ -42,11 +55,15 @@
         <s:Label id="lbSectionTitle" width="100%" styleName="titlecenter" />
     </s:titleContent>
     <s:actionContent>
+        <s:Button id="btnGoboard" icon="@Embed(source='../../../assets/goboard.png')" enabled="false" 
+            click="goboard()" />
+        <s:Button id="btnGopost" icon="@Embed(source='../../../assets/forward.png')" enabled="false" 
+            click="navigator.pushView(PostView, threadList.selectedItem)" />
     </s:actionContent>
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="threadList"
         width="100%" height="100%"
-        change="navigator.pushView(PostView, threadList.selectedItem)"
-        itemRendererFunction="RenderUtil.selectRenderer" />
+        change="enableMenu()"
+        itemRenderer="com.airsmth.renders.Top10ListRenderer" />
     <!--s:Label id="lbInfo" width="100%" /-->
 </s:View>

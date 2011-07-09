@@ -30,12 +30,23 @@
                 sub.bname = result[1];
                 sub.gid = result[2];
                 sub.title = item.title;
-                //sub.preview = item.description;
+                sub.preview = getPreview(item.description);
                 _data.addItem(sub);
                 
              }
              debug = _loader.content;
              dispatchEvent(new LoadEvent(LoadEvent.DONE));
+        }
+        
+        private function getPreview(s:String):String {
+            var start:Number = s.indexOf("站内") + 2;
+            var end:Number = s.indexOf("※");
+            var content:String;
+            if (end != -1) content = s.substring(start, end);
+            else content = s.substring(start);
+            content = content.replace(/<br\/>/g, "\n");
+            content = StringHelper.trim(content, "\n");
+            return content;
         }
     }
 }
