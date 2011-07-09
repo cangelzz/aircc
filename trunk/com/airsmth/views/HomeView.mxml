@@ -41,8 +41,10 @@
         change="go()">
         <s:dataProvider>
             <s:ArrayCollection>
-                <fx:Object oid="bTop" label="十大" icon="@Embed(source='../../../assets/star.png')" 
-                    view="{Top10View}" data="" />
+                <fx:Object oid="bTop" label="全站十大" icon="@Embed(source='../../../assets/star.png')" 
+                    view="{Top10View}" data="{new Section('十大热门话题')}" />
+                <fx:Object oid="bTop" label="分区十大" icon="@Embed(source='../../../assets/star.png')" 
+                    view="{Top90View}" data="" />
                 <fx:Object oid="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" 
                     view="{BoardView}" data="{parentApplication.globalSMTH.acFavor}" />
                 <fx:Object oid="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"

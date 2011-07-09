@@ -6,13 +6,19 @@
     
     public class Top10Loader extends TextLoader {
         public var debug:String;
+        private var _section:Section;
         
-        public function Top10Loader():void {
-            super(SMTH.TOP10, "", "utf-8");
+        public function Top10Loader(section:Section):void {
+            super(SMTH.TOP10, section.data, "utf-8");
+            _section = section;
+        }
+        
+        public function get section():Section {
+            return _section;
         }
         
         override protected function onLoad(event:Event):void {
-             var p:RegExp = new RegExp("board=(\\w+)&gid=(\\d+)", "i");
+             var p:RegExp = new RegExp("board=(.*?)&gid=(\\d+)", "i");
              var xml:XML = XML(_loader.content);
              _data = new ArrayCollection();
              

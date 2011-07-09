@@ -14,7 +14,7 @@
         <![CDATA[
             override public function set data(value:Object):void {
                 super.data = value;
-                iconleft.source = value.icon;
+                if (value.hasOwnProperty("icon")) iconleft.source = value.icon;
                 labelName.text = value.label;
             }
         ]]>

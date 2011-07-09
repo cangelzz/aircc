@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <s:layout>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
+    </s:layout>
+
+    <fx:Script>
+        <![CDATA[
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import mx.collections.ArrayCollection;
+            import spark.components.Label;
+            
+            
+            protected function go():void {
+                navigator.pushView(Top10View, new Section(sectionList.selectedItem.label, sectionList.selectedItem.s))
+            }
+            
+        ]]>
+    </fx:Script>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()"/>
+    </s:navigationContent>
+    <s:titleContent>
+        <s:Label id="lbWelcome" styleName="titlecenter" width="100%" text="分区十大"/>
+    </s:titleContent>
+    <s:actionContent>
+    </s:actionContent>
+    <s:List width="100%" itemRenderer="com.airsmth.renders.HomeListRenderer" height="100%" id="sectionList"
+        change="go()">
+        <s:dataProvider>
+            <s:ArrayCollection>
+                <fx:Object label="国内院校" s="1"/>
+                <fx:Object label="休闲娱乐" s="2"/>
+                <fx:Object label="游戏天地" s="3"/>
+                <fx:Object label="体育健身" s="4"/>
+                <fx:Object label="社会信息" s="5"/>
+                <fx:Object label="知性感性" s="6"/>
+                <fx:Object label="文化人文" s="7"/>
+                <fx:Object label="学术科学" s="8"/>
+                <fx:Object label="电脑技术" s="9"/>
+            </s:ArrayCollection>
+        </s:dataProvider>
+    </s:List>
+</s:View>
