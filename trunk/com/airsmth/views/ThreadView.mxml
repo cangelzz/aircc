@@ -126,7 +126,7 @@
             }
             
             protected function onAddFavor(event:Event):void {
-                parentApplication.globalSMTH.acFavor = (event as FavorLoader).data;
+                parentApplication.globalSMTH.acFavor = (event.currentTarget as FavorLoader).data;
                 if (Util.isInFavor((data[0] as Board).bname, parentApplication.globalSMTH.acFavor)) meAddFavor.enabled = false;
                 else meAddFavor.enabled = true;
             }

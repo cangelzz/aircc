@@ -5,6 +5,10 @@
 
     <fx:Script> 
         <![CDATA[ 
+            [@Embed(source='../../../assets/icdelete.png')]
+            [Bindable]
+            public var icDelete:Class;
+
             
             override public function set data(value:Object):void { 
                 super.data = value; 
@@ -16,9 +20,7 @@
                     if (itemIndex % 2 == 0) scBackground.color = 0xFFFFF0;
                     else scBackground.color =  0xF6F6F6;
                 }
-                // If the data property is not null, 
-                // set the Label controls appropriately. 
-                //lbBoard.text = value.bname;
+                
             } 
         ]]> 
     </fx:Script>
@@ -34,6 +36,7 @@
             </s:fill>
         </s:Rect>
     <s:HGroup width="100%" id="threadGroup" paddingBottom="5" paddingTop="12" paddingLeft="5" paddingRight="5">
+            <s:Image id="imDelete" source="{icDelete}" includeInLayout="{data.delflag}" visible="{data.delflag}"/>
             <s:Label id="lbcname" text="{data.bname}" width="100%"/>
             <s:Label id="lbBoard" text="{data.cname}" textAlign="end" width="100%"/>
     </s:HGroup>
