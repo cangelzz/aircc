@@ -6,8 +6,8 @@
 
 	public class FavorLoader extends TextLoader {
         
-		public function FavorLoader():void {
-            super(SMTH.BBSFAV);
+		public function FavorLoader(para:String = null):void {
+            super(SMTH.BBSFAV, para);
 		}
         
 		override protected function onLoad(event:Event):void {
