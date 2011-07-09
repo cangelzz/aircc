@@ -90,7 +90,10 @@
             }
             
             protected function newPost():void {
-                navigator.pushView(NewPostView, (data[0] as Board).bname);
+                var post:Post = new Post();
+                post.bname = (data[0] as Board).bname;
+                post.id = "0";
+                navigator.pushView(ReplyView, post);
             }
             
             protected function refresh():void {
