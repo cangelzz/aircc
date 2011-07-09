@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
+        <s:VerticalLayout paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="20"/>
     </s:layout>
         
     <fx:Script>
@@ -12,30 +12,50 @@
             import com.airsmth.defines.*;
             import com.airsmth.renders.*;
             import com.airsmth.views.*;
-            public var post:Post;
+            [Bindable]
+            public var loading:Boolean = false;
             
             protected function init():void {
-                var subject:Subject = data as Subject;
-                post = new Post();
-                post.bid = subject.bid;
-                post.id = subject.pid;
-                post.author = subject.author;
-                var pl:PostLoader = new PostLoader(post, 0, true);
+                var post:Post;
+                if (data is Post) {
+                    setPageUI(data as Post);
+                    return;
+                }
+                
+                if (data is Subject) {
+                    var subject:Subject = data as Subject;
+                    post = new Post();
+                    post.bid = subject.bid;
+                    post.id = subject.pid;
+                    post.author = subject.author;
+                    post.gid = subject.gid;
+                    post.bname = subject.bname;
+                }
+                
+                loadPost(post);
+            }
+            
+            protected function loadPost(post:Post, newdata:URLVariables = null):void {
+                var pl:PostLoader = new PostLoader(post, 0, true, newdata);
                 pl.addEventListener(LoadEvent.DONE, onLoad);
+                loading = true;
                 pl.load();
             }
             
             protected function onLoad(event:Event):void {
+                loading = false;
                 var post:Post = (event.currentTarget as PostLoader).post;
+                data = post;
+                setPageUI(post);
+            }
+            
+            protected function setPageUI(post:Post):void {
+                lbSubTitle.text = post.title;
                 lbAuthor.text = post.author;
                 lbContent.text = post.content;
                 lbReply.visible = post.showrefer;
                 lbReply.text = post.reply;
-            }
-            
-            protected function prev():void {
-            }
-            protected function next():void {
+                expandBtn.enabled = true;
             }
             
             protected function menuOpen():void {
@@ -51,32 +71,43 @@
             }
             
             protected function expandsubject():void {
-
+                var sub:Subject = new Subject();
+                sub.bname = (data as Post).bname;
+                sub.gid = (data as Post).gid;
+                navigator.pushView(PostView, sub);
             }
-
+            protected function go(target:String):void {
+                var post:Post = data as Post;
+                post.id = target;
+                loadPost(post);
+            }
         ]]>
     </fx:Script>
-    <fx:Declarations>
-        <s:ArrayCollection id="data"/>
-    </fx:Declarations>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
-        <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" enabled="false"/>
-        <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" enabled="false"/>
+        <s:Button click="navigator.popView()" icon="@Embed(source='../../../assets/back.png')" />
+        <s:Button icon="@Embed(source='../../../assets/prev_mail_page.png')" click="loadPost(data as Post, (data as Post).pdata)" id="pprevBtn"/>
+        <s:Button icon="@Embed(source='../../../assets/next_mail_page.png')" click="loadPost(data as Post, (data as Post).ndata)" id="pnextBtn"/>
     </s:navigationContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/expandall.png')" click="expandsubject()" id="expandBtn" />
+        <s:Button icon="@Embed(source='../../../assets/prev_sub.png')" click="loadPost(data as Post, (data as Post).tpdata)" id="tprevBtn"/>
+        <s:Button icon="@Embed(source='../../../assets/next_sub.png')" click="loadPost(data as Post, (data as Post).tndata)" id="tnextBtn"/>
+        <s:Button icon="@Embed(source='../../../assets/expandall.png')" click="expandsubject()" id="expandBtn" enabled="false" />
     </s:actionContent>
-    
+    <s:Label id="lbInfo" text="正在加载，请稍候 ..." visible="{loading}" includeInLayout="{loading}" />
     <s:VGroup width="100%" click="menuOpen()">
+    <s:Label id="lbSubTitle" paddingBottom="20" styleName="posttitle"/>
     <s:Label id="lbAuthor" styleName="postauthor"/>
     <s:Label id="lbContent" width="100%"/>
-    <s:Label id="lbReply" width="100%"/>
+    <s:Label id="lbReply" width="100%" styleName="postreply"/>
     </s:VGroup>
 
     <s:viewMenuItems>
-        <s:ViewMenuItem click="navigator.replaceView(ReplyView, post)"
+        <s:ViewMenuItem click="navigator.pushView(ReplyView, data as Post)"
             icon="@Embed(source='../../../assets/reply_post.png')" />
+        <s:ViewMenuItem click="go((data as Post).gid)"
+            icon="@Embed(source='../../../assets/first.png')" />
+        <s:ViewMenuItem click="go((data as Post).rid)"
+            icon="@Embed(source='../../../assets/backrefer.png')" />
         <s:ViewMenuItem 
             icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
         <s:ViewMenuItem id="meTrash"

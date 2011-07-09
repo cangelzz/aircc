@@ -9,8 +9,11 @@
 		private var _idx:Number;
         private var _post:Post;
         
-		public function PostLoader(post:Post, idx:Number, config:Object = null):void {
-            super(SMTH.BBSCON, post.data);
+		public function PostLoader(post:Post, idx:Number, config:Object = null, newdata:URLVariables = null):void {
+            var buf:Object;
+            if (newdata != null) buf = newdata;
+            else buf = post.data;
+            super(SMTH.BBSCON, buf);
             _post = post;
             _idx = idx;
             if (config != null) {
@@ -28,15 +31,23 @@
         }
 		override protected function onLoad(event:Event):void {
 			var _text:String = _loader.content;
+            var longauthor:String = _text.substring(_text.indexOf("发信人:")+5, _text.indexOf("信区:")-2);
+            _post.author = longauthor.substring(0, longauthor.indexOf(" "));
             var p:RegExp = new RegExp("站内(.*)--", "g");
-            var pt:RegExp = new RegExp("conWriter.*?'(.*?)'");
+            //                                            bname    bid    id     gid      rid        title
+            var pt:RegExp = new RegExp("conWriter\\(\\d,\\s'(\\w+)',\\s(\\d+),\\s(\\d+),\\s(\\d+),\\s(\\d+),.*'(.*?)'");
 			var content:String;
             var reply:String;
             var bname:String = "";
 			var result:Object = p.exec(_text);
             var result2:Object = pt.exec(_text);
             if (result2 != null) {
-                bname = result2[1];
+                _post.bname = result2[1];
+                _post.bid = result2[2];
+                _post.id = result2[3];
+                _post.gid = result2[4];
+                _post.rid = result2[5];
+                _post.title = result2[6];
             }
                 
 			if (result == null)
@@ -54,7 +65,6 @@
                     
                 }
             }
-            _post.bname = bname;
 			_post.content = content;
             _post.reply = reply;
             
