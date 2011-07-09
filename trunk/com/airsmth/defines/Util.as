@@ -1,5 +1,6 @@
 package com.airsmth.defines {
     import flash.filesystem.*;
+    import mx.collections.ArrayCollection;
     import com.airsmth.defines.SMTH;
     import mx.utils.Base64Encoder;
     import mx.utils.Base64Decoder;
@@ -67,5 +68,15 @@ package com.airsmth.defines {
             return source;
         }
         
+        public static function isInFavor(bname:String, list:ArrayCollection):Boolean {
+            var flag:Boolean = false;
+            for each(var board:Board in list.source) {
+                if (board.bname == bname) {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+        }
 	}
 }

@@ -54,6 +54,8 @@
                 if (board.ftype == "3") typeBtn.setStyle("icon", iconMark);
                 if (board.start <= board.total - 30) bnextBtn.enabled = true;
                 else bnextBtn.enabled = false;
+                if (!Util.isInFavor(board.bname, parentApplication.globalSMTH.acFavor)) meAddFavor.enabled = true;
+                else meAddFavor.enabled = false;
             }
             
             protected function onLoad(event:Event):void {
@@ -117,6 +119,18 @@
                 else navigator.pushView(PostView, threadList.selectedItem);
             }
             
+            protected function addFavor():void {
+                var fl:FavorLoader = new FavorLoader("select=0&bname=" + (data[0] as Board).bname);
+                fl.addEventListener(LoadEvent.DONE, onAddFavor);
+                fl.load();
+            }
+            
+            protected function onAddFavor(event:Event):void {
+                parentApplication.globalSMTH.acFavor = (event as FavorLoader).data;
+                if (Util.isInFavor((data[0] as Board).bname, parentApplication.globalSMTH.acFavor)) meAddFavor.enabled = false;
+                else meAddFavor.enabled = true;
+            }
+            
         ]]>
     </fx:Script>
     <fx:Declarations>
@@ -148,7 +162,7 @@
             icon="@Embed(source='../../../assets/th_digest.png')" />
         <s:ViewMenuItem click="filterType(3)"
             icon="@Embed(source='../../../assets/th_mark.png')" />
-        <s:ViewMenuItem 
-            icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
+        <s:ViewMenuItem click="addFavor()" id="meAddFavor"
+            icon="@Embed(source='../../../assets/addfavor.png')" enabled="false"/>
     </s:viewMenuItems>
 </s:View>

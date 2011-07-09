@@ -128,6 +128,10 @@
             
             protected function postClick(event:IndexChangeEvent):void {
                 if (event.newIndex != -1) replyBtn.enabled = true;
+                if (parentApplication.globalSMTH.config.showrefer) {
+                    if (event.oldIndex != -1) postList.dataProvider[event.oldIndex].showrefer = true;
+                    postList.dataProvider[event.newIndex].showrefer = false;
+                }
             }
             
             protected function expandall():void {
@@ -191,7 +195,7 @@
         <s:ViewMenuItem click="refresh()"
             icon="@Embed(source='../../../assets/refresh.png')" />
         <s:ViewMenuItem click="expandall()"
-            icon="@Embed(source='../../../assets/post_expand.png')" />
+            icon="@Embed(source='../../../assets/post_expand.png')" enabled="{!(parentApplication.globalSMTH.config.showrefer as Boolean)}" />
         <s:ViewMenuItem 
             icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
         <s:ViewMenuItem id="meTrash"

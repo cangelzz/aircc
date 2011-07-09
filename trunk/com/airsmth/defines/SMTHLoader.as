@@ -42,8 +42,8 @@
             dispatchEvent(new LoadEvent(LoadEvent.LOGINFAIL));
         }
         
-        public function loadFavor():void {
-            var fl:FavorLoader = new FavorLoader();
+        public function loadFavor(para:String = null):void {
+            var fl:FavorLoader = new FavorLoader(para);
             fl.addEventListener(LoadEvent.DONE, onFavorLoad);
             fl.load();
             dispatchEvent(new LoadEvent(LoadEvent.LOADSTART));

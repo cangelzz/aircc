@@ -1,7 +1,7 @@
 ﻿package com.airsmth.defines {
     import com.airsmth.defines.Util;
+    import flash.events.*;
 
-    [Bindable]
 	public class Config {
         private var xml:XML;
         
@@ -29,6 +29,7 @@
             return xml.option.showlatest == "true";
         }
         
+        [Bindable] 
         public function get showrefer():Boolean {
             return xml.option.showrefer == "true";
         }
