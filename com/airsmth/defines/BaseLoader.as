@@ -12,14 +12,14 @@
         public var encoding:String = "gb2312";
         public var statusevent:HTTPStatusEvent;
         
-        public function BaseLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET):void {
+        public function BaseLoader(url:String, data:Object = null, method:String = URLRequestMethod.GET, follow:Boolean = true):void {
             _url = url;
             _data = data;
             _request = new URLRequest(_url);
             _request.method = method;
             _request.data = _data;
             _request.useCache = false;
-            _request.followRedirects = false;
+            _request.followRedirects = follow;
         }
 
         public function get content():String {

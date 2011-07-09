@@ -8,7 +8,7 @@
         public var board:Board;
         
         public function SearchBoardLoader(searchText:String):void {
-            super(SMTH.BBSSEL, "board=" + UrlMultiEncode.urlencodeGB2312(searchText));
+            super(SMTH.BBSSEL, "board=" + UrlMultiEncode.urlencodeGB2312(searchText), URLRequestMethod.GET, false);
             _data = new ArrayCollection();
         }
         
