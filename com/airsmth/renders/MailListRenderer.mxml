@@ -51,10 +51,10 @@
         <s:HGroup width="100%" id="threadGroup" paddingBottom="3" paddingTop="12" paddingLeft="3" paddingRight="5">
             <!--s:Label id="lbReplied" text="r" visible="false" /-->
             <!--s:Label id="lbNew" text="n" visible="false" /-->
-            <s:Image id="imReplied"/>
+            <s:Image id="imReplied"  preliminaryWidth="24"/>
             <s:Image id="imUnread"/>
             <s:Label id="lbTitle" width="100%" />
-            <s:Label id="lbAuthor" paddingBottom="10" textAlign="end"/>
+            <s:Label id="lbAuthor" paddingBottom="10" textAlign="end" styleName="threadauthor"/>
         </s:HGroup>
     </s:HGroup>
     </s:Group>

@@ -11,10 +11,18 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
+            import mx.collections.ArrayCollection;
             
             protected function init():void {
-                var tl:Top10Loader = new Top10Loader();
+                if (data is Top10Loader) {
+                    threadList.dataProvider = (data as Top10Loader).data;
+                    lbSectionTitle.text = (data as Top10Loader).section.title;
+                    return;
+                }
+            
+                var tl:Top10Loader = new Top10Loader(data as Section);
                 lbInfo.includeInLayout = true;
+                lbSectionTitle.text = (data as Section).title;
                 tl.addEventListener(LoadEvent.DONE, onLoad);
                 tl.load();
             }
@@ -22,6 +30,7 @@
             protected function onLoad(event:Event):void {
                 lbInfo.includeInLayout = false;
                 threadList.dataProvider = (event.currentTarget as Top10Loader).data;
+                data = event.currentTarget as Top10Loader;
             }
             
         ]]>
@@ -29,6 +38,9 @@
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
     </s:navigationContent>
+    <s:titleContent>
+        <s:Label id="lbSectionTitle" width="100%" styleName="titlecenter" />
+    </s:titleContent>
     <s:actionContent>
     </s:actionContent>
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
