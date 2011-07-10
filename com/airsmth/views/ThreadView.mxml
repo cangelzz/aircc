@@ -93,7 +93,7 @@
             protected function next():void {
                 var board:Board = data[0] as Board;
                 board.page = board.page + 1;
-                navigator.replaceView(ThreadView, board);
+                loadBoard(board);
             }
             
             protected function prev():void {
@@ -137,6 +137,15 @@
             
             protected function go():void {
                 var ftype:String = (data[0] as Board).ftype;
+                var sub:Subject = threadList.selectedItem as Subject;
+                if (sub.title.indexOf("合集") != -1) {
+                    var post:Post = new Post();
+                    post.id = sub.gid;
+                    post.bid = sub.bid;
+                    post.title = sub.title;
+                    navigator.pushView(GroupPostView, post);
+                    return;
+                }
                 if (ftype == "0") navigator.pushView(SinglePostView, threadList.selectedItem);
                 else navigator.pushView(PostView, threadList.selectedItem);
             }

@@ -33,7 +33,7 @@
 			var _text:String = _loader.content;
             var longauthor:String = _text.substring(_text.indexOf("发信人:")+5, _text.indexOf("信区:")-2);
             _post.author = longauthor.substring(0, longauthor.indexOf(" "));
-            var p:RegExp = new RegExp("站内(.*)--", "g");
+            var p:RegExp = new RegExp("站内(.*)(--|※)", "g");
             //                                            bname    bid    id     gid      rid        title
             var pt:RegExp = new RegExp("conWriter\\(\\d,\\s'(\\w+)',\\s(\\d+),\\s(\\d+),\\s(\\d+),\\s(\\d+),.*'(.*?)'");
 			var content:String;
@@ -53,9 +53,12 @@
 			if (result == null)
 				content = "error";
 			else {
-				content = StringHelper.trim(result[1].replace(/\\n/ig, "\n"), "\n");
+                //not working
+                content = result[1].replace(/\\\r[\\[\\d;]+[a-z]/g,"");
+				content = StringHelper.trim(content.replace(/\\n/ig, "\n"), "\n");
                 content = content.replace(/\\\//ig, "\/");
                 content = content.replace(/\n\n/g, "\n");
+                
                 var idx:Number = content.indexOf("【");
                 if (idx != -1) {
                     reply = content.substr(idx);
