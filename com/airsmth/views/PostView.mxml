@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:s="library://ns.adobe.com/flex/spark" xmlns:ria="spark.controls.*"
     creationComplete="init()">
     <s:layout>
         <s:VerticalLayout paddingTop="10" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
@@ -52,10 +52,22 @@
                 else sprevBtn.enabled = false;
                 if (sub.pno < sub.tpage) snextBtn.enabled = true;
                 else snextBtn.enabled = false;
+                setJump(sub.tpage, sub.pno);
+            }
+            
+            protected function setJump(all:Number, cur:Number):void {
                 var pages:ArrayCollection = new ArrayCollection();
-                for (var i:Number = 1; i <= sub.tpage; i++) { pages.addItem(i); }
+                for (var i:Number = 1; i <= all; i++) {
+                    pages.addItem({label: i.toString()}); 
+                }
                 jump.dataProvider = pages;
-                jump.selectedIndex = sub.pno - 1;
+                jump.selectedIndex = cur - 1;
+            }
+            
+            protected function jumpPage(event:Event):void {
+                var sub:Subject = data[0] as Subject;
+                sub.pno = Number((event.currentTarget as ButtonBox).label);
+                loadSubject(sub);
             }
             
             protected function onLoad(event:Event):void {
@@ -110,7 +122,7 @@
                 loadSubject(sub);
                 //navigator.replaceView(PostView, sub);
             }
-            protected function jumpPage(page:Number):void {
+            protected function jumpPagex(page:Number):void {
                 var sub:Subject = data[0] as Subject;
                 sub.pno = page;
                 loadSubject(sub);
@@ -172,10 +184,11 @@
         <s:ArrayCollection id="data"/>
     </fx:Declarations>
     <s:navigationContent>
-        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" id="btnBack"/>
         <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" enabled="false"/>
         <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" enabled="false"/>
-        <s:ComboBox id="jump" width="60" change="jumpPage(jump.selectedIndex + 1)" />
+        <ria:ButtonBox id="jump" labelField="label" width="{btnBack.width}" height="{btnBack.height}"
+            selected="jumpPage(event)" />
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/reply_post.png')" 
