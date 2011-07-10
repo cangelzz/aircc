@@ -159,18 +159,17 @@
             }
 
             protected function prevsub():void {
-                var sub:Subject = data[0] as Subject;
-                sub.gid = sub.pthid;
+                var sub:Subject = new Subject(); 
+                sub.bname = (data[0] as Subject).bname;
+                sub.gid = (data[0] as Subject).pthid;
                 sub.pno = 1;
-                //navigator.replaceView(PostView, sub);
                 loadSubject(sub);
             }
             
             protected function nextsub():void {
-                var sub:Subject = data[0] as Subject;
-                sub.gid = sub.nthid;
-                sub.pno = 1;
-                //navigator.replaceView(PostView, sub);
+                var sub:Subject = new Subject(); 
+                sub.bname = (data[0] as Subject).bname;
+                sub.gid = (data[0] as Subject).nthid;
                 loadSubject(sub);
             }
             

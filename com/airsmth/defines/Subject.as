@@ -15,7 +15,7 @@
     	public var title:String = null;
         public var pno:Number = 1;
         public var tpage:Number = 1;
-        public var lz:String = "";
+        //public var lz:String = "";
         public var preview:String = "";
         public var nthid:String = "";
         public var pthid:String = "";
