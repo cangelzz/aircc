@@ -6,8 +6,11 @@
 
 	public class FavorLoader extends TextLoader {
         
-		public function FavorLoader(para:String = null):void {
-            super(SMTH.BBSFAV, para);
+		public function FavorLoader(para:String = null, newurl:String = null):void {
+            var url:String;
+            if (newurl == null) url = SMTH.BBSFAV;
+            else url = SMTH.BBSBOA;
+            super(url, para);
 		}
         
 		override protected function onLoad(event:Event):void {

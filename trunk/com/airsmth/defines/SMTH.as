@@ -17,6 +17,7 @@
         public static const LOGINURL:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
         public static const ATOMIC:String = "http://www.newsmth.net/atomic.php";
         public static const BBSFAV:String = "http://www.newsmth.net/bbsfav.php"
+        public static const BBSBOA:String = "http://www.newsmth.net/bbsboa.php";
         public static const MAILCON:String = "http://www.newsmth.net/bbsmailcon.php";
         public static const SENDMAIL:String = "http://www.newsmth.net/bbssendmail.php";
         public static const PSTMAIL:String = "http://www.newsmth.net/bbspstmail.php";

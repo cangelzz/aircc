@@ -7,6 +7,7 @@
     public class TextLoader extends EventDispatcher {
         protected var _data:ArrayCollection;
         protected var _loader:BaseLoader;
+        protected var _go:Boolean = true;
         
         public function TextLoader(url:String, data:Object = null, encoding:String = "gb2312", follow:Boolean = true):void {
             _loader = new BaseLoader(url, data, URLRequestMethod.GET, follow);
