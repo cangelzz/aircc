@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Button xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark" click="openList()" creationComplete="setInit(event)"
+		  skinClass="spark.controls.skins.ButtonBoxSkin">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Metadata>
+			[Event(name="opened", type="spark.events.ButtonBoxEvent")]
+			[Event(name="closed", type="spark.events.ButtonBoxEvent")]
+			[Event(name="selected", type="spark.events.ButtonBoxEvent")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			import mx.events.ItemClickEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Label;
+			import spark.components.List;
+			import spark.components.SkinnablePopUpContainer;
+			import spark.components.View;
+			import spark.events.ButtonBoxEvent;
+			import spark.events.IndexChangeEvent;
+			
+			private var list:ButtonBoxImpl;
+		
+			private var _prompt:String = "";
+			private var _dp:IList;
+			private var _selected:Object;
+			private var _selectedIndex:int;
+ 
+			private var _lblField:String;
+			
+			[SkinPart(required="true")]
+			public var promptDisplay:Label;
+			
+			[Bindable]
+			public function get dataProvider():IList
+			{
+				return _dp;
+			}
+			public function set dataProvider(value:IList):void
+			{
+				_dp = value;
+			}
+			
+			[Bindable]
+			public function get labelField():String
+			{
+				return _lblField;
+			}
+			public function set labelField(value:String):void
+			{
+				_lblField = value;
+			}
+			
+			[Bindable]
+			public function get selectedItem():Object
+			{
+				return _selected;
+			}
+			public function set selectedItem(value:Object):void
+			{
+				_selected = value;
+			}
+			
+			[Bindable]
+			public function get selectedIndex():int
+			{
+				return _selectedIndex;
+			}
+			public function set selectedIndex(value:int):void
+			{
+				_selectedIndex = value;
+                label = (_selectedIndex + 1).toString();
+                //promptDisplay.text = label;
+				invalidateDisplayList();
+				invalidateProperties();
+			}
+			
+			[Bindable]
+			public function get prompt():String
+			{
+				return _prompt;
+			}
+			public function set prompt(value:String):void
+			{
+				_prompt = value;	
+			}		
+			
+			
+			protected function setInit(event:FlexEvent):void
+			{			
+				//label = _prompt;
+				//promptDisplay.text = label;
+                label = (_selectedIndex + 1).toString();
+                promptDisplay.text = label;
+				invalidateDisplayList();
+				invalidateProperties();
+			}
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				super.updateDisplayList(unscaledWidth,unscaledHeight);
+			}			
+			override protected function commitProperties():void
+			{
+				super.commitProperties();
+				promptDisplay.text = label;
+			}
+
+			protected function openList():void
+			{
+				list = new ButtonBoxImpl();
+				list.open(this,true);
+				list.x = (screen.width - list.width)/2;
+				list.y = (screen.height - list.height)/2;
+				list._title.text = _prompt;
+				list.dataProvider = _dp;
+				list.addEventListener(IndexChangeEvent.CHANGE,selectionHandler,true,1,true);
+				dispatchEvent(new ButtonBoxEvent(ButtonBoxEvent.OPENED,true,true));
+			}
+			
+			protected function selectionHandler(event:IndexChangeEvent):void
+			{
+				_selected = list.selectedItem;
+				_selectedIndex = list.selectedIndex;
+				this.label = String(list._optionsList.selectedItem.label);
+				dispatchEvent(new ButtonBoxEvent(ButtonBoxEvent.SELECTED));
+				list.close();
+				list = null;
+			}
+			
+		]]>
+		</fx:Script>
+</s:Button>
