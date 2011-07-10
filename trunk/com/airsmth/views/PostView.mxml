@@ -19,14 +19,16 @@
             
             protected function init():void {
                 if (data is ArrayCollection) {
+                    if (parentApplication.globalSMTH.config.autoupdate) {
+                        loadSubject(data[0] as Subject);
+                        return;
+                    }
+                
                     postList.dataProvider = data[1] as ArrayCollection;
                     setPageUI(data[0] as Subject);
                     return;
                 }
-                var sl:SubjectLoader = new SubjectLoader(data as Subject);
-                sl.addEventListener(LoadEvent.DONE, onLoad);
-                sl.addEventListener(LoadEvent.LOADSTART, onLoadSubjectStart);
-                sl.load();
+                loadSubject(data as Subject);
             }
             
             protected function onLoadSubjectStart(event:Event):void {
@@ -37,6 +39,7 @@
             protected function loadSubject(sub:Subject):void {
                 var sl:SubjectLoader = new SubjectLoader(sub);
                 sl.addEventListener(LoadEvent.DONE, onLoad);
+                sl.addEventListener(LoadEvent.LOADSTART, onLoadSubjectStart);
                 sl.load();
             }
             
@@ -58,7 +61,7 @@
             protected function setJump(all:Number, cur:Number):void {
                 var pages:ArrayCollection = new ArrayCollection();
                 for (var i:Number = 1; i <= all; i++) {
-                    pages.addItem({label: i.toString()}); 
+                    pages.addItem({label: i.toString()});
                 }
                 jump.dataProvider = pages;
                 jump.selectedIndex = cur - 1;

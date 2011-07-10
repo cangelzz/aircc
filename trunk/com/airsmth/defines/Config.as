@@ -46,6 +46,10 @@
             return Number(xml.option.imgsize);
         }
         
+        public function get autoupdate():Boolean {
+            return xml.option.autoupdate == "true";
+        }
+        
         public function set id(_id:String):void {
             xml.auth.id = _id;
         }
@@ -74,6 +78,10 @@
         }
         public function set showbottom(op:Boolean):void {
             xml.option.showbottom = op;
+        }
+        
+        public function set autoupdate(op:Boolean):void {
+            xml.option.autoupdate = op;
         }
         
     }

@@ -23,6 +23,7 @@ package com.airsmth.defines {
                                     <showrefer>false</showrefer>
                                     <showlatest>true</showlatest>
                                     <showbottom>true</showbottom>
+                                    <autoupdate>false</autoupdate>
                                 </option>
                              </config>
                 f = new FileStream();
@@ -52,6 +53,7 @@ package com.airsmth.defines {
                               <showrefer>{config.showrefer}</showrefer>
                               <showlatest>{config.showlatest}</showlatest>
                               <showbottom>{config.showbottom}</showbottom>
+                              <autoupdate>{config.autoupdate}</autoupdate>
                           </option>
             cx.appendChild(options);
             var f:FileStream = new FileStream();
