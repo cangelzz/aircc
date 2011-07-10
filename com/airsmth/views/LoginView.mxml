@@ -25,6 +25,7 @@
                 ckRefer.selected = config.showrefer;
                 ckSubject.selected = config.showsubject;
                 ckBottom.selected = config.showbottom;
+                ckAutoUpdate.selected = config.autoupdate;
                 //ckAuto.selected = config.auth.auto;
                 if (data != null) {
                     btnBack.includeInLayout = true;
@@ -43,6 +44,7 @@
                 config.showrefer = ckRefer.selected;
                 config.showsubject = ckSubject.selected;
                 config.showbottom = ckBottom.selected;
+                config.autoupdate = ckAutoUpdate.selected;
                 var sl:SMTHLoader = new SMTHLoader(config);
                 sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
@@ -78,6 +80,7 @@
                 config.showrefer = ckRefer.selected;
                 config.showsubject = ckSubject.selected;
                 config.showbottom = ckBottom.selected;
+                config.autoupdate = ckAutoUpdate.selected;
                 parentApplication.globalSMTH.isLoggedOn = false;
                 navigator.pushView(HomeView);
             }
@@ -101,6 +104,7 @@
     <s:CheckBox label="显示引文" id="ckRefer" />
     <s:CheckBox label="显示置底" id="ckBottom" />
     <s:CheckBox label="加载图片" id="ckImage" />
+    <s:CheckBox label="自动刷新" id="ckAutoUpdate" />
     <s:Label id="lbInfo" styleName="loading" />
     </s:VGroup>
 </s:View>

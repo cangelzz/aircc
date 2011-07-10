@@ -32,6 +32,10 @@
 
             protected function init():void {
                 if (data is ArrayCollection) {
+                    if (parentApplication.globalSMTH.config.autoupdate) {
+                        loadBoard(data[0] as Board);
+                        return;
+                    }
                     threadList.dataProvider = data[1] as ArrayCollection;
                     setPageUI(data[0] as Board);
                     return;
