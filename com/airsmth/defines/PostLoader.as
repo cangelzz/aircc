@@ -54,10 +54,11 @@
 				content = "error";
 			else {
                 //not working
-                content = result[1].replace(/\\\r[\\[\\d;]+[a-z]/g,"");
-				content = StringHelper.trim(content.replace(/\\n/ig, "\n"), "\n");
-                content = content.replace(/\\\//ig, "\/");
-                content = content.replace(/\n\n/g, "\n");
+                content = StringHelper.filterText(result[1]);
+                //content = result[1].replace(/\\r[\[\d;]+[a-z]/g,"");
+				//content = StringHelper.trim(content.replace(/\\n/ig, "\n"), "\n");
+                //content = content.replace(/\\\//g, "\/");
+                //content = content.replace(/\n\n/g, "\n");
                 
                 var idx:Number = content.indexOf("【");
                 if (idx != -1) {

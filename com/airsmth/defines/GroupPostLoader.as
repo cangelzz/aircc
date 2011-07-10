@@ -30,10 +30,11 @@
             return _idx;
         }
 		override protected function onLoad(event:Event):void {
-			var _text:String = _loader.content;
+		    var _text:String = _loader.content;
             //var longauthor:String = _text.substring(_text.indexOf("发信人:")+5, _text.indexOf("信区:")-2);
             //_post.author = longauthor.substring(0, longauthor.indexOf(" "));
-            var p:RegExp = new RegExp("站内(.*)(--|※)", "i");
+            //var p:RegExp = new RegExp("站内(.*)(--|※)", "i");
+            var p:RegExp = new RegExp("站内(.*);o\\.h", "i");
             var result:Object = p.exec(_text);
             var post:Post;
             _data = new ArrayCollection();
@@ -41,19 +42,26 @@
                 post = new Post();
                 post.author = "ERROR";
                 post.content = "ERROR";
-                //_data.addItem(post);
+                _data.addItem(post);
+                return;
             }
             var posts:Array = result[1].split(/☆─────────────────────────────────────☆/);
             var content:String;
             var p2:RegExp = new RegExp(".*?\\s(\\w+)\\s.*?提到:(.*)");
             var result2:Object;
+            var lz:String = null;
             
-            for (var i:Number = 1; i < posts.length; i++) {
+            for (var i:Number = 0; i < posts.length; i++) {
                 result2 = p2.exec(posts[i]);
                 if (result2 == null) continue;
                 post = new Post();
                 post.author = result2[1];
-                content = StringHelper.trim(result2[2].replace(/\\n/ig, "\n"), "\n").replace(/\\\//ig, "\/").replace(/\n\n/g, "\n");
+                if (lz == null) {
+                    post.lz = post.author;
+                    lz = post.author;
+                }
+                else post.lz = lz;
+                content = StringHelper.filterText(result2[2]);
                 var idx:Number = content.indexOf("【");
                 if (idx != -1) {
                     var reply:String = content.substr(idx);
