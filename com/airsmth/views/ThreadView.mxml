@@ -44,8 +44,23 @@
                 var bl:BoardLoader = new BoardLoader(board, parentApplication.globalSMTH.config);
                 bl.addEventListener(LoadEvent.DONE, onLoad);
                 bl.addEventListener(LoadEvent.LOADSTART, onLoadStart);
+                bl.addEventListener(LoadEvent.REDIRBOARD, onRedirect);
                 bl.load();
             }
+            
+            protected function onRedirect(event:Event):void {
+                var bl:BoardLoader = event.currentTarget as BoardLoader;
+                var para:String = bl.redirect;
+                var fl:FavorLoader = new FavorLoader(para, "BBSBOA");
+                fl.addEventListener(LoadEvent.DONE, onGroupLoad);
+                fl.load();
+            }
+            
+            protected function onGroupLoad(event:Event):void {
+                //(event.currentTarget as FavorLoader).removeEventListener(LoadEvent.DONE, onLoad);
+                navigator.replaceView(BoardView, (event.currentTarget as FavorLoader).data);
+            }
+            
             
             protected function setPageUI(board:Board):void {
                 if (board.ftype == "6") typeBtn.setStyle("icon", iconSubject);
