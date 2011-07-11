@@ -46,6 +46,13 @@
                 navigator.pushView(ThreadView, board);
             }
             
+            protected function gopost():void {
+                var sub:Subject = new Subject();
+                sub.bname = (threadList.selectedItem as Subject).bname;
+                sub.gid = (threadList.selectedItem  as Subject).gid;
+                navigator.pushView(PostView, sub);
+            }
+            
         ]]>
     </fx:Script>
     <s:navigationContent>
@@ -58,7 +65,7 @@
         <s:Button id="btnGoboard" icon="@Embed(source='../../../assets/goboard.png')" enabled="false" 
             click="goboard()" />
         <s:Button id="btnGopost" icon="@Embed(source='../../../assets/gopage.png')" enabled="false" 
-            click="navigator.pushView(PostView, threadList.selectedItem)" />
+            click="gopost()" />
     </s:actionContent>
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="threadList"

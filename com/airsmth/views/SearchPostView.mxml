@@ -151,13 +151,13 @@
         change="postClick(event)" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
-        <s:ViewMenuItem click="expandall()"  label="全部展开"
+        <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" enabled="{!(parentApplication.globalSMTH.config.showrefer)}" />
-        <s:ViewMenuItem label="回信"
+        <s:ViewMenuItem
             icon="@Embed(source='../../../assets/post_reply_mail.png')" click="replymail()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
-        <s:ViewMenuItem id="meTrash" label="删除"
+        <s:ViewMenuItem id="meTrash"
             icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
-        <s:ViewMenuItem label="转寄"
+        <s:ViewMenuItem
             icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
     </s:viewMenuItems>
 </s:View>

@@ -58,7 +58,7 @@ in accordance with the terms of the license agreement accompanying it.
             </s:layout>
             
             <!-- Options Menu -->
-            <s:Group width="440" height="580" horizontalCenter="0" verticalCenter="0">
+            <s:Group width="400" height="580" horizontalCenter="0" verticalCenter="0">
                 <!-- white bkgd -->
                 <s:Rect top="0"    left="0" right="0" bottom="0" radiusX="8" radiusY="8">
                     <s:fill>

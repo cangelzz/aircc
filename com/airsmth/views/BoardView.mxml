@@ -103,7 +103,7 @@
         <s:Button icon="@Embed(source='../../../assets/editfavor.png')" click="editFavor()" id="btnEdit" />
     </s:navigationContent>
     <s:actionContent>
-        <s:TextInput id="tSearch"  width="200" />
+        <s:TextInput id="tSearch"  width="120" />
         <s:Button icon="@Embed(source='../../../assets/search.png')" click="search()" />
     </s:actionContent>
     <s:List id="boardList"
@@ -111,7 +111,7 @@
          change="go()" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
-        <s:ViewMenuItem id="meRemoveFavor" click="removeFavor()" label="取消收藏"
+        <s:ViewMenuItem id="meRemoveFavor" click="removeFavor()"
             icon="@Embed(source='../../../assets/removefavor.png')" />
     </s:viewMenuItems>
 </s:View>
