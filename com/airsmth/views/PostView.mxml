@@ -120,13 +120,7 @@
                 loadSubject(sub);
                 //navigator.replaceView(PostView, sub);
             }
-            protected function jumpPagex(page:Number):void {
-                var sub:Subject = data[0] as Subject;
-                sub.pno = page;
-                loadSubject(sub);
-                //navigator.replaceView(PostView, sub);
-            }
-            
+
             protected function menuOpen():void {
                 var lz:String;
                 if (postList.selectedIndex != -1) {
