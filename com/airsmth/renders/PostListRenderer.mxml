@@ -24,7 +24,7 @@
                     else scBackground.color =  0xF6F6F6;
                 }
                 //if (value.lz == value.author) lbAuthor.styleName = "postlz";
-                if (value.author.indexOf(value.lz) != -1) lbAuthor.styleName = "postlz";
+                if (value.lz != "" && (value.author.indexOf(value.lz) != -1)) lbAuthor.styleName = "postlz";
                 
                     
                 //lbContent.width = postGroup.width - 20;

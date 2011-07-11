@@ -12,6 +12,7 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
+            public var deleted:Boolean = false;
             
             protected function init():void {
                 if (data is ArrayCollection) {
@@ -50,8 +51,13 @@
             }
             
             protected function onDelete(event:Event):void {
+                deleted = true;
                 navigator.popView();
             }
+            
+            override public function createReturnObject():Object {
+                return deleted;
+            } 
             
         ]]>
     </fx:Script>
