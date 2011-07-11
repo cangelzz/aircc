@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <s:SkinnablePopUpContainer skinClass="spark.controls.skins.ButtonBoxSkinImpl" xmlns:fx="http://ns.adobe.com/mxml/2009" 
 						   xmlns:s="library://ns.adobe.com/flex/spark" width="400" height="300">
 	<fx:Declarations>
@@ -23,6 +23,8 @@
 			public var _optionsList:List;
 			[SkinPart(required="true")]
 			public var _title:Label;			
+            [SkinPart(required="true")]
+			public var _btnClose:Button;
 			public function get dataProvider():IList
 			{
 				return _dp;
