@@ -28,6 +28,16 @@
             
         }
         
+        public function createReply():Mail {
+            var m:Mail = new Mail();
+            m.path = path;
+            m.author = author;
+            m.fileno = fileno;
+            m.title = title;
+            return m;
+        }
+        
+        
         public function get replydata():URLVariables {
             var _data:URLVariables = new URLVariables();
             _data.dir = path;

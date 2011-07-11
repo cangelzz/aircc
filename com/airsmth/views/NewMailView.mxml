@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-    xmlns:s="library://ns.adobe.com/flex/spark" backKeyPressed="parentApplication.onBackKeyPressed(event)">
+    xmlns:s="library://ns.adobe.com/flex/spark" backKeyPressed="parentApplication.onBackKeyPressed(event)"
+    creationComplete="init()">
     <s:layout>
         <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
     </s:layout>
@@ -10,6 +11,9 @@
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
+            
+            protected function init():void {
+            }
             
             protected function submit():void {
                 var mail:Mail = new Mail();

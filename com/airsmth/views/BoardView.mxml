@@ -111,7 +111,7 @@
          change="go()" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
-        <s:ViewMenuItem id="meRemoveFavor" click="removeFavor()" 
+        <s:ViewMenuItem id="meRemoveFavor" click="removeFavor()" label="取消收藏"
             icon="@Embed(source='../../../assets/removefavor.png')" />
     </s:viewMenuItems>
 </s:View>
