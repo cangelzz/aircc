@@ -131,6 +131,8 @@
                 } else {
                     meTrash.enabled = false;
                 }
+                meForward.enabled = parentApplication.globalSMTH.isLoggedOn && (postList.selectedIndex != -1);
+                meMail.enabled = parentApplication.globalSMTH.isLoggedOn && (postList.selectedIndex != -1);
                 parentApplication.viewMenuOpen=true;
             }
             
@@ -253,12 +255,14 @@
             icon="@Embed(source='../../../assets/refresh.png')" />
         <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" enabled="{!(parentApplication.globalSMTH.config.showrefer)}" />
-        <s:ViewMenuItem
-            icon="@Embed(source='../../../assets/post_reply_mail.png')" click="replymail()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
+        <s:ViewMenuItem id="meMail"
+            icon="@Embed(source='../../../assets/post_reply_mail.png')" click="replymail()" 
+            enabled="{parentApplication.globalSMTH.isLoggedOn}" />
         <s:ViewMenuItem id="meTrash"
             icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
-        <s:ViewMenuItem
-            icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
+        <s:ViewMenuItem id="meForward"
+            icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" 
+            enabled="{parentApplication.globalSMTH.isLoggedOn}" />
         <s:ViewMenuItem icon="@Embed(source='../../../assets/user_comment.png')" click="searchAuthor()" />
     </s:viewMenuItems>
 
