@@ -24,6 +24,7 @@
         public static const PSTMAIL:String = "http://www.newsmth.net/bbspstmail.php";
         public static const ACTMAIL:String = "http://www.newsmth.net/bbsmailact.php";
         public static const TOP10:String = "http://www.newsmth.net/rssi.php";
+        public static const BBSFIND:String = "http://www.newsmth.net/bbsbfind.php"
         public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
         [Bindable]
         public var config:Config;
