@@ -147,13 +147,13 @@
         itemRendererFunction="RenderUtil.selectRenderer" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
-        <s:ViewMenuItem id="inboxBtn" click="goBox(MailBox.DIR)"  label="收件箱"
+        <s:ViewMenuItem id="inboxBtn" click="goBox(MailBox.DIR)" 
             icon="@Embed(source='../../../assets/mail_inbox.png')" enabled="{flags.getItemAt(0)}"/>
-        <s:ViewMenuItem id="sentBtn" click="goBox(MailBox.SENT)" label="发件箱"
+        <s:ViewMenuItem id="sentBtn" click="goBox(MailBox.SENT)"
             icon="@Embed(source='../../../assets/mail_sent.png')" enabled="{flags.getItemAt(1)}"/>
-        <s:ViewMenuItem id="trashBtn" click="goBox(MailBox.DELETED)" label="垃圾箱"
+        <s:ViewMenuItem id="trashBtn" click="goBox(MailBox.DELETED)" 
             icon="@Embed(source='../../../assets/trash.png')" enabled="{flags.getItemAt(2)}"/>
-        <s:ViewMenuItem id="lastBtn" click="go(null)" label="最后一页"
+        <s:ViewMenuItem id="lastBtn" click="go(null)"
             icon="@Embed(source='../../../assets/last_mail_page.png')"/>
     </s:viewMenuItems>
 </s:View>

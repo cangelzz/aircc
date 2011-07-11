@@ -109,9 +109,9 @@
     <s:CheckBox label="显示置底" id="ckBottom" />
     <s:CheckBox label="加载图片" id="ckImage" />
     <s:CheckBox label="自动刷新" id="ckAutoUpdate" />
-    <s:HGroup>
+    <s:HGroup width="100%">
         <s:CheckBox label="一键转寄" id="ckForward" />
-        <s:TextInput prompt="默认转寄地址" id="tTarget" widthInChars="20" />
+        <s:TextInput prompt="默认转寄地址" id="tTarget" width="100%"/>
     </s:HGroup>
     <s:Label id="lbInfo" styleName="loading" />
     </s:VGroup>

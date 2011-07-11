@@ -236,8 +236,8 @@
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="menuOpen()" id="moreBtn" />
     </s:actionContent>
     <s:HGroup width="100%">
-    <s:Label id="lbSubTitle" styleName="subjecttitle"/>
-    <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
+    <s:Label id="lbSubTitle" styleName="subjecttitle" width="100%"/>
+    <s:Label id="lbLoaded"  textAlign="end" width="80" styleName="postindex"/>
     </s:HGroup>
     <s:List id="postList"
         width="100%" height="100%" 
@@ -245,21 +245,21 @@
         change="postClick(event)" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
-        <s:ViewMenuItem click="prevsub()" label="上一主题"
+        <s:ViewMenuItem click="prevsub()"
             icon="@Embed(source='../../../assets/prev_sub.png')" />
-        <s:ViewMenuItem click="nextsub()" id="nextsubBtn" label="下一主题"
+        <s:ViewMenuItem click="nextsub()" id="nextsubBtn"
             icon="@Embed(source='../../../assets/next_sub.png')" />
-        <s:ViewMenuItem click="refresh()" label="刷新"
+        <s:ViewMenuItem click="refresh()"
             icon="@Embed(source='../../../assets/refresh.png')" />
-        <s:ViewMenuItem click="expandall()"  label="全部展开"
+        <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" enabled="{!(parentApplication.globalSMTH.config.showrefer)}" />
-        <s:ViewMenuItem label="回信"
+        <s:ViewMenuItem
             icon="@Embed(source='../../../assets/post_reply_mail.png')" click="replymail()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
-        <s:ViewMenuItem id="meTrash" label="删除"
+        <s:ViewMenuItem id="meTrash"
             icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
-        <s:ViewMenuItem label="转寄"
+        <s:ViewMenuItem
             icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
-        <s:ViewMenuItem label="只看此人" icon="@Embed(source='../../../assets/user_comment.png')" click="searchAuthor()" />
+        <s:ViewMenuItem icon="@Embed(source='../../../assets/user_comment.png')" click="searchAuthor()" />
     </s:viewMenuItems>
 
 </s:View>
