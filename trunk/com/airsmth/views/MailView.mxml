@@ -8,15 +8,15 @@
         
     <fx:Script>
         <![CDATA[
+            import mx.collections.ArrayCollection;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             
             protected function init():void {
-                if (data is Mail) {
-                    lbAuthor.text = (data as Mail).author;
-                    lbContent.text = (data as Mail).content;
-                    lbInfo.visible = false;
+                if (data is ArrayCollection) {
+                    setPageUI(data[0] as Mail);
+                    return;
                 }
                 var ml:MailLoader = new MailLoader(data as Mail);
                 ml.addEventListener(LoadEvent.DONE, onLoad);
@@ -24,11 +24,19 @@
             }
             
             protected function onLoad(event:Event):void {
-                lbInfo.visible = false;
                 var m:Mail = (event.currentTarget as MailLoader).mail;
+                setPageUI(m);
+                data = new ArrayCollection([m]);
+            }
+            
+            protected function setPageUI(m:Mail):void {
+                if (m.realauthor != null) {
+                    lbRealAuthor.text = m.realauthor;
+                    lbRealAuthor.includeInLayout = true;
+                }
                 lbAuthor.text = m.author;
                 lbContent.text = m.content;
-                data = m;
+                lbInfo.visible = false;
             }
             
         ]]>
@@ -45,6 +53,7 @@
     <s:VGroup width="100%" paddingLeft="5" paddingRight="5">
     <s:Label id="lbAuthor" styleName="postauthor" />
     <s:Label id="emptyline"/>
+    <s:Label id="lbRealAuthor" styleName="postlz" includeInLayout="false"/>
     <s:Label id="lbContent" width="100%" />
     </s:VGroup>
 

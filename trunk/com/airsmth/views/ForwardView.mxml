@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="init()" backKeyPressed="parentApplication.onBackKeyPressed(event)">
+    <s:layout>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import spark.events.IndexChangeEvent;
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            import flash.utils.*;
+            
+            protected function init():void {
+                var fw:Forward = data as Forward;
+                lbTitle.text = fw.title;
+                lbAuthor.text = fw.author;
+                ckBig5.selected = (fw.big5 == "1");
+                ckNoansi.selected = (fw.noansi == "1");
+                submitBtn.enabled = true;
+            }
+            
+            
+            protected function submit():void {
+                submitBtn.enabled = false;
+                var fw:Forward = data as Forward;
+                fw.target = tTarget.text;
+                fw.big5 = ckBig5.selected ? "1": "0";
+                fw.noansi = ckNoansi.selected? "1": "0";
+                
+                var fs:ForwardSender = new ForwardSender(fw);
+                lbInfo.text = "正在转寄，请稍候 ...";
+                lbInfo.visible = true;
+                fs.addEventListener(LoadEvent.DONE, onForward);
+                fs.addEventListener(LoadEvent.LOADFAIL, onForwardFail);
+                fs.load();
+            }
+            
+            protected function onForward(event:Event):void {
+                navigator.popView();
+            }
+            
+            protected function onForwardFail(event:Event):void {
+                lbInfo.text = "转寄失败，请重试";
+                submitBtn.enabled = true;
+            }
+            
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
+    <s:titleContent>
+        <s:Label id="lbInfo" width="100%" styleName="titlecenter" visible="false" />
+    </s:titleContent>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" />
+    </s:navigationContent>
+    <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/submit_post.png')" click="submit()" enabled="false" id="submitBtn" />
+    </s:actionContent>
+    <s:TextInput id='tTarget' width="100%" />
+    <s:HGroup width="100%">
+    <s:CheckBox label="BIG5码" id="ckBig5" />
+    <s:CheckBox label="过滤ANSI控制符" id="ckNoansi" />
+    </s:HGroup>
+    <s:Label id="lbAuthor" styleName="postauthor" />
+    <s:Label id="lbTitle" styleName="posttitle" />
+    
+</s:View>

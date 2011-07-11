@@ -47,7 +47,7 @@
                     view="{Top90View}" data="" />
                 <fx:Object oid="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" 
                     view="{BoardView}" data="{parentApplication.globalSMTH.acFavor}" />
-                <fx:Object oid="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_white.png')"
+                <fx:Object oid="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_yellow.png')"
                     view="{MailFolderView}" data="" />
                 <fx:Object oid="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
                     view="{LoginView}" data="1" />

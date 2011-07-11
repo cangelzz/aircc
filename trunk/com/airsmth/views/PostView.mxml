@@ -180,6 +180,11 @@
                 loadSubject(data[0] as Subject);
             }
             
+            protected function forward():void {
+                var fw:Forward = new Forward(postList.selectedItem as Post);
+                navigator.pushView(ForwardView, fw);
+            }
+            
         ]]>
     </fx:Script>
     <fx:Declarations>
@@ -217,7 +222,7 @@
         <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" enabled="{!(parentApplication.globalSMTH.config.showrefer as Boolean)}" />
         <s:ViewMenuItem 
-            icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
+            icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" />
         <s:ViewMenuItem id="meTrash"
             icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
     </s:viewMenuItems>

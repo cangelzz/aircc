@@ -14,6 +14,7 @@
         public var path:String = "";
         public var backup:String = "1";
         public var signature:String = "0";
+        public var realauthor:String = null;
         
         private var p_n:RegExp = /n/i;
         private var p_r:RegExp = /r/i;

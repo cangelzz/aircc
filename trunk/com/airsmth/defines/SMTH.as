@@ -13,6 +13,7 @@
         public static const BBSPST:String = "http://www.newsmth.net/bbspst.php";
         public static const BBSSND:String = "http://www.newsmth.net/bbssnd.php";
         public static const BBSSEL:String = "http://www.newsmth.net/bbssel.php";
+        public static const BBSFWD:String = "http://www.newsmth.net/bbsfwd.php?do";
         public static const MAILBOX:String = "http://www.newsmth.net/bbsmailbox.php";
         public static const LOGINURL:String = "http://www.newsmth.net/bbslogin.php?mainurl=atomic.php";
         public static const ATOMIC:String = "http://www.newsmth.net/atomic.php";
