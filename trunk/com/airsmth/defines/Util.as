@@ -24,6 +24,8 @@ package com.airsmth.defines {
                                     <showlatest>true</showlatest>
                                     <showbottom>true</showbottom>
                                     <autoupdate>false</autoupdate>
+                                    <defaulttarget></defaulttarget>
+                                    <directforward>false</directforward>
                                 </option>
                              </config>
                 f = new FileStream();
@@ -54,6 +56,8 @@ package com.airsmth.defines {
                               <showlatest>{config.showlatest}</showlatest>
                               <showbottom>{config.showbottom}</showbottom>
                               <autoupdate>{config.autoupdate}</autoupdate>
+                              <defaulttarget>{config.defaulttarget}</defaulttarget>
+                              <directforward>{config.directforward}</directforward>
                           </option>
             cx.appendChild(options);
             var f:FileStream = new FileStream();

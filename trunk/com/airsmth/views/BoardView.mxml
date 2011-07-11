@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
      creationComplete="activate()" >
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
     </s:layout>
         
     <fx:Script>
@@ -33,19 +33,18 @@
                 var sl:SearchBoardLoader = new SearchBoardLoader(tSearch.text);
                 sl.addEventListener(LoadEvent.DONE, onSearchMulti);
                 sl.addEventListener(LoadEvent.REDIRBOARD, onRedirect);
-                lbInfo.includeInLayout = true;
+                lbInfo.visible = true;
                 sl.load();
             }
             
             
             protected function onSearchMulti(event:Event):void {
-                lbInfo.includeInLayout = false;
                 lbInfo.visible = false;
                 boardList.dataProvider = (event.currentTarget as SearchBoardLoader).data;
             }
             
             protected function onRedirect(event:Event):void {
-                lbInfo.includeInLayout = false;
+                lbInfo.visible = false;
                 navigator.pushView(ThreadView, (event.currentTarget as SearchBoardLoader).board);
             }
             
@@ -64,12 +63,12 @@
             protected function refresh():void {
                 var sl:SMTHLoader = new SMTHLoader(parentApplication.globalSMTH.config);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoadFavor);
-                lbInfo.includeInLayout = true;
+                lbInfo.visible = true;
                 sl.load();
             }
             
             protected function onLoadFavor(event:Event):void {
-                lbInfo.includeInLayout = false;
+                lbInfo.visible = false;
                 boardList.dataProvider = (event.currentTarget as SMTHLoader).acFavor;
             }
             
@@ -107,10 +106,10 @@
         <s:TextInput id="tSearch"  width="200" />
         <s:Button icon="@Embed(source='../../../assets/search.png')" click="search()" />
     </s:actionContent>
-    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="boardList"
         width="100%" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
          change="go()" />
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
         <s:ViewMenuItem id="meRemoveFavor" click="removeFavor()" 
             icon="@Embed(source='../../../assets/removefavor.png')" />

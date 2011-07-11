@@ -20,6 +20,7 @@
                 lbAuthor.text = fw.author;
                 ckBig5.selected = (fw.big5 == "1");
                 ckNoansi.selected = (fw.noansi == "1");
+                tTarget.text = parentApplication.globalSMTH.config.defaulttarget;
                 submitBtn.enabled = true;
             }
             

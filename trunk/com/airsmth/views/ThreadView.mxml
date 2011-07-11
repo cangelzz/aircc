@@ -3,7 +3,7 @@
     xmlns:s="library://ns.adobe.com/flex/spark" 
     creationComplete="init()">
     <s:layout>
-        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="20"/>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
     </s:layout>
         
     <fx:Script>
@@ -78,7 +78,7 @@
             }
             
             protected function onLoad(event:Event):void {
-                lbInfo.includeInLayout = false;
+                lbInfo.visible = false;
                 var bl:BoardLoader = event.currentTarget as BoardLoader;
                 var brd:Board = bl.board;
                 threadList.dataProvider = bl.data;
@@ -87,7 +87,7 @@
             }
             
             protected function onLoadStart(event:Event):void {
-                lbInfo.includeInLayout = true;
+                lbInfo.visible = true;
             }
             
             protected function next():void {
@@ -179,11 +179,11 @@
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="parentApplication.viewMenuOpen=true" id="menuBtn" />
         <!--s:Button icon="@Embed(source='../../../assets/new_post.png')" click="newPost()" id="newBtn" /-->
     </s:actionContent>
-    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="threadList"
         width="100%" height="100%"
         change="go()"
         itemRendererFunction="RenderUtil.selectRenderer" />
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
         <s:ViewMenuItem click="newPost()"
             icon="@Embed(source='../../../assets/new_post.png')" />

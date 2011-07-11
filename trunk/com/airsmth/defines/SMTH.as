@@ -28,6 +28,7 @@
         public var config:Config;
         [Bindable]
         public var acFavor:ArrayCollection;
+        [Bindable]
         public var isLoggedOn:Boolean = false;
         
         public function SMTH(con:Config):void {

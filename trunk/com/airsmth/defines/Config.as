@@ -50,6 +50,14 @@
             return xml.option.autoupdate == "true";
         }
         
+        public function get defaulttarget():String {
+            return xml.option.defaulttarget;
+        }
+        
+        public function get directforward():Boolean {
+            return xml.option.directforward == "true";
+        }
+        
         public function set id(_id:String):void {
             xml.auth.id = _id;
         }
@@ -82,6 +90,14 @@
         
         public function set autoupdate(op:Boolean):void {
             xml.option.autoupdate = op;
+        }
+        
+        public function set defaulttarget(op:String):void {
+            xml.option.defaulttarget = op;
+        }
+        
+        public function set directforward(op:Boolean):void {
+            xml.option.directforward = op;
         }
         
     }

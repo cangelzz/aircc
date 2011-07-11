@@ -26,6 +26,8 @@
                 ckSubject.selected = config.showsubject;
                 ckBottom.selected = config.showbottom;
                 ckAutoUpdate.selected = config.autoupdate;
+                ckForward.selected = config.directforward;
+                tTarget.text = config.defaulttarget;
                 //ckAuto.selected = config.auth.auto;
                 if (data != null) {
                     btnBack.includeInLayout = true;
@@ -45,6 +47,8 @@
                 config.showsubject = ckSubject.selected;
                 config.showbottom = ckBottom.selected;
                 config.autoupdate = ckAutoUpdate.selected;
+                config.directforward = ckForward.selected;
+                config.defaulttarget = tTarget.text;
                 var sl:SMTHLoader = new SMTHLoader(config);
                 sl.addEventListener(LoadEvent.LOGINSTART, onLoginStart);
                 sl.addEventListener(LoadEvent.LOGINDONE, onLoginDone);
@@ -105,6 +109,10 @@
     <s:CheckBox label="显示置底" id="ckBottom" />
     <s:CheckBox label="加载图片" id="ckImage" />
     <s:CheckBox label="自动刷新" id="ckAutoUpdate" />
+    <s:HGroup>
+        <s:CheckBox label="一键转寄" id="ckForward" />
+        <s:TextInput prompt="默认转寄地址" id="tTarget" widthInChars="20" />
+    </s:HGroup>
     <s:Label id="lbInfo" styleName="loading" />
     </s:VGroup>
 </s:View>
