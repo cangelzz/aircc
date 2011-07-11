@@ -13,6 +13,7 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             public var CurMail:MailFolderLoader;
+            
             [Bindable]
             public var flags:ArrayCollection = new ArrayCollection([false, true, true]);
             
@@ -32,6 +33,11 @@
             protected function init():void {
                 var mb:MailBox;
                 if (data is MailFolderLoader) {
+                    if (parentApplication.globalSMTH.config.autoupdate) {
+                        loadMailbox((data as MailFolderLoader).box);
+                        return;
+                    }
+                
                     var ml:MailFolderLoader = data as MailFolderLoader;
                     mb = ml.box;
                     mailList.dataProvider = ml.data;

@@ -52,6 +52,14 @@
                 + "&text=" + UrlMultiEncode.urlencodeGB2312(content.replace(/\r/g,"\r\n"));
         }
         
+        public function get deldata():URLVariables {
+            var _data:URLVariables = new URLVariables();
+            _data.act = "del";
+            _data.dir = path;
+            _data.file = fileno;
+            return _data;
+        }
+        
         public function get r():Boolean {
             return p_r.test(flag);
         }

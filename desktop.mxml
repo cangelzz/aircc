@@ -21,6 +21,7 @@
         	import com.airsmth.defines.*;
         	import com.airsmth.renders.*;
             import mx.utils.URLUtil;
+            import com.lewip.encryption.*;
             import mx.collections.ArrayCollection;
             import mx.collections.ArrayList;
             import flash.events.Event;
@@ -95,7 +96,7 @@
             }
             
             public function test(str:String):void {
-                testImage.source = "http://att.newsmth.net/att.php?p.874.1686532.69845.jpg";
+                
                 //var f:File = SMTH.CONFIGPATH;
                 //Alert.show(f.nativePath);
             }
