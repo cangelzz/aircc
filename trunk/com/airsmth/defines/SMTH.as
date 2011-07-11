@@ -22,6 +22,7 @@
         public static const MAILCON:String = "http://www.newsmth.net/bbsmailcon.php";
         public static const SENDMAIL:String = "http://www.newsmth.net/bbssendmail.php";
         public static const PSTMAIL:String = "http://www.newsmth.net/bbspstmail.php";
+        public static const ACTMAIL:String = "http://www.newsmth.net/bbsmailact.php";
         public static const TOP10:String = "http://www.newsmth.net/rssi.php";
         public static const CONFIGPATH:File = File.applicationStorageDirectory.resolvePath("config.xml");
         [Bindable]

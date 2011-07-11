@@ -43,6 +43,16 @@
                 navigator.pushView(MailEditView, data[0].createReply())
             }
             
+            protected function delmail():void {
+                var dl:DelMailLoader = new DelMailLoader(data[0] as Mail);
+                dl.addEventListener(LoadEvent.DONE, onDelete);
+                dl.load();
+            }
+            
+            protected function onDelete(event:Event):void {
+                navigator.popView();
+            }
+            
         ]]>
     </fx:Script>
     <s:navigationContent>
@@ -52,6 +62,7 @@
         <s:Label id="lbInfo" width="100%" styleName="titlecenter" text="正在加载，请稍候 ..."/>
     </s:titleContent>
     <s:actionContent>
+        <s:Button icon="@Embed(source='../../../assets/delete.png')" id="delBtn" click="delmail()" />
         <s:Button icon="@Embed(source='../../../assets/reply_mail.png')" id="newBtn" click="replymail()" />
     </s:actionContent>
     <s:VGroup width="100%" paddingLeft="5" paddingRight="5">
