@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
-    creationComplete="init()">
+    creationComplete="init()" add="checkreturn()">
     <s:layout>
         <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5" />
     </s:layout>
@@ -13,6 +13,7 @@
             import com.airsmth.views.*;
             import com.airsmth.renders.*;
             public var CurMail:MailFolderLoader;
+            private var forceupdate:Boolean = false;
             
             [Bindable]
             public var flags:ArrayCollection = new ArrayCollection([false, true, true]);
@@ -28,12 +29,17 @@
             [@Embed(source='../../../assets/trash.png')]
             [Bindable]
             public var icTrash:Class;
-
+            
+            protected function checkreturn():void {
+                if (navigator.poppedViewReturnedObject != null) {
+                    forceupdate = navigator.poppedViewReturnedObject.object as Boolean;
+                }
+            }
             
             protected function init():void {
                 var mb:MailBox;
                 if (data is MailFolderLoader) {
-                    if (parentApplication.globalSMTH.config.autoupdate) {
+                    if (parentApplication.globalSMTH.config.autoupdate || forceupdate) {
                         loadMailbox((data as MailFolderLoader).box);
                         return;
                     }
