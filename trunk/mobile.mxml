@@ -24,6 +24,7 @@
         }
         s|ViewMenuItem
         {
+            iconPlacement:left;
 	        color:#ffffff;
 	        skinClass: ClassReference("com.airsmth.skins.CustomViewMenuItemSkin");
         }

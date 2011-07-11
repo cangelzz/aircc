@@ -39,6 +39,10 @@
                 lbInfo.visible = false;
             }
             
+            protected function replymail():void {
+                navigator.pushView(MailEditView, data[0].createReply())
+            }
+            
         ]]>
     </fx:Script>
     <s:navigationContent>
@@ -48,7 +52,7 @@
         <s:Label id="lbInfo" width="100%" styleName="titlecenter" text="正在加载，请稍候 ..."/>
     </s:titleContent>
     <s:actionContent>
-        <s:Button icon="@Embed(source='../../../assets/reply_mail.png')" id="newBtn" click="navigator.pushView(MailEditView, data[0] as Mail)" />
+        <s:Button icon="@Embed(source='../../../assets/reply_mail.png')" id="newBtn" click="replymail()" />
     </s:actionContent>
     <s:VGroup width="100%" paddingLeft="5" paddingRight="5">
     <s:Label id="lbAuthor" styleName="postauthor" />

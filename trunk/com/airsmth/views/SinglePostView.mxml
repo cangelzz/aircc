@@ -81,6 +81,48 @@
                 post.id = target;
                 loadPost(post);
             }
+            
+            protected function forward():void {
+                var fw:Forward;
+                if (parentApplication.globalSMTH.config.directforward && parentApplication.globalSMTH.config.defaulttarget != "") {
+                    fw = new Forward(data as Post);
+                    fw.target = parentApplication.globalSMTH.config.defaulttarget;
+                    lbInfo.text = "正在转寄，请稍候 ...";
+                    loading = true;
+                    var fs:ForwardSender = new ForwardSender(fw);
+                    fs.addEventListener(LoadEvent.DONE, onForward);
+                    fs.addEventListener(LoadEvent.LOADFAIL, onForwardFail);
+                    fs.load();
+                    return;
+                }
+            
+                fw = new Forward(data as Post);
+                navigator.pushView(ForwardView, fw);
+            }
+            
+            protected function onForward(event:Event):void {
+                lbInfo.text = "转寄成功";
+                setTimeout(function ():void {
+                    loading = false
+                    lbInfo.text = "正在加载，请稍候 ...";
+                    }, 2000);
+            }
+            
+            protected function onForwardFail(event:Event):void {
+                lbInfo.text = "转寄失败";
+                setTimeout(function ():void {
+                    loading = false
+                    lbInfo.text = "正在加载，请稍候 ...";
+                    }, 4000);
+            }
+            
+            protected function replymail():void {
+                var para:URLVariables = new URLVariables();
+                para.board = (data as Post).bname;
+                para.id = (data as Post).id;
+                navigator.pushView(MailEditView, para);
+            }
+
         ]]>
     </fx:Script>
     <s:navigationContent>
@@ -93,24 +135,26 @@
         <s:Button icon="@Embed(source='../../../assets/next_sub.png')" click="loadPost(data as Post, (data as Post).tndata)" id="tnextBtn"/>
         <s:Button icon="@Embed(source='../../../assets/expandall.png')" click="expandsubject()" id="expandBtn" enabled="false" />
     </s:actionContent>
-    <s:Label id="lbInfo" text="正在加载，请稍候 ..." visible="{loading}" includeInLayout="{loading}" />
     <s:VGroup width="100%" click="menuOpen()">
     <s:Label id="lbSubTitle" paddingBottom="20" styleName="posttitle"/>
     <s:Label id="lbAuthor" styleName="postauthor"/>
     <s:Label id="lbContent" width="100%"/>
     <s:Label id="lbReply" width="100%" styleName="postreply"/>
+    <s:Label id="lbInfo" text="正在加载，请稍候 ..." visible="{loading}" bottom="0" />
     </s:VGroup>
 
     <s:viewMenuItems>
-        <s:ViewMenuItem click="navigator.pushView(ReplyView, data as Post)"
+        <s:ViewMenuItem click="navigator.pushView(ReplyView, data as Post)" label="回复"
             icon="@Embed(source='../../../assets/reply_post.png')" />
-        <s:ViewMenuItem click="go((data as Post).gid)"
+        <s:ViewMenuItem click="go((data as Post).gid)" label="第一篇"
             icon="@Embed(source='../../../assets/first.png')" />
-        <s:ViewMenuItem click="go((data as Post).rid)"
+        <s:ViewMenuItem click="go((data as Post).rid)" label="溯源"
             icon="@Embed(source='../../../assets/backrefer.png')" />
-        <s:ViewMenuItem 
-            icon="@Embed(source='../../../assets/mail_white.png')" enabled="false" />
-        <s:ViewMenuItem id="meTrash"
+        <s:ViewMenuItem label="回信"
+            icon="@Embed(source='../../../assets/post_reply_mail.png')" click="replymail()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
+        <s:ViewMenuItem id="meTrash" label="删除"
             icon="@Embed(source='../../../assets/trash.png')" enabled="false" />
+        <s:ViewMenuItem label="转寄"
+            icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" enabled="{parentApplication.globalSMTH.isLoggedOn}" />
     </s:viewMenuItems>
 </s:View>

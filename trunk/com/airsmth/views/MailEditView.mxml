@@ -15,7 +15,12 @@
             public var CurMail:Mail;
             
             protected function init():void {
-                var ml:MailEditLoader = new MailEditLoader(data as Mail);
+                var ml:MailEditLoader;
+                if (data is URLVariables) {
+                    ml = new MailEditLoader(new Mail(), data as URLVariables);
+                }
+                else
+                    ml = new MailEditLoader(data as Mail);
                 lbInfo.text = "正在加载，请稍候 ...";
                 lbInfo.visible = true;
                 ml.addEventListener(LoadEvent.DONE, onLoad);

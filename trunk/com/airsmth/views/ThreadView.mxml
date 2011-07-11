@@ -185,15 +185,15 @@
         itemRendererFunction="RenderUtil.selectRenderer" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
-        <s:ViewMenuItem click="newPost()"
+        <s:ViewMenuItem click="newPost()" label="新主题"
             icon="@Embed(source='../../../assets/new_post.png')" />
-        <s:ViewMenuItem click="last()"
+        <s:ViewMenuItem click="last()"  label="最后一页"
             icon="@Embed(source='../../../assets/last_th_page.png')" />
-        <s:ViewMenuItem click="filterType(1)"
+        <s:ViewMenuItem click="filterType(1)" label="文摘区"
             icon="@Embed(source='../../../assets/th_digest.png')" />
-        <s:ViewMenuItem click="filterType(3)"
+        <s:ViewMenuItem click="filterType(3)" label="保留区"
             icon="@Embed(source='../../../assets/th_mark.png')" />
-        <s:ViewMenuItem click="addFavor()" id="meAddFavor"
+        <s:ViewMenuItem click="addFavor()" id="meAddFavor" label="添加收藏"
             icon="@Embed(source='../../../assets/addfavor.png')" enabled="false"/>
     </s:viewMenuItems>
 </s:View>
