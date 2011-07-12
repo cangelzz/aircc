@@ -28,15 +28,8 @@
     </s:titleContent>
     <s:actionContent>
     </s:actionContent>
-    <s:List width="100%" height="100%" id="sectionList"
+    <s:List width="100%" itemRenderer="com.airsmth.renders.HomeListRenderer" height="100%" id="sectionList"
         change="go()">
-        <s:itemRenderer>
-            <fx:Component>
-                <s:IconItemRenderer 
-                    labelField="label"
-                    iconField="icon" />
-            </fx:Component>
-        </s:itemRenderer>
         <s:dataProvider>
             <s:ArrayCollection>
                 <fx:Object label="国内院校" s="1" icon="@Embed(source='../../../assets/g1.png')"/>

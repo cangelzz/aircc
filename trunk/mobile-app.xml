@@ -15,6 +15,7 @@
 		<aspectRatio>portrait</aspectRatio>
         <autoOrients>false</autoOrients>
         <fullScreen>true</fullScreen>
+        <renderMode>cpu</renderMode>
     </initialWindow>
     <icon>
         <image128x128>assets/icon128.png</image128x128> 

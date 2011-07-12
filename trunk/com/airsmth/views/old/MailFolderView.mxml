@@ -143,16 +143,8 @@
     </s:actionContent>
     <s:List id="mailList"
         width="100%" height="100%"
-        change="navigator.pushView(MailView, mailList.selectedItem)">
-        <s:itemRenderer>
-            <fx:Component>
-                <s:IconItemRenderer 
-                    labelField="title"
-                    messageField="author" messageStyleName="threadauthor"
-                    />
-            </fx:Component>
-        </s:itemRenderer>
-    </s:List>
+        change="navigator.pushView(MailView, mailList.selectedItem)"
+        itemRenderer="com.airsmth.renders.MailListRenderer" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
         <s:ViewMenuItem id="inboxBtn" click="goBox(MailBox.DIR)" 
