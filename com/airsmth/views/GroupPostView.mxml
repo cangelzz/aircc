@@ -60,6 +60,6 @@
     </s:HGroup>
     <s:List id="postList"
         width="100%" height="100%" 
-        itemRendererFunction="RenderUtil.selectRenderer"/>
+        itemRenderer="com.airsmth.renders.PostListRenderer"/>
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
 </s:View>

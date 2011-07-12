@@ -107,7 +107,7 @@
         <s:Button icon="@Embed(source='../../../assets/search.png')" click="search()" />
     </s:actionContent>
     <s:List id="boardList"
-        width="100%" height="100%" itemRendererFunction="RenderUtil.selectRenderer"
+        width="100%" height="100%" itemRenderer="com.airsmth.renders.BoardListRenderer"
          change="go()" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
