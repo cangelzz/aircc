@@ -52,7 +52,7 @@
         }
         
         public static function filterText(s:String):String {
-            return trim(s.replace(/\\n/ig, "\n"), "\n").replace(/\\\//ig, "\/").replace(/\n\n/g, "\n").replace(/\\r[\[\d;]*m/g,"");
+            return trim(s.replace(/\\n/ig, "\n").replace(/\\\//ig, "\/").replace(/\n\n/g, "\n").replace(/\\r[\[\d;]*m/g,""), "\n");
         }
     }
 }

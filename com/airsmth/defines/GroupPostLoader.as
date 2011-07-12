@@ -43,6 +43,7 @@
                 post.author = "ERROR";
                 post.content = "ERROR";
                 _data.addItem(post);
+                dispatchEvent(new LoadEvent(LoadEvent.DONE));
                 return;
             }
             var posts:Array = result[1].split(/☆─────────────────────────────────────☆/);
@@ -54,24 +55,30 @@
             for (var i:Number = 0; i < posts.length; i++) {
                 result2 = p2.exec(posts[i]);
                 if (result2 == null) continue;
+                
                 post = new Post();
                 post.author = result2[1];
+                
+                //_data.addItem(post);
+                //continue;
+                
                 if (lz == null) {
                     post.lz = post.author;
                     lz = post.author;
                 }
                 else post.lz = lz;
                 content = StringHelper.filterText(result2[2]);
+                var reply:String = "";
                 var idx:Number = content.indexOf("【");
                 if (idx != -1) {
-                    var reply:String = content.substr(idx);
+                    reply = content.substr(idx);
                     content = content.substr(0, idx);
                     var p3:RegExp = new RegExp("【 在\\s(.*?)\\s.*?】", "g");
                     reply.replace(p3, "[$2]");
+                }
                 post.reply = reply;
                 post.content = content;
                 _data.addItem(post);
-                }
             }
             
 			dispatchEvent(new LoadEvent(LoadEvent.DONE));
