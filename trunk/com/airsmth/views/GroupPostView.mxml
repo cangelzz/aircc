@@ -15,12 +15,14 @@
             
             protected function init():void {
                 lbSubTitle.text = (data as Post).title;
+                lbInfo.visible = true;
                 var gl:GroupPostLoader = new GroupPostLoader(data as Post);
                 gl.addEventListener(LoadEvent.DONE, onLoad);
                 gl.load();
             }
             
             protected function onLoad(event:Event):void {
+                lbInfo.visible = false;
                 postList.dataProvider = (event.currentTarget as GroupPostLoader).data;
             }
             
@@ -46,7 +48,6 @@
     </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" id="btnBack"/>
-
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/reply_post.png')" 
@@ -54,11 +55,11 @@
     </s:actionContent>
     <!-- s:Label id="lbDebug" /-->
     <s:HGroup width="100%">
-    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
-    <s:Label id="lbSubTitle" styleName="subjecttitle"/>
-    <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
+        <s:Label id="lbSubTitle" styleName="subjecttitle"/>
+        <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
     </s:HGroup>
     <s:List id="postList"
         width="100%" height="100%" 
         itemRendererFunction="RenderUtil.selectRenderer"/>
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
 </s:View>

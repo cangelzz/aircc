@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+    <s:layout>
+        <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
+    </s:layout>
+        
+    <fx:Script>
+        <![CDATA[
+            import com.airsmth.defines.*;
+            import com.airsmth.views.*;
+            import com.airsmth.renders.*;
+            import mx.collections.ArrayCollection;
+
+            protected function gopost():void {
+                var p:Post = new Post();
+                p.bid = t1.text;
+                p.id = t2.text;
+                navigator.pushView(GroupPostView, p);
+            }
+            
+        ]]>
+    </fx:Script>
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" id="btnBack"/>
+    </s:navigationContent>
+
+    <s:TextInput id="t1" prompt="bid" text="1029" />
+    <s:TextInput id="t2" prompt="id" text="657865" />
+    <s:Button label="合集" click="gopost()" />
+</s:View>

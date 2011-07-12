@@ -51,6 +51,8 @@
                     view="{MailFolderView}" data="" />
                 <fx:Object oid="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
                     view="{LoginView}" data="1" />
+                <!--fx:Object oid="bDebug" label="调试" icon="@Embed(source='../../../assets/more.png')"
+                    view="{DebugView}" data="1" /-->
             </s:ArrayCollection>
         </s:dataProvider>
     </s:List>
