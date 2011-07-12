@@ -55,17 +55,13 @@
 			else {
                 //not working
                 content = StringHelper.filterText(result[1]);
-                //content = result[1].replace(/\\r[\[\d;]+[a-z]/g,"");
-				//content = StringHelper.trim(content.replace(/\\n/ig, "\n"), "\n");
-                //content = content.replace(/\\\//g, "\/");
-                //content = content.replace(/\n\n/g, "\n");
                 
                 var idx:Number = content.indexOf("【");
                 if (idx != -1) {
                     reply = content.substr(idx);
                     content = content.substr(0, idx);
                     var p2:RegExp = new RegExp("【 在\\s(.*?)\\s.*?】", "g");
-                    reply.replace(p2, "[$2]");
+                    reply.replace(p2, "[$1]");
                     
                 }
             }

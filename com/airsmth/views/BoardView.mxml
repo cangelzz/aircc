@@ -111,7 +111,7 @@
          <s:itemRenderer>
             <fx:Component>
                 <s:IconItemRenderer 
-                    labelField="bname" 
+                    labelField="bname" alternatingItemColors="[0xFCFCFB, 0xFFFFF0]"
                     messageField="cname" messageStyleName="postcontent" />
             </fx:Component>
         </s:itemRenderer>  
