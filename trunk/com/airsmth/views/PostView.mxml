@@ -247,7 +247,7 @@
         <s:itemRenderer>
             <fx:Component>
                 <s:IconItemRenderer 
-                    labelField="author" styleName="postauthor"
+                    labelField="author" styleName="postauthor"  alternatingItemColors="[0xFCFCFB, 0xFFFFF0]"
                     messageField="content" messageStyleName="postcontent"
                     />
             </fx:Component>

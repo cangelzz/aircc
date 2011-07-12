@@ -73,7 +73,7 @@
         change="enableMenu()" >
         <s:itemRenderer>
             <fx:Component>
-                <s:IconItemRenderer 
+                <s:IconItemRenderer alternatingItemColors="[0xFCFCFB, 0xFFFFF0]"
                     labelField="title"
                     messageField="author" messageStyleName="threadauthor" />
             </fx:Component>

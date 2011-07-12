@@ -185,7 +185,7 @@
         <s:itemRenderer>
             <fx:Component>
                 <s:IconItemRenderer 
-                    labelField="title"
+                    labelField="title" alternatingItemColors="[0xFCFCFB, 0xFFFFF0]"
                     messageField="author" messageStyleName="threadauthor"
                     />
             </fx:Component>

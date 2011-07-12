@@ -152,7 +152,7 @@
         change="postClick(event)">
         <s:itemRenderer>
             <fx:Component>
-                <s:IconItemRenderer 
+                <s:IconItemRenderer  alternatingItemColors="[0xF6F6F6, 0xFFFFF0]"
                     labelField="author" styleName="postauthor"
                     messageField="content" messageStyleName="postcontent"
                     />
