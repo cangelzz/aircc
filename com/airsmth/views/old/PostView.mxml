@@ -10,7 +10,6 @@
         <![CDATA[
             import spark.events.IndexChangeEvent;
             import flash.utils.*;
-            import mx.collections.ArrayCollection;
             import com.airsmth.defines.*;
             import com.airsmth.renders.*;
             import com.airsmth.views.*;
@@ -20,31 +19,70 @@
             
             protected function init():void {
                 if (data is ArrayCollection) {
+                    if (parentApplication.globalSMTH.config.autoupdate) {
+                        loadSubject(data[0] as Subject);
+                        return;
+                    }
+                
                     postList.dataProvider = data[1] as ArrayCollection;
-                    lbSubTitle.text = (data[0] as SearchOption).title;
+                    setPageUI(data[0] as Subject);
                     return;
                 }
-                loadSearch(data as SearchOption);
+                loadSubject(data as Subject);
             }
             
-            protected function loadSearch(so:SearchOption):void {
+            protected function loadSubject(sub:Subject):void {
                 lbInfo.visible = true;
-                var sl:SearchPostLoader = new SearchPostLoader(so);
-                sl.addEventListener(LoadEvent.DONE, onLoadSearch);
+                var sl:SubjectLoader = new SubjectLoader(sub);
+                sl.addEventListener(LoadEvent.DONE, onLoad);
                 sl.load();
             }
             
-            protected function onLoadSearch(event:Event):void {
+            protected function setPageUI(sub:Subject):void {
+                replyBtn.enabled = false;
+                lbSubTitle.text = sub.title;
+                if ("0" == sub.nthid) nextsubBtn.enabled = false;
+                if (sub.tpage == 1) {
+                    sprevBtn.enabled = false;
+                    snextBtn.enabled = false;
+                }
+                if (sub.pno > 1) sprevBtn.enabled = true;
+                else sprevBtn.enabled = false;
+                if (sub.pno < sub.tpage) snextBtn.enabled = true;
+                else snextBtn.enabled = false;
+                setJump(sub.tpage, sub.pno);
+            }
+            
+            protected function setJump(all:Number, cur:Number):void {
+                var pages:ArrayCollection = new ArrayCollection();
+                for (var i:Number = 1; i <= all; i++) {
+                    pages.addItem({label: i.toString()});
+                }
+                jump.dataProvider = pages;
+                jump.selectedIndex = cur - 1;
+            }
+            
+            protected function jumpPage(event:Event):void {
+                var sub:Subject = data[0] as Subject;
+                sub.pno = Number((event.currentTarget as ButtonBox).label);
+                loadSubject(sub);
+            }
+            
+            protected function onLoad(event:Event):void {
                 lbInfo.visible = false;
-                var sl:SearchPostLoader = event.currentTarget as SearchPostLoader;
-                data = new ArrayCollection([sl.option, sl.data]);
+                var sl:SubjectLoader = event.currentTarget as SubjectLoader;
+                var sub:Subject = sl.subject;
+                setPageUI(sub);
+                data = new ArrayCollection([sl.subject, sl.data]);
+                
                 postList.dataProvider = sl.data;
                 cnt_all = sl.data.length;
                 cnt_loaded = 0;
+                               
                 for (var i:Number = 0; i < sl.data.length; i++) {
+        	        //nw PostLoader(sl.data.getItemAt(i) as Post, postList, i);
                     loadPost(sl.data.getItemAt(i) as Post, i);
                 }
-                lbSubTitle.text = sl.option.title;
             }
             
             protected function loadPost(post:Post, idx:Number):void {
@@ -68,6 +106,35 @@
                 }
             }
             
+            protected function next():void {
+                var sub:Subject = data[0] as Subject;
+                sub.pno = sub.pno + 1;
+                loadSubject(sub);
+                //navigator.replaceView(PostView, sub);
+            }
+            
+            protected function prev():void {
+                var sub:Subject = data[0] as Subject;
+                sub.pno = sub.pno - 1;
+                loadSubject(sub);
+                //navigator.replaceView(PostView, sub);
+            }
+
+            protected function menuOpen():void {
+                var lz:String;
+                if (postList.selectedIndex != -1) {
+                    lz = (postList.selectedItem as Post).lz;
+                }
+                var I:String = parentApplication.globalSMTH.config.id;
+                if (lz == I) {
+                    meTrash.enabled = true;
+                } else {
+                    meTrash.enabled = false;
+                }
+                meForward.enabled = parentApplication.globalSMTH.isLoggedOn && (postList.selectedIndex != -1);
+                meMail.enabled = parentApplication.globalSMTH.isLoggedOn && (postList.selectedIndex != -1);
+                parentApplication.viewMenuOpen=true;
+            }
             
             protected function postClick(event:IndexChangeEvent):void {
                 if (event.newIndex != -1) replyBtn.enabled = parentApplication.globalSMTH.isLoggedOn;
@@ -84,6 +151,24 @@
                 }
             }
 
+            protected function prevsub():void {
+                var sub:Subject = new Subject(); 
+                sub.bname = (data[0] as Subject).bname;
+                sub.gid = (data[0] as Subject).pthid;
+                sub.pno = 1;
+                loadSubject(sub);
+            }
+            
+            protected function nextsub():void {
+                var sub:Subject = new Subject(); 
+                sub.bname = (data[0] as Subject).bname;
+                sub.gid = (data[0] as Subject).nthid;
+                loadSubject(sub);
+            }
+            
+            protected function refresh():void {
+                loadSubject(data[0] as Subject);
+            }
             
             protected function forward():void {
                 var fw:Forward;
@@ -126,17 +211,26 @@
                 navigator.pushView(MailEditView, para);
             }
             
-            protected function menuOpen():void {
-                meForward.enabled = parentApplication.globalSMTH.isLoggedOn && (postList.selectedIndex != -1);
-                meMail.enabled = parentApplication.globalSMTH.isLoggedOn && (postList.selectedIndex != -1);
-                parentApplication.viewMenuOpen=true;
+            protected function searchAuthor():void {
+                var so:SearchOption = new SearchOption();
+                var post:Post = postList.selectedItem as Post;
+                so.board = post.bname;
+                so.title = (data[0] as Subject).title;
+                so.userid = post.author;
+                navigator.pushView(SearchPostView, so);
             }
-
             
         ]]>
     </fx:Script>
+    <fx:Declarations>
+        <s:ArrayCollection id="data"/>
+    </fx:Declarations>
     <s:navigationContent>
         <s:Button icon="@Embed(source='../../../assets/back.png')" click="navigator.popView()" id="btnBack"/>
+        <s:Button icon="@Embed(source='../../../assets/prev_post_page.png')" click="prev()" id="sprevBtn" enabled="false"/>
+        <s:Button icon="@Embed(source='../../../assets/next_post_page.png')" click="next()" id="snextBtn" enabled="false"/>
+        <ria:ButtonBox id="jump" labelField="label" width="{btnBack.width}" height="{btnBack.height}"
+            selected="jumpPage(event)" />
     </s:navigationContent>
     <s:actionContent>
         <s:Button icon="@Embed(source='../../../assets/reply_post.png')" 
@@ -144,23 +238,21 @@
         <s:Button icon="@Embed(source='../../../assets/more.png')" click="menuOpen()" id="moreBtn" />
     </s:actionContent>
     <s:HGroup width="100%">
-    <s:Label id="lbSubTitle" styleName="subjecttitle"/>
-    <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
+    <s:Label id="lbSubTitle" styleName="subjecttitle" width="100%"/>
+    <s:Label id="lbLoaded"  textAlign="end" width="80" styleName="postindex"/>
     </s:HGroup>
     <s:List id="postList"
         width="100%" height="100%" 
-        change="postClick(event)">
-        <s:itemRenderer>
-            <fx:Component>
-                <s:IconItemRenderer 
-                    labelField="author" styleName="postauthor"
-                    messageField="content" messageStyleName="postcontent"
-                    />
-            </fx:Component>
-        </s:itemRenderer>
-    </s:List>
+        itemRenderer="com.airsmth.renders.PostListRenderer"
+        change="postClick(event)" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
+        <s:ViewMenuItem click="prevsub()"
+            icon="@Embed(source='../../../assets/prev_sub.png')" />
+        <s:ViewMenuItem click="nextsub()" id="nextsubBtn"
+            icon="@Embed(source='../../../assets/next_sub.png')" />
+        <s:ViewMenuItem click="refresh()"
+            icon="@Embed(source='../../../assets/refresh.png')" />
         <s:ViewMenuItem click="expandall()"
             icon="@Embed(source='../../../assets/post_expand.png')" enabled="{!(parentApplication.globalSMTH.config.showrefer)}" />
         <s:ViewMenuItem id="meMail"
@@ -171,5 +263,7 @@
         <s:ViewMenuItem id="meForward"
             icon="@Embed(source='../../../assets/post_forward.png')" click="forward()" 
             enabled="{parentApplication.globalSMTH.isLoggedOn}" />
+        <s:ViewMenuItem icon="@Embed(source='../../../assets/user_comment.png')" click="searchAuthor()" />
     </s:viewMenuItems>
+
 </s:View>

@@ -70,14 +70,7 @@
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="threadList"
         width="100%" height="100%"
-        change="enableMenu()" >
-        <s:itemRenderer>
-            <fx:Component>
-                <s:IconItemRenderer 
-                    labelField="title"
-                    messageField="author" messageStyleName="threadauthor" />
-            </fx:Component>
-        </s:itemRenderer>
-    </s:List>
+        change="enableMenu()"
+        itemRenderer="com.airsmth.renders.Top10ListRenderer" />
     <!--s:Label id="lbInfo" width="100%" /-->
 </s:View>

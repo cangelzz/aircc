@@ -59,15 +59,7 @@
         <s:Label id="lbLoaded"  textAlign="end" width="100%" styleName="postindex"/>
     </s:HGroup>
     <s:List id="postList"
-        width="100%" height="100%" >
-        <s:itemRenderer>
-            <fx:Component>
-                <s:IconItemRenderer 
-                    labelField="author" styleName="postauthor"
-                    messageField="content" messageStyleName="postcontent"
-                    />
-            </fx:Component>
-        </s:itemRenderer>
-    </s:List>
+        width="100%" height="100%" 
+        itemRenderer="com.airsmth.renders.PostListRenderer"/>
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
 </s:View>

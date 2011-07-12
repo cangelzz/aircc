@@ -107,15 +107,8 @@
         <s:Button icon="@Embed(source='../../../assets/search.png')" click="search()" />
     </s:actionContent>
     <s:List id="boardList"
-        width="100%" height="100%" change="go()" >
-         <s:itemRenderer>
-            <fx:Component>
-                <s:IconItemRenderer 
-                    labelField="bname" 
-                    messageField="cname" messageStyleName="postcontent" />
-            </fx:Component>
-        </s:itemRenderer>  
-    </s:List>
+        width="100%" height="100%" itemRenderer="com.airsmth.renders.BoardListRenderer"
+         change="go()" />
     <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <s:viewMenuItems>
         <s:ViewMenuItem id="meRemoveFavor" click="removeFavor()"
