@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark"
-    creationComplete="init()">
+    add="init()">
 
     <s:layout>
         <s:VerticalLayout paddingTop="5" paddingLeft="5" paddingRight="5"/>
@@ -15,7 +15,19 @@
             import mx.core.ClassFactory;
             import spark.components.Label;
             
+            [@Embed(source='../../../assets/mail_white.png')]
+            [Bindable]
+            public var icMailEmpty:Class;
+
+            [@Embed(source='../../../assets/mail_yellow.png')]
+            [Bindable]
+            public var icMailNew:Class;
+            [Bindable]
+            public var icMail:Class; //parentApplication.globalSMTH.isNewMail ? icMailNew : icMailEmpty;
+
             protected function init():void {
+                if (parentApplication.globalSMTH.isNewMail) icMail = icMailNew;
+                else icMail = icMailEmpty;
                 if (parentApplication.globalSMTH.isLoggedOn) lbWelcome.text = "欢迎回来 " + parentApplication.globalSMTH.config.id;
                 else lbWelcome.text = "欢迎回来 Guest";
                 //if (parentApplication.globalSMTH.isGuest) sectionList.dataProvider.removeItemAt(2);
@@ -54,7 +66,7 @@
                     view="{Top90View}" data="" />
                 <fx:Object oid="bFav" label="个人收藏夹" icon="@Embed(source='../../../assets/heart.png')" 
                     view="{BoardView}" data="{parentApplication.globalSMTH.acFavor}" />
-                <fx:Object oid="bMail" label="信箱" icon="@Embed(source='../../../assets/mail_yellow.png')"
+                <fx:Object oid="bMail" label="信箱" icon="{icMail}"
                     view="{MailFolderView}" data="" />
                 <fx:Object oid="bConfig" label="设置" icon="@Embed(source='../../../assets/config.png')"
                     view="{LoginView}" data="1" />

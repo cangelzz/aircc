@@ -41,6 +41,7 @@
             import flash.events.*;
             import com.airsmth.defines.*;
             import com.airsmth.views.*;
+            public var isFirst:Boolean = true;
             
             [Bindable]
             public var globalSMTH:SMTH;
@@ -64,7 +65,8 @@
                 globalSMTH.config = (event.currentTarget as SMTHLoader).config;
                 globalSMTH.isLoggedOn = true;
                 Util.saveConfig(globalSMTH.config);
-                navigator.pushView(HomeView);
+                checkMail();
+                
             }
             
             protected function onLoginFail(event:Event):void {
@@ -77,6 +79,36 @@
             protected function onBackKeyPressed(event:FlexEvent):void {
                 event.preventDefault();
             }
+            
+            protected function checkMail():void {
+                var mc:MailChecker = new MailChecker();
+                mc.addEventListener(LoadEvent.RELOGIN, onReloginRequest);
+                mc.addEventListener(LoadEvent.DONE, onMailCheck);
+                mc.load();
+            }
+            protected function onMailCheck(event:Event):void {
+                var mc:MailChecker = event.currentTarget as MailChecker;
+                globalSMTH.isNewMail = mc.isNewMail;
+                globalSMTH.newmailcnt = mc.newmailcnt;
+                setTimeout(checkMail, 120000);
+                if (isFirst) { 
+                    navigator.pushView(HomeView);
+                    isFirst = false;
+                }
+            }
+            
+            protected function onReloginRequest(event:Event):void {
+                globalSMTH.isLoggedOn = false;
+                var rl:LoginLoader = new LoginLoader(new Auth(globalSMTH.config.id, globalSMTH.config.pass));
+                rl.addEventListener(LoadEvent.LOGINDONE, onRelogined);
+                rl.load();
+            }
+            protected function onRelogined(event:Event):void {
+                var rl:LoginLoader = event.currentTarget as LoginLoader;
+                globalSMTH.isLoggedOn = true;
+                checkMail();
+            }
+            
         ]]>
     </fx:Script>
     <!-- s:ViewNavigator id="homeTab" width="100%" height="100%"
