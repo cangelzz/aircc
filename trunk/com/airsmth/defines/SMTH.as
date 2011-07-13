@@ -33,6 +33,9 @@
         [Bindable]
         public var isLoggedOn:Boolean = false;
         
+        public var isNewMail:Boolean = false;
+        public var newmailcnt:String = "";
+        
         public function SMTH(con:Config):void {
             config = con;
         }
