@@ -22,14 +22,14 @@
                 }
             
                 var tl:Top10Loader = new Top10Loader(data as Section);
-                lbInfo.includeInLayout = true;
+                lbInfo.visible = true;
                 lbSectionTitle.text = (data as Section).title;
                 tl.addEventListener(LoadEvent.DONE, onLoad);
                 tl.load();
             }
             
             protected function onLoad(event:Event):void {
-                lbInfo.includeInLayout = false;
+                lbInfo.visible = false;
                 threadList.dataProvider = (event.currentTarget as Top10Loader).data;
                 data = event.currentTarget as Top10Loader;
             }
@@ -67,7 +67,6 @@
         <s:Button id="btnGopost" icon="@Embed(source='../../../assets/gopage.png')" enabled="false" 
             click="gopost()" />
     </s:actionContent>
-    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." includeInLayout="false"/>
     <s:List id="threadList"
         width="100%" height="100%"
         change="enableMenu()" >
@@ -79,5 +78,6 @@
             </fx:Component>
         </s:itemRenderer>
     </s:List>
+    <s:Label id="lbInfo" styleName="loading" text="正在加载，请稍候 ..." visible="false"/>
     <!--s:Label id="lbInfo" width="100%" /-->
 </s:View>
